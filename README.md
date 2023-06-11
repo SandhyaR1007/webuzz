@@ -1,2 +1,2 @@
-# kage-verse
+# webuzz
 A social media application
