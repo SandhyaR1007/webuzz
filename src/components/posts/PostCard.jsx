@@ -5,7 +5,7 @@ import { CiBookmark } from "react-icons/ci";
 
 const PostCard = ({ postData }) => {
   return (
-    <div className="p-5 border mb-2 rounded-md ">
+    <div className="p-5 border border-black mb-2 rounded-md bg-amber-50">
       <header className="flex gap-2 items-center">
         <h1 className="text-lg font-semibold">
           {postData.firstname} {postData.lastname}

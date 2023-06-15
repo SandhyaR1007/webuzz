@@ -5,7 +5,7 @@ import { posts } from "../../data";
 
 const PostList = () => {
   return (
-    <div className="px-3">
+    <div className="">
       {posts.map((post) => (
         <PostCard postData={post} id={post._id} />
       ))}
