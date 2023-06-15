@@ -1,4 +1,5 @@
 import React from "react";
+import "./custom.styles.css";
 import { SharedLayout } from "./components";
 import { Home } from "./pages";
 
