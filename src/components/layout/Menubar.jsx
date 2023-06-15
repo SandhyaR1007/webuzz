@@ -5,7 +5,7 @@ import { CiBookmark } from "react-icons/ci";
 
 const Menubar = () => {
   return (
-    <ul className="shadow-md fixed bottom-0 xs:top-[4.75rem] flex  xs:flex-col justify-between xs:justify-start gap-0 xs:gap-10   py-5 px-3 xs:ps-2 border xs:border-0 w-full xs:w-auto bg-white ">
+    <ul className=" fixed bottom-0 xs:top-[4.75rem] flex  xs:flex-col justify-between xs:justify-start gap-0 xs:gap-10   py-5 px-3 xs:px-2 border xs:border-0 w-full xs:w-auto bg-white ">
       <li className="flex items-center gap-2 ">
         <AiFillHome className="text-2xl" />
         <span className="hidden sm:block">Home</span>
