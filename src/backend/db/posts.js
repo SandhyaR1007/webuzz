@@ -9,8 +9,9 @@ import { formatDate } from "../utils/authUtils";
 export const posts = [
   {
     _id: "uuid1",
-    content: "At vero eos et accusamus et iusto odio dignissimos ducimus...",
-    postMedia: "",
+    content: "Domain Expansion...🤞",
+    postMedia:
+      "https://w0.peakpx.com/wallpaper/348/902/HD-wallpaper-gojo-satoru.jpg",
     likes: {
       likeCount: 4,
       likedBy: [
@@ -47,11 +48,12 @@ export const posts = [
       ],
     },
     comments: [],
-    username: "mostcommonperson",
-    firstname: "John",
-    lastname: "Doe",
+    firstName: "Gojo",
+    lastName: "Saturo",
+    username: "oioioi_Saturo",
     createdAt: 1654321200000,
     updatedAt: 1654321200000,
+    userId: "8c0aa5c2-864c-47d8-a490-e25cbae56be0",
   },
   {
     _id: "uuid4",
