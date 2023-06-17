@@ -29,7 +29,17 @@ export const users = [
           "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2023/01/yuji-itadori-weilding-cursed-energy-1.jpg",
       },
     ],
-    following: [],
+    following: [
+      {
+        _id: "2c71b5c1-e6dd-4e6e-b072-c54cfe05db89",
+        firstName: "Itadori",
+        lastName: "Yuji",
+        username: "not_just_sukunas_vessel",
+        profile:
+          "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2023/01/yuji-itadori-weilding-cursed-energy-1.jpg",
+      },
+    ],
+    bookmarks: [],
   },
   {
     _id: "2c71b5c1-e6dd-4e6e-b072-c54cfe05db89",
@@ -75,5 +85,3 @@ export const users = [
     bookmarks: [],
   },
 ];
-
-console.log({ users });
