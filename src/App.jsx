@@ -1,14 +1,11 @@
 import React from "react";
 import "./custom.styles.css";
-import { SharedLayout } from "./components";
-import { Home } from "./pages";
+import { Index as Routes } from "./routes/index";
 
 const App = () => {
   return (
     <div>
-      <SharedLayout>
-        <h1>hello</h1>
-      </SharedLayout>
+      <Routes />
     </div>
   );
 };
