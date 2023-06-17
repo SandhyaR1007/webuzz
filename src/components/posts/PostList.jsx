@@ -1,9 +1,8 @@
 import React from "react";
-import { v4 as uuid } from "uuid";
-import PostCard from "./PostCard";
-import { posts } from "../../data";
 
-const PostList = () => {
+import PostCard from "./PostCard";
+
+const PostList = ({ posts }) => {
   return (
     <div className="">
       {posts.map((post) => (
