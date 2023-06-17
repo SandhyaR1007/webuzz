@@ -11,7 +11,7 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
   try {
     const response = await getAllPostsApi();
     let postsList = [];
-    console.log({ response });
+
     if (response.status === 200) {
       postsList = response.data.posts;
     }
