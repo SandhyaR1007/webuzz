@@ -8,7 +8,7 @@ const PostCard = ({ postData }) => {
     <div className="p-5 border border-black mb-2 rounded-md bg-amber-50">
       <header className="flex gap-2 items-center">
         <h1 className="text-lg font-semibold">
-          {postData.firstname} {postData.lastname}
+          {postData.firstName} {postData.lastName}
         </h1>
         <span className="text-sm text-gray-400">@{postData.username}</span>
       </header>
