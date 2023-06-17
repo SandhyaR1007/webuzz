@@ -1,15 +1,17 @@
 import { Route, Routes } from "react-router-dom";
-import { privateRoutes } from "./allRoutes";
-import { SharedLayout } from "../components";
+import { contentRoutes, privateRoutes } from "./allRoutes";
+import { FeedWrapper, SharedLayout } from "../components";
 
 const Index = () => {
   return (
     <>
       <Routes>
         <Route element={<SharedLayout />}>
-          {privateRoutes.map((data, idx) => (
-            <Route key={idx} path={data.path} element={data.element} />
-          ))}
+          <Route element={<FeedWrapper />}>
+            {contentRoutes.map((data, idx) => (
+              <Route key={idx} path={data.path} element={data.element} />
+            ))}
+          </Route>
         </Route>
       </Routes>
     </>

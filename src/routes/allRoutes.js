@@ -1,10 +1,14 @@
-import { Login, Signup } from "../pages";
+import { Explore, Login, Signup } from "../pages";
 import Home from "../pages/Home";
 
-const privateRoutes = [
+const contentRoutes = [
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/explore",
+    element: <Explore />,
   },
 ];
 const publicRoutes = [
@@ -17,5 +21,6 @@ const publicRoutes = [
     element: <Signup />,
   },
 ];
+const privateRoutes = [];
 
-export { privateRoutes, publicRoutes };
+export { contentRoutes, publicRoutes, privateRoutes };
