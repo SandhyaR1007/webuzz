@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAllPostsApi, likePostApi } from "../../apis/apiServices";
+import { act } from "react-dom/test-utils";
 
 const initialState = {
   postsData: [],
   error: null,
   loading: false,
+  isLiking: false,
 };
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
@@ -29,7 +31,11 @@ export const likePost = createAsyncThunk(
     try {
       const response = await likePostApi(token, postId);
       console.log({ response });
-      return {};
+      if (response.status === 201) {
+        return response.data.posts;
+      }
+
+      return [];
     } catch (err) {
       console.log({ err });
       return err;
@@ -54,7 +60,16 @@ const postsSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(likePost.pending, (state) => {});
+      .addCase(likePost.pending, (state) => {
+        state.isLiking = true;
+      })
+      .addCase(likePost.fulfilled, (state, action) => {
+        state.isLiking = false;
+        state.postsData = action.payload;
+      })
+      .addCase(likePost.rejected, (state) => {
+        state.isLiking = false;
+      });
   },
 });
 
