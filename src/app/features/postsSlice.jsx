@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getAllPostsApi } from "../../apis/apiServices";
+import { getAllPostsApi, likePostApi } from "../../apis/apiServices";
 
 const initialState = {
   postsData: [],
@@ -21,6 +21,22 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
     return err;
   }
 });
+
+export const likePost = createAsyncThunk(
+  "posts/likePost",
+  async ({ token, postId }) => {
+    console.log("likePost");
+    try {
+      const response = await likePostApi(token, postId);
+      console.log({ response });
+      return {};
+    } catch (err) {
+      console.log({ err });
+      return err;
+    }
+  }
+);
+
 const postsSlice = createSlice({
   name: "posts",
   initialState,
@@ -37,12 +53,11 @@ const postsSlice = createSlice({
       .addCase(fetchPosts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+      .addCase(likePost.pending, (state) => {});
   },
 });
 
-export const postsSelector = (state) => state.posts.postsData;
-export const loadingSelector = (state) => state.posts.loading;
-export const errorSelector = (state) => state.posts.error;
+export const postsSelector = (state) => state.posts;
 
 export default postsSlice.reducer;
