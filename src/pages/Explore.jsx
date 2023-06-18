@@ -1,16 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchPosts,
-  loadingSelector,
-  postsSelector,
-} from "../app/features/postsSlice";
+import { fetchPosts, postsSelector } from "../app/features/postsSlice";
 import { PostList } from "../components";
 
 const Explore = () => {
   const dispatch = useDispatch();
-  const postsData = useSelector(postsSelector);
-  const loading = useSelector(loadingSelector);
+  const { postsData, loading } = useSelector(postsSelector);
+
   useEffect(() => {
     dispatch(fetchPosts());
   }, []);
