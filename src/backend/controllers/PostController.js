@@ -167,7 +167,9 @@ export const likePostHandler = function (schema, request) {
         }
       );
     }
+
     const postId = request.params.postId;
+
     const post = schema.posts.findBy({ _id: postId }).attrs;
     if (post.likes.likedBy.some((currUser) => currUser._id === user._id)) {
       return new Response(

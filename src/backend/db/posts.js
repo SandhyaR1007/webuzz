@@ -19,21 +19,21 @@ export const posts = [
           _id: "uuid2",
           firstName: "Sarah",
           lastName: "Walkman",
-          username: "SarahW",
+          userhandle: "SarahW",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652181470/socmedia/pic2_vfqvfn.jpg",
         },
         {
           firstName: "Jane",
           lastName: "Doe",
-          username: "janedoe",
+          userhandle: "janedoe",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652181761/socmedia/pic3_py263g.jpg",
         },
         {
           firstName: "Anna",
           lastName: "Baker",
-          username: "annahere",
+          userhandle: "annahere",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652181889/socmedia/pic5_qq8ne3.jpg",
         },
@@ -41,16 +41,18 @@ export const posts = [
           _id: "uuid3",
           firstName: "Lizzie",
           lastName: "Anne",
-          username: "itsLizzie",
+          userhandle: "itsLizzie",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652181762/socmedia/pic4_dtzqlj.jpg",
         },
       ],
+      dislikedBy: [],
     },
     comments: [],
+
     firstName: "Gojo",
     lastName: "Saturo",
-    username: "oioioi_Saturo",
+    userhandle: "oioioi_Saturo",
     createdAt: 1654321200000,
     updatedAt: 1654321200000,
     userId: "8c0aa5c2-864c-47d8-a490-e25cbae56be0",
@@ -67,28 +69,30 @@ export const posts = [
           _id: "uuid5",
           firstName: "Emily",
           lastName: "Smith",
-          username: "emilys",
+          userhandle: "emilys",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652182051/socmedia/pic6_ju0egh.jpg",
         },
         {
           firstName: "Alex",
           lastName: "Johnson",
-          username: "alexj",
+          userhandle: "alexj",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652182349/socmedia/pic7_q2vzc4.jpg",
         },
       ],
+      dislikedBy: [],
     },
     comments: [
       {
         _id: "uuid6",
         comment: "Great post!",
-        username: "random_user1",
+        userhandle: "random_user1",
         createdAt: 1654321300000,
       },
     ],
-    username: "Jujutsu_Kaisen_",
+
+    userhandle: "Jujutsu_Kaisen_",
     firstName: "Jujutsu",
     lastName: "Kaisen",
     createdAt: 1654321201000,
@@ -98,6 +102,7 @@ export const posts = [
     _id: "uuid7",
     content: "The Secret World of Arrietty (2010).",
     postMedia: "https://video.twimg.com/tweet_video/D3YOsvOU0AEruoj.mp4",
+
     likes: {
       likeCount: 5,
       likedBy: [
@@ -105,14 +110,14 @@ export const posts = [
           _id: "uuid8",
           firstName: "Michael",
           lastName: "Davis",
-          username: "michaeld",
+          userhandle: "michaeld",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652182675/socmedia/pic8_ymsrwj.jpg",
         },
         {
           firstName: "Olivia",
           lastName: "Brown",
-          username: "oliviab",
+          userhandle: "oliviab",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652182971/socmedia/pic9_bghawu.jpg",
         },
@@ -120,27 +125,28 @@ export const posts = [
           _id: "uuid9",
           firstName: "James",
           lastName: "Miller",
-          username: "jamesm",
+          userhandle: "jamesm",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652183172/socmedia/pic10_a1g3ot.jpg",
         },
       ],
+      dislikedBy: [],
     },
     comments: [
       {
         _id: "uuid10",
         comment: "Amazing!",
-        username: "random_user2",
+        userhandle: "random_user2",
         createdAt: 1654321400000,
       },
       {
         _id: "uuid11",
         comment: "Keep it up!",
-        username: "random_user3",
+        userhandle: "random_user3",
         createdAt: 1654321450000,
       },
     ],
-    username: "ghiblipicture",
+    userhandle: "ghiblipicture",
     firstName: "Studio",
     lastName: "Ghibli",
     createdAt: 1654321202000,
@@ -158,14 +164,14 @@ export const posts = [
           _id: "uuid13",
           firstName: "Sophia",
           lastName: "Walker",
-          username: "sophiaw",
+          userhandle: "sophiaw",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652183394/socmedia/pic11_rld3dz.jpg",
         },
         {
           firstName: "Ethan",
           lastName: "Davis",
-          username: "ethand",
+          userhandle: "ethand",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652183665/socmedia/pic12_afpblh.jpg",
         },
@@ -173,7 +179,7 @@ export const posts = [
           _id: "uuid14",
           firstName: "Olivia",
           lastName: "Johnson",
-          username: "oliviaj",
+          userhandle: "oliviaj",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652183873/socmedia/pic13_k5r9yy.jpg",
         },
@@ -181,33 +187,35 @@ export const posts = [
           _id: "uuid15",
           firstName: "Noah",
           lastName: "Smith",
-          username: "noahs",
+          userhandle: "noahs",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652184100/socmedia/pic14_kfxdkf.jpg",
         },
       ],
+      dislikedBy: [],
     },
+
     comments: [
       {
         _id: "uuid16",
         comment: "Awesome!",
-        username: "random_user4",
+        userhandle: "random_user4",
         createdAt: 1654321500000,
       },
       {
         _id: "uuid17",
         comment: "Beautiful!",
-        username: "random_user5",
+        userhandle: "random_user5",
         createdAt: 1654321550000,
       },
       {
         _id: "uuid18",
         comment: "Impressive work!",
-        username: "random_user6",
+        userhandle: "random_user6",
         createdAt: 1654321600000,
       },
     ],
-    username: "not_just_sukunas_vessel",
+    userhandle: "not_just_sukunas_vessel",
     firstName: "Itadori",
     lastName: "Yuji",
     createdAt: 1654321203000,
@@ -225,21 +233,23 @@ export const posts = [
           _id: "uuid20",
           firstName: "Ava",
           lastName: "Anderson",
-          username: "avaa",
+          userhandle: "avaa",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652184413/socmedia/pic15_tqfog9.jpg",
         },
         {
           firstName: "Mason",
           lastName: "Martinez",
-          username: "masonm",
+          userhandle: "masonm",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652184623/socmedia/pic16_sayppz.jpg",
         },
       ],
+      dislikedBy: [],
     },
     comments: [],
-    username: "random_name_5",
+
+    userhandle: "random_name_5",
     firstName: "Aiden",
     lastName: "Turner",
     createdAt: 1654321204000,
@@ -256,21 +266,23 @@ export const posts = [
           _id: "uuid22",
           firstName: "Charlotte",
           lastName: "Wilson",
-          username: "charlottew",
+          userhandle: "charlottew",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652184982/socmedia/pic17_v1ndy2.jpg",
         },
       ],
+      dislikedBy: [],
     },
     comments: [
       {
         _id: "uuid23",
         comment: "Nice!",
-        username: "random_user7",
+        userhandle: "random_user7",
         createdAt: 1654321650000,
       },
     ],
-    username: "random_name_6",
+
+    userhandle: "random_name_6",
     firstName: "Liam",
     lastName: "Morris",
     createdAt: 1654321205000,
@@ -287,14 +299,14 @@ export const posts = [
           _id: "uuid25",
           firstName: "Amelia",
           lastName: "Brown",
-          username: "ameliab",
+          userhandle: "ameliab",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652185242/socmedia/pic18_cny6ks.jpg",
         },
         {
           firstName: "Lucas",
           lastName: "Hernandez",
-          username: "lucash",
+          userhandle: "lucash",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652185450/socmedia/pic19_g9yuep.jpg",
         },
@@ -302,27 +314,29 @@ export const posts = [
           _id: "uuid26",
           firstName: "Mia",
           lastName: "Garcia",
-          username: "miag",
+          userhandle: "miag",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652185646/socmedia/pic20_p0exfy.jpg",
         },
       ],
+      dislikedBy: [],
     },
     comments: [
       {
         _id: "uuid27",
         comment: "Fantastic!",
-        username: "random_user8",
+        userhandle: "random_user8",
         createdAt: 1654321700000,
       },
       {
         _id: "uuid28",
         comment: "Brilliant work!",
-        username: "random_user9",
+        userhandle: "random_user9",
         createdAt: 1654321750000,
       },
     ],
-    username: "random_name_7",
+
+    userhandle: "random_name_7",
     firstName: "Oliver",
     lastName: "King",
     createdAt: 1654321206000,
@@ -339,14 +353,14 @@ export const posts = [
           _id: "uuid30",
           firstName: "Evelyn",
           lastName: "Harris",
-          username: "evelynh",
+          userhandle: "evelynh",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652185976/socmedia/pic21_vunotk.jpg",
         },
         {
           firstName: "Benjamin",
           lastName: "Clark",
-          username: "benjaminc",
+          userhandle: "benjaminc",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652186191/socmedia/pic22_v2jj8m.jpg",
         },
@@ -354,14 +368,16 @@ export const posts = [
           _id: "uuid31",
           firstName: "Ava",
           lastName: "Hall",
-          username: "avah",
+          userhandle: "avah",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652186396/socmedia/pic23_gd6bkt.jpg",
         },
       ],
+      dislikedBy: [],
     },
     comments: [],
-    username: "random_name_8",
+
+    userhandle: "random_name_8",
     firstName: "William",
     lastName: "White",
     createdAt: 1654321207000,
@@ -374,16 +390,18 @@ export const posts = [
     likes: {
       likeCount: 0,
       likedBy: [],
+      dislikedBy: [],
     },
     comments: [
       {
         _id: "uuid33",
         comment: "Well done!",
-        username: "random_user10",
+        userhandle: "random_user10",
         createdAt: 1654321850000,
       },
     ],
-    username: "random_name_9",
+
+    userhandle: "random_name_9",
     firstName: "Elizabeth",
     lastName: "Lee",
     createdAt: 1654321208000,
@@ -400,28 +418,30 @@ export const posts = [
           _id: "uuid35",
           firstName: "Daniel",
           lastName: "Young",
-          username: "daniely",
+          userhandle: "daniely",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652186743/socmedia/pic24_ql7crb.jpg",
         },
         {
           firstName: "Sophia",
           lastName: "Lopez",
-          username: "sophial",
+          userhandle: "sophial",
           avatarURL:
             "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652186972/socmedia/pic25_inyuxo.jpg",
         },
       ],
+      dislikedBy: [],
     },
     comments: [
       {
         _id: "uuid36",
         comment: "Great!",
-        username: "random_user11",
+        userhandle: "random_user11",
         createdAt: 1654321900000,
       },
     ],
-    username: "random_name_10",
+
+    userhandle: "random_name_10",
     firstName: "James",
     lastName: "Anderson",
     createdAt: 1654321209000,
