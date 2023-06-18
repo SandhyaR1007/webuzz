@@ -4,12 +4,15 @@ import { NewPostCard, PostList, SuggestedUsers } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { postsSelector, fetchPosts } from "../app/features/postsSlice";
 import { usersSelector } from "../app/features/usersSlice";
+import { authSelector } from "../app/features/authSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const { foundUser } = useSelector(authSelector);
+  const currentUserId = foundUser?._id;
   const { postsData, loading, error } = useSelector(postsSelector);
 
-  const { currentUserId, usersData } = useSelector(usersSelector);
+  const { usersData } = useSelector(usersSelector);
 
   useEffect(() => {
     dispatch(fetchPosts());

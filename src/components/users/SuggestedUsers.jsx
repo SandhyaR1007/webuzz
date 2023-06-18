@@ -2,9 +2,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { usersSelector } from "../../app/features/usersSlice";
 import { UsersCard } from "./UsersCard";
+import { authSelector } from "../../app/features/authSlice";
 
 const SuggestedUsers = () => {
-  const { currentUserId, usersData } = useSelector(usersSelector);
+  const { foundUser } = useSelector(authSelector);
+  const currentUserId = foundUser?._id;
+  const { usersData } = useSelector(usersSelector);
   const currentUser = usersData.find(({ _id }) => _id === currentUserId);
   const suggestedUsers = usersData.filter(
     ({ _id }) =>
