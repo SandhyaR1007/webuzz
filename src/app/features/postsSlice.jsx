@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  createNewPostsApi,
   dislikePostApi,
   getAllPostsApi,
   likePostApi,
 } from "../../apis/apiServices";
-import { act } from "react-dom/test-utils";
 
 const initialState = {
   postsData: [],
@@ -31,7 +31,6 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
 export const likePost = createAsyncThunk(
   "posts/likePost",
   async ({ token, postId }) => {
-    console.log("likePost");
     try {
       const response = await likePostApi(token, postId);
       console.log({ response });
@@ -50,7 +49,6 @@ export const likePost = createAsyncThunk(
 export const dislikePost = createAsyncThunk(
   "posts/dislikePost",
   async ({ token, postId }) => {
-    console.log("dislikePost");
     try {
       const response = await dislikePostApi(token, postId);
       console.log({ response });
@@ -62,6 +60,23 @@ export const dislikePost = createAsyncThunk(
     } catch (err) {
       console.log({ err });
       return err;
+    }
+  }
+);
+
+export const createNewPost = createAsyncThunk(
+  "posts/createNewPost",
+  async ({ encodedToken, postData }, { rejectWithValue }) => {
+    console.log({ encodedToken, postData });
+    try {
+      const response = await createNewPostsApi(encodedToken, postData);
+      console.log({ response });
+      if (response.status === 201) {
+        return response.data.posts;
+      }
+    } catch (err) {
+      console.log({ err });
+      return rejectWithValue(err?.message);
     }
   }
 );
@@ -102,6 +117,12 @@ const postsSlice = createSlice({
       })
       .addCase(dislikePost.rejected, (state) => {
         state.isLiking = false;
+      })
+      .addCase(createNewPost.fulfilled, (state, action) => {
+        console.log({ action });
+        if (action.payload) {
+          state.postsData = action.payload;
+        }
       });
   },
 });

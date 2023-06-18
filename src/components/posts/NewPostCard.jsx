@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsCardImage, BsEmojiSmile } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import { createNewPost } from "../../app/features/postsSlice";
+import { authSelector } from "../../app/features/authSlice";
 const NewPostCard = () => {
+  const dispatch = useDispatch();
+  const { encodedToken } = useSelector(authSelector);
+  const [postData, setPostData] = useState({
+    content: "",
+    postMedia: "",
+  });
   return (
     <div className="w-full p-5 border border-black mb-2 rounded-md h-auto">
       <div className="flex items-start gap-4">
@@ -11,9 +20,13 @@ const NewPostCard = () => {
         />
         <label className="w-full">
           <textarea
+            value={postData.content}
             type="text"
             className="text-xl text-gray-400  w-full h-full outline-none"
             placeholder="What's on your mind?!"
+            onChange={(e) =>
+              setPostData({ ...postData, content: e.target.value })
+            }
           />
         </label>
       </div>
@@ -27,6 +40,13 @@ const NewPostCard = () => {
         </div>
         <button
           className={`bg-[--blue-color]   px-5 py-0.5 rounded-full border border-black`}
+          onClick={() => {
+            dispatch(createNewPost({ encodedToken, postData }));
+            setPostData({
+              content: "",
+              postMedia: "",
+            });
+          }}
         >
           Post
         </button>
