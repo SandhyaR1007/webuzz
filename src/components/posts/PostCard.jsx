@@ -3,7 +3,7 @@ import { AiOutlineHeart, AiOutlineShareAlt, AiFillHeart } from "react-icons/ai";
 import { VscComment } from "react-icons/vsc";
 import { CiBookmark } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
-import { likePost } from "../../app/features/postsSlice";
+import { dislikePost, likePost } from "../../app/features/postsSlice";
 import { authSelector } from "../../app/features/authSlice";
 
 const PostCard = ({ postData }) => {
@@ -40,7 +40,13 @@ const PostCard = ({ postData }) => {
           className="flex items-center gap-2"
           onClick={() => {
             console.log("vliked", postData._id);
-            dispatch(likePost({ token: encodedToken, postId: postData._id }));
+            if (likedByUser) {
+              dispatch(
+                dislikePost({ token: encodedToken, postId: postData._id })
+              );
+            } else {
+              dispatch(likePost({ token: encodedToken, postId: postData._id }));
+            }
           }}
         >
           {likedByUser ? (

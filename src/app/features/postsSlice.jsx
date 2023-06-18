@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getAllPostsApi, likePostApi } from "../../apis/apiServices";
+import {
+  dislikePostApi,
+  getAllPostsApi,
+  likePostApi,
+} from "../../apis/apiServices";
 import { act } from "react-dom/test-utils";
 
 const initialState = {
@@ -43,6 +47,25 @@ export const likePost = createAsyncThunk(
   }
 );
 
+export const dislikePost = createAsyncThunk(
+  "posts/dislikePost",
+  async ({ token, postId }) => {
+    console.log("dislikePost");
+    try {
+      const response = await dislikePostApi(token, postId);
+      console.log({ response });
+      if (response.status === 201) {
+        return response.data.posts;
+      }
+
+      return [];
+    } catch (err) {
+      console.log({ err });
+      return err;
+    }
+  }
+);
+
 const postsSlice = createSlice({
   name: "posts",
   initialState,
@@ -68,6 +91,16 @@ const postsSlice = createSlice({
         state.postsData = action.payload;
       })
       .addCase(likePost.rejected, (state) => {
+        state.isLiking = false;
+      })
+      .addCase(dislikePost.pending, (state) => {
+        state.isLiking = true;
+      })
+      .addCase(dislikePost.fulfilled, (state, action) => {
+        state.isLiking = false;
+        state.postsData = action.payload;
+      })
+      .addCase(dislikePost.rejected, (state) => {
         state.isLiking = false;
       });
   },
