@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AiOutlineHeart, AiOutlineShareAlt, AiFillHeart } from "react-icons/ai";
 import { VscComment } from "react-icons/vsc";
 import { CiBookmark } from "react-icons/ci";
+import { BsFillBookmarkFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { dislikePost, likePost } from "../../app/features/postsSlice";
 import { authSelector } from "../../app/features/authSlice";
+import { getIsPostBookmarked, getIsPostLiked } from "../../utils/postsHelper";
+import {
+  bookmarkPost,
+  removePostFromBookmarks,
+  usersSelector,
+} from "../../app/features/usersSlice";
 
 const PostCard = ({ postData }) => {
   const dispatch = useDispatch();
@@ -12,9 +19,10 @@ const PostCard = ({ postData }) => {
     encodedToken,
     foundUser: { _id },
   } = useSelector(authSelector);
-  const likedByUser = postData?.likes?.likedBy?.find(
-    (data) => data._id === _id
-  );
+  const { usersData } = useSelector(usersSelector);
+
+  const likedByUser = getIsPostLiked(postData, _id);
+  const bookmarkedByUser = getIsPostBookmarked(usersData, postData._id, _id);
 
   return (
     <div className="p-5 border border-black mb-2 rounded-md bg-amber-50">
@@ -62,8 +70,32 @@ const PostCard = ({ postData }) => {
           <VscComment className="text-xl" />
           {postData?.comments?.length > 0 && postData?.comments?.length}
         </button>
-        <button>
-          <CiBookmark className="text-xl" />
+        <button
+          onClick={() => {
+            if (bookmarkedByUser) {
+              dispatch(
+                removePostFromBookmarks({
+                  token: encodedToken,
+                  postId: postData._id,
+                  userId: _id,
+                })
+              );
+            } else {
+              dispatch(
+                bookmarkPost({
+                  token: encodedToken,
+                  postId: postData._id,
+                  userId: _id,
+                })
+              );
+            }
+          }}
+        >
+          {bookmarkedByUser ? (
+            <BsFillBookmarkFill className="text-xl text-blue-400" />
+          ) : (
+            <CiBookmark className="text-xl" />
+          )}
         </button>
         <button>
           <AiOutlineShareAlt className="text-xl" />
