@@ -6,8 +6,7 @@ import { fetchUsers, usersSelector } from "./app/features/usersSlice";
 
 const App = () => {
   const dispatch = useDispatch();
-  const { usersData, currentUserId } = useSelector(usersSelector);
-  console.log({ currentUserId });
+
   useEffect(() => {
     dispatch(fetchUsers());
   }, []);
