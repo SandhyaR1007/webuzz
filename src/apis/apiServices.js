@@ -2,7 +2,7 @@ import axios from "axios";
 import {
   BOOKMARK_A_POST,
   DISLIKE_A_POST,
-  GET_ALL_POSTS,
+  POSTS,
   GET_ALL_USERS,
   LIKE_A_POST,
   LOGIN,
@@ -14,7 +14,19 @@ export const postLogin = (username, password) =>
     username,
     password,
   });
-export const getAllPostsApi = () => axios.get(GET_ALL_POSTS);
+
+export const getAllPostsApi = () => axios.get(POSTS);
+
+export const createNewPostsApi = (token, postData) =>
+  axios.post(
+    POSTS,
+    { postData },
+    {
+      headers: {
+        authorization: token,
+      },
+    }
+  );
 
 export const likePostApi = (token, postId) =>
   axios.post(
