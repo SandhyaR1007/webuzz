@@ -11,6 +11,9 @@ const Index = () => {
           <Route key={idx} path={data.path} element={data.element} />
         ))}
         <Route element={<RequiresAuth />}>
+          {privateRoutes.map((data, idx) => (
+            <Route key={idx} path={data.path} element={data.element} />
+          ))}
           <Route element={<FeedWrapper />}>
             {contentRoutes.map((data, idx) => (
               <Route key={idx} path={data.path} element={data.element} />

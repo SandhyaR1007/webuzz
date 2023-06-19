@@ -1,4 +1,4 @@
-import { Explore, Login, Signup } from "../pages";
+import { Explore, Login, Signup, UserProfile } from "../pages";
 import Home from "../pages/Home";
 
 const contentRoutes = [
@@ -9,6 +9,10 @@ const contentRoutes = [
   {
     path: "/explore",
     element: <Explore />,
+  },
+  {
+    path: "/userProfile/:userId",
+    element: <UserProfile />,
   },
 ];
 const publicRoutes = [
