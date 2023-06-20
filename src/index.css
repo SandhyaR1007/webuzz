@@ -1,13 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;600;700&family=Paytone+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Paytone+One&family=Roboto:wght@300;400;500;700&display=swap");
 body {
   margin: 0;
-  font-family: "Outfit", sans-serif;
+  font-family: "Roboto", sans-serif;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-color: #151515;
+  color: rgb(226, 226, 226); */
 }
 
 code {
@@ -16,4 +18,17 @@ code {
 }
 .font-secondary {
   font-family: "Paytone One", sans-serif;
+}
+
+/* For Chrome, EDGE, Opera, Others */
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
 }
