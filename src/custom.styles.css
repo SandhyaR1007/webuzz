@@ -6,5 +6,26 @@
   --orange-color: #fed7aa;
 }
 .btn-shadow {
-  box-shadow: 2px 2px 0 rgb(27, 27, 27);
+  box-shadow: 2px 2px 0 rgb(1, 1, 1);
+}
+.btn-shadow-lg {
+  box-shadow: 3px 3px 0 rgb(1, 1, 1);
+}
+.btn-shadow-dark {
+  box-shadow: 2px 2px 0 rgb(209, 208, 208);
+}
+.bg-pink {
+  @apply bg-pink-300;
+}
+.bg-purple {
+  @apply bg-purple-300;
+}
+.bg-lime {
+  @apply bg-lime-300;
+}
+.bg-yellow {
+  @apply bg-amber-300;
+}
+.border-rounded-dark {
+  @apply border border-black rounded-md;
 }
