@@ -11,7 +11,7 @@ const contentRoutes = [
     element: <Explore />,
   },
   {
-    path: "/userProfile/:userId",
+    path: "/userProfile/:username",
     element: <UserProfile />,
   },
 ];
