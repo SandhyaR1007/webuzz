@@ -7,12 +7,21 @@ import {
   LIKE_A_POST,
   LOGIN,
   REMOVE_BOOKMARKED_POST,
+  GET_POSTS_BY_USERNAME,
+  FOLLOW_A_USER,
+  UNFOLLOW_A_USER,
+  SIGNUP,
 } from "./apiUrls";
 
 export const postLogin = (username, password) =>
   axios.post(LOGIN, {
     username,
     password,
+  });
+
+export const postSignup = (userInfo) =>
+  axios.post(SIGNUP, {
+    ...userInfo,
   });
 
 export const getAllPostsApi = () => axios.get(POSTS);
@@ -66,6 +75,31 @@ export const bookmarkPostApi = (token, postId) =>
 export const removeBookmarkedPostApi = (token, postId) =>
   axios.post(
     `${REMOVE_BOOKMARKED_POST}${postId}`,
+    {},
+    {
+      headers: {
+        authorization: token,
+      },
+    }
+  );
+
+export const getPostsByUsernameApi = (username) =>
+  axios.get(`${GET_POSTS_BY_USERNAME}${username}`);
+
+export const followUserApi = (token, followUserId) =>
+  axios.post(
+    `${FOLLOW_A_USER}${followUserId}`,
+    {},
+    {
+      headers: {
+        authorization: token,
+      },
+    }
+  );
+
+export const unfollowUserApi = (token, unfollowUserId) =>
+  axios.post(
+    `${UNFOLLOW_A_USER}${unfollowUserId}`,
     {},
     {
       headers: {
