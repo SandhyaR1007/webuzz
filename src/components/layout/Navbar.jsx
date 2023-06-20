@@ -4,7 +4,7 @@ import { FaSun } from "react-icons/fa";
 const Navbar = () => {
   return (
     <nav className="fixed left-0 right-0 top-0 py-4 px-2 xs:px-10 md:px-20  flex items-center justify-between gap-2 bg-white z-10  ">
-      <div className="text-3xl text-[--green-color] font-secondary">Webuzz</div>
+      <div className="text-3xl text-emerald-500 font-secondary">Webuzz</div>
       <div className="flex gap-10 pe-5 items-center">
         <label className=" border border-black rounded-full flex items-center gap-3 py-2 px-4  w-80">
           <BsSearch />
