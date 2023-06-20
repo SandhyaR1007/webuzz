@@ -1,8 +1,18 @@
-export const getIsPostLiked = (postData, postId) =>
-  postData?.likes?.likedBy?.find((data) => data._id === postId);
+export const getIsPostLiked = (postData, username) =>
+  postData?.likes?.likedBy?.find((data) => data.username === username);
 
-export const getIsPostBookmarked = (usersData, postId, userId) => {
+export const getIsPostBookmarked = (usersData, postId, username) => {
   return usersData
-    .find((data) => data._id === userId)
+    .find((data) => data.username === username)
     ?.bookmarks?.find((data) => data === postId);
+};
+
+export const getUserByUsername = (usersData, username) =>
+  usersData?.find((data) => data.username === username);
+
+export const getIsUserFollow = (currentUserId, usersData, username) => {
+  console.log(usersData.find((data) => data._id === currentUserId));
+  return usersData
+    .find((data) => data._id === currentUserId)
+    ?.following?.find((data) => data.username === username);
 };
