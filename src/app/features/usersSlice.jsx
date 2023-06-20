@@ -5,8 +5,10 @@ import {
 } from "@reduxjs/toolkit";
 import {
   bookmarkPostApi,
+  followUserApi,
   getAllUsersApi,
   removeBookmarkedPostApi,
+  unfollowUserApi,
 } from "../../apis/apiServices";
 
 const initialState = {
@@ -30,7 +32,7 @@ export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
 
 export const bookmarkPost = createAsyncThunk(
   "users/bookmarkPost",
-  async ({ token, postId, userId }, { rejectWithValue }) => {
+  async ({ token, postId, username }, { rejectWithValue }) => {
     try {
       const response = await bookmarkPostApi(token, postId);
       console.log({ response });
@@ -43,7 +45,7 @@ export const bookmarkPost = createAsyncThunk(
             JSON.stringify({ ...foundUser, bookmarks: response.data.bookmarks })
           );
         }
-        return { bookmarks: response.data.bookmarks, userId };
+        return { bookmarks: response.data.bookmarks, username };
       }
       return {};
     } catch (err) {
@@ -55,7 +57,7 @@ export const bookmarkPost = createAsyncThunk(
 
 export const removePostFromBookmarks = createAsyncThunk(
   "users/removePostFromBookmarks",
-  async ({ token, postId, userId }, { rejectWithValue }) => {
+  async ({ token, postId, username }, { rejectWithValue }) => {
     try {
       const response = await removeBookmarkedPostApi(token, postId);
       console.log({ response });
@@ -68,7 +70,7 @@ export const removePostFromBookmarks = createAsyncThunk(
             JSON.stringify({ ...foundUser, bookmarks: response.data.bookmarks })
           );
         }
-        return { bookmarks: response.data.bookmarks, userId };
+        return { bookmarks: response.data.bookmarks, username };
       }
       return {};
     } catch (err) {
@@ -78,6 +80,45 @@ export const removePostFromBookmarks = createAsyncThunk(
   }
 );
 
+export const followUser = createAsyncThunk(
+  "users/followUser",
+  async ({ encodedToken, userId }, { rejectWithValue }) => {
+    console.log(userId);
+    try {
+      const response = await followUserApi(encodedToken, userId);
+      console.log({ response });
+      if (response.status === 200) {
+        return {
+          followUser: response.data.followUser,
+          user: response.data.user,
+        };
+      }
+    } catch (error) {
+      console.log({ error });
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const unfollowUser = createAsyncThunk(
+  "users/unfollowUser",
+  async ({ encodedToken, userId }, { rejectWithValue }) => {
+    console.log("unfollow");
+    try {
+      const response = await unfollowUserApi(encodedToken, userId);
+      console.log({ response });
+      if (response.status === 200) {
+        return {
+          followUser: response.data.followUser,
+          user: response.data.user,
+        };
+      }
+    } catch (error) {
+      console.log("unfollow", { error });
+      return rejectWithValue(error.message);
+    }
+  }
+);
 const usersSlice = createSlice({
   name: "users",
   initialState,
@@ -91,7 +132,7 @@ const usersSlice = createSlice({
         console.log({ action });
         let userIndex = null;
         userIndex = state.usersData.findIndex(
-          (data) => data._id === action.payload.userId
+          (data) => data.username === action.payload.username
         );
         console.log({ userIndex });
         if (userIndex !== null)
@@ -101,11 +142,47 @@ const usersSlice = createSlice({
         console.log({ action });
         let userIndex = null;
         userIndex = state.usersData.findIndex(
-          (data) => data._id === action.payload.userId
+          (data) => data.username === action.payload.username
         );
         console.log({ userIndex });
         if (userIndex !== null)
           state.usersData[userIndex].bookmarks = action.payload.bookmarks;
+      })
+      .addCase(followUser.fulfilled, (state, action) => {
+        console.log(action.payload);
+        const { followUser, user } = action.payload;
+        const followIndex = state.usersData.findIndex(
+          (data) => data._id === followUser._id
+        );
+        const userIndex = state.usersData.findIndex(
+          (data) => data._id === user._id
+        );
+        console.log(followIndex, userIndex);
+        if (followIndex !== undefined) {
+          state.usersData[followIndex] = followUser;
+        }
+        if (userIndex !== undefined) {
+          state.usersData[userIndex] = user;
+          localStorage.setItem("foundUser", JSON.stringify(user));
+        }
+      })
+      .addCase(unfollowUser.fulfilled, (state, action) => {
+        console.log(action.payload);
+        const { followUser, user } = action.payload;
+        const followIndex = state.usersData.findIndex(
+          (data) => data._id === followUser._id
+        );
+        const userIndex = state.usersData.findIndex(
+          (data) => data._id === user._id
+        );
+        console.log(followIndex, userIndex);
+        if (followIndex !== undefined) {
+          state.usersData[followIndex] = followUser;
+        }
+        if (userIndex !== undefined) {
+          state.usersData[userIndex] = user;
+          localStorage.setItem("foundUser", JSON.stringify(user));
+        }
       });
   },
 });

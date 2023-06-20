@@ -67,7 +67,6 @@ export const dislikePost = createAsyncThunk(
 export const createNewPost = createAsyncThunk(
   "posts/createNewPost",
   async ({ encodedToken, postData }, { rejectWithValue }) => {
-    console.log({ encodedToken, postData });
     try {
       const response = await createNewPostsApi(encodedToken, postData);
       console.log({ response });
