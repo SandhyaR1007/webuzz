@@ -1,8 +1,13 @@
-import React, { useEffect } from "react";
-import { AiOutlineHeart, AiOutlineShareAlt, AiFillHeart } from "react-icons/ai";
-import { VscComment } from "react-icons/vsc";
-import { CiBookmark } from "react-icons/ci";
-import { BsFillBookmarkFill } from "react-icons/bs";
+import React from "react";
+import { BsDot } from "react-icons/bs";
+import {
+  RiHeartFill,
+  RiHeartLine,
+  RiChat1Line,
+  RiBookmarkFill,
+  RiBookmarkLine,
+} from "react-icons/ri";
+
 import { useDispatch, useSelector } from "react-redux";
 import { dislikePost, likePost } from "../../app/features/postsSlice";
 import { authSelector } from "../../app/features/authSlice";
@@ -12,27 +17,42 @@ import {
   removePostFromBookmarks,
   usersSelector,
 } from "../../app/features/usersSlice";
+import { Link } from "react-router-dom";
+import moment from "moment/moment";
 
 const PostCard = ({ postData }) => {
   const dispatch = useDispatch();
   const {
     encodedToken,
-    foundUser: { _id },
+    foundUser: { _id, username },
   } = useSelector(authSelector);
   const { usersData } = useSelector(usersSelector);
 
-  const likedByUser = getIsPostLiked(postData, _id);
-  const bookmarkedByUser = getIsPostBookmarked(usersData, postData._id, _id);
+  const likedByUser = getIsPostLiked(postData, username);
+  const bookmarkedByUser = getIsPostBookmarked(
+    usersData,
+    postData._id,
+    username
+  );
 
   return (
-    <div className="p-5 border border-black mb-2 rounded-md bg-amber-50">
+    <div className="p-5 shadow-sm border border-black btn-shadow  mb-4 rounded-md hover:border-pink-500 transition">
       <header className="flex gap-2 items-center">
         <h1 className="text-lg font-semibold">
           {postData.firstName} {postData.lastName}
         </h1>
-        <span className="text-sm text-gray-400">@{postData.userhandle}</span>
+        <Link
+          to={`/userProfile/${postData.username}`}
+          className="text-sm text-gray-400"
+        >
+          @{postData.username}
+        </Link>
+        <span className="text-sm flex items-center text-lime-500">
+          <BsDot />
+          {moment(postData.updatedAt).fromNow()}
+        </span>
       </header>
-      <main>
+      <main className="">
         <p>{postData.content}</p>
         <section className="py-2 ">
           {postData.postMedia.length > 0 &&
@@ -43,9 +63,9 @@ const PostCard = ({ postData }) => {
             ))}
         </section>
       </main>
-      <footer className="flex pt-4 items-center gap-10">
+      <footer className="flex pt-4 items-center gap-6">
         <button
-          className="flex items-center gap-2"
+          className="flex items-center gap-1"
           onClick={() => {
             console.log("vliked", postData._id);
             if (likedByUser) {
@@ -57,27 +77,34 @@ const PostCard = ({ postData }) => {
             }
           }}
         >
-          {likedByUser ? (
-            <AiFillHeart className="text-xl text-red-600" />
-          ) : (
-            <AiOutlineHeart className="text-xl" />
-          )}
+          <span className="p-2 hover:bg-rose-50 rounded-full transition">
+            {likedByUser ? (
+              <RiHeartFill className="text-2xl text-rose-600" />
+            ) : (
+              <RiHeartLine className="text-2xl hover:text-rose-600" />
+            )}
+          </span>
           <span>
             {postData?.likes?.likeCount > 0 && postData?.likes?.likeCount}
           </span>
         </button>
-        <button className="flex items-center gap-2">
-          <VscComment className="text-xl" />
-          {postData?.comments?.length > 0 && postData?.comments?.length}
+        <button className="flex items-center gap-1">
+          <span className="p-2 hover:bg-sky-50 rounded-full transition">
+            <RiChat1Line className="text-2xl hover:text-sky-600" />
+          </span>
+          <span>
+            {postData?.comments?.length > 0 && postData?.comments?.length}
+          </span>
         </button>
         <button
+          className="flex items-center"
           onClick={() => {
             if (bookmarkedByUser) {
               dispatch(
                 removePostFromBookmarks({
                   token: encodedToken,
                   postId: postData._id,
-                  userId: _id,
+                  username,
                 })
               );
             } else {
@@ -85,20 +112,19 @@ const PostCard = ({ postData }) => {
                 bookmarkPost({
                   token: encodedToken,
                   postId: postData._id,
-                  userId: _id,
+                  username,
                 })
               );
             }
           }}
         >
-          {bookmarkedByUser ? (
-            <BsFillBookmarkFill className="text-xl text-blue-400" />
-          ) : (
-            <CiBookmark className="text-xl" />
-          )}
-        </button>
-        <button>
-          <AiOutlineShareAlt className="text-xl" />
+          <span className="p-2 hover:bg-emerald-50 rounded-full transition hover:text-emerald-500">
+            {bookmarkedByUser ? (
+              <RiBookmarkFill className="text-2xl text-emerald-500" />
+            ) : (
+              <RiBookmarkLine className="text-2xl " />
+            )}
+          </span>
         </button>
       </footer>
     </div>
