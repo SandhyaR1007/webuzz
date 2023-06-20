@@ -11,7 +11,7 @@ const NewPostCard = () => {
     postMedia: "",
   });
   return (
-    <div className="w-full p-5 border border-black mb-2 rounded-md h-auto">
+    <div className="w-full p-5 border border-gray-400 rounded-md h-auto my-5 shadow-sm">
       <div className="flex items-start gap-4">
         <img
           src="https://pbs.twimg.com/media/FyjuLVNaAAA9vjA?format=jpg&name=900x900"
@@ -30,16 +30,20 @@ const NewPostCard = () => {
           />
         </label>
       </div>
-      <div className="border-t pt-2 flex items-center justify-between mt-4">
-        <div className="flex items-center gap-5">
-          <label>
-            <BsCardImage className="text-xl" />
-            <input type="file" className="hidden" accept=".jpeg,.jpg,.png" />
-          </label>
-          <BsEmojiSmile className="text-xl" />
+      <div className=" pt-2 flex items-center justify-between mt-4">
+        <div className="flex items-center gap-4">
+          {/* <label> */}
+          <span className="p-2 rounded-full hover:bg-purple-50 cursor-pointer">
+            <BsCardImage className="text-xl text-purple-500" />
+          </span>
+          {/* </label> */}
+          <input type="file" className="hidden" accept=".jpeg,.jpg,.png" />
+          <span className="p-2 rounded-full hover:bg-emerald-50 cursor-pointer">
+            <BsEmojiSmile className="text-xl text-emerald-500" />
+          </span>
         </div>
         <button
-          className={`bg-[--blue-color]   px-5 py-0.5 rounded-full border border-black`}
+          className={`bg-amber-300   px-5 py-0.5 rounded-full border border-black btn-shadow text-black`}
           onClick={() => {
             dispatch(createNewPost({ encodedToken, postData }));
             setPostData({
