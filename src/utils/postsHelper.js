@@ -11,7 +11,6 @@ export const getUserByUsername = (usersData, username) =>
   usersData?.find((data) => data.username === username);
 
 export const getIsUserFollow = (currentUserId, usersData, username) => {
-  console.log(usersData.find((data) => data._id === currentUserId));
   return usersData
     .find((data) => data._id === currentUserId)
     ?.following?.find((data) => data.username === username);

@@ -3,9 +3,11 @@ import { BsCardImage, BsEmojiSmile } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewPost } from "../../app/features/postsSlice";
 import { authSelector } from "../../app/features/authSlice";
+
 const NewPostCard = () => {
   const dispatch = useDispatch();
   const { encodedToken } = useSelector(authSelector);
+
   const [postData, setPostData] = useState({
     content: "",
     postMedia: "",
@@ -22,7 +24,7 @@ const NewPostCard = () => {
           <textarea
             value={postData.content}
             type="text"
-            className="text-xl text-gray-400  w-full h-full outline-none"
+            className="text-xl text-gray-400  w-full h-full outline-none bg-transparent"
             placeholder="What's on your mind?!"
             onChange={(e) =>
               setPostData({ ...postData, content: e.target.value })
@@ -43,7 +45,7 @@ const NewPostCard = () => {
           </span>
         </div>
         <button
-          className={`bg-amber-300   px-5 py-0.5 rounded-full border border-black btn-shadow text-black`}
+          className={`bg-amber-300   px-5 py-0.5 rounded-full btn-light`}
           onClick={() => {
             dispatch(createNewPost({ encodedToken, postData }));
             setPostData({
