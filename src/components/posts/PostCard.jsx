@@ -36,7 +36,9 @@ const PostCard = ({ postData }) => {
   );
 
   return (
-    <div className="p-5 shadow-sm border border-black btn-shadow  mb-4 rounded-md hover:border-pink-500 transition">
+    <div
+      className={`p-5 border  border-black shadow-light-lg mb-4 rounded-md hover:border-pink-500 transition`}
+    >
       <header className="flex gap-2 items-center">
         <h1 className="text-lg font-semibold">
           {postData.firstName} {postData.lastName}
@@ -59,7 +61,11 @@ const PostCard = ({ postData }) => {
             (postData.postMedia.includes("mp4") ? (
               <video src={postData.postMedia} alt="" className="rounded-xl" />
             ) : (
-              <img src={postData.postMedia} className="rounded-xl" alt="" />
+              <img
+                src={postData.postMedia}
+                className="rounded-xl border border-black"
+                alt=""
+              />
             ))}
         </section>
       </main>
