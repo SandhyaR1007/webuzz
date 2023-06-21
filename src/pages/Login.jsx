@@ -61,14 +61,14 @@ const Login = () => {
           </label>
           <section className="flex flex-col gap-3">
             <button
-              className=" btn-shadow mt-3 p-2 border-rounded-dark bg-purple font-semibold"
+              className="shadow-light mt-3 p-2 border-rounded-dark bg-purple font-semibold"
               type="submit"
               disabled={loggingIn}
             >
               Login
             </button>
             <button
-              className=" btn-shadow p-2 border-rounded-dark bg-pink font-semibold"
+              className="shadow-light p-2 border-rounded-dark bg-pink font-semibold"
               type="submit"
               disabled={loggingIn}
               onClick={() => {

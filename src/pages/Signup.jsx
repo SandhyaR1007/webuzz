@@ -36,7 +36,7 @@ const Signup = () => {
         <h1 className="font-secondary text-6xl">Webuzz</h1>
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col  gap-3 bg-lime py-5 px-10 border-rounded-dark btn-shadow-lg  w-full md:w-[75%]"
+          className="flex flex-col  gap-3 bg-lime py-5 px-10 border-rounded-dark shadow-light-lg  w-full md:w-[75%]"
         >
           <p className="text-red-500">{error}</p>
 
@@ -99,7 +99,7 @@ const Signup = () => {
           </label>
           <section className="flex flex-col gap-3">
             <button
-              className="btn-shadow p-2 border-rounded-dark bg-purple font-semibold"
+              className="shadow-light p-2 border-rounded-dark bg-purple font-semibold"
               type="submit"
               disabled={loggingIn}
             >
