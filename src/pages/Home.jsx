@@ -6,6 +6,7 @@ import { postsSelector, fetchPosts } from "../app/features/postsSlice";
 import { usersSelector } from "../app/features/usersSlice";
 import { authSelector } from "../app/features/authSlice";
 import { sortByLatest } from "../utils/filters";
+import CustomModal from "../components/common/CustomModal";
 
 const Home = () => {
   const dispatch = useDispatch();

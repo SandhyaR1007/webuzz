@@ -34,7 +34,7 @@ export const UsersCard = ({ userData }) => {
         onClick={() => {
           dispatch(followUser({ encodedToken, userId: userData._id }));
         }}
-        className={`bg-pink-300  text-sm px-3 py-0.5 rounded-full border border-black btn-shadow text-black`}
+        className={`bg-pink-300  text-sm px-3 py-0.5 rounded-full border  btn-light`}
       >
         Follow
       </button>
