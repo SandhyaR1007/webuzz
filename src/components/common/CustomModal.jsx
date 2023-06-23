@@ -11,7 +11,7 @@ const style = {
   bgcolor: "#fff",
   borderRadius: "10px",
   boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
-  p: 2,
+  p: 1.5,
   zIndex: 1000,
 };
 
