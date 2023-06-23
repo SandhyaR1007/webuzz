@@ -3,15 +3,34 @@ import { BsCardImage, BsEmojiSmile } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewPost } from "../../app/features/postsSlice";
 import { authSelector } from "../../app/features/authSlice";
+import { useMedia } from "../../hooks/useMedia";
 
 const NewPostCard = () => {
   const dispatch = useDispatch();
-  const { encodedToken } = useSelector(authSelector);
+  const { uploadImage } = useMedia();
+  const { encodedToken, foundUser } = useSelector(authSelector);
 
   const [postData, setPostData] = useState({
     content: "",
     postMedia: "",
+    username: foundUser.username,
+    userId: foundUser.userId,
   });
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    uploadImage(file).then((response) => {
+      if (response.success) {
+        setPostData({ ...postData, postMedia: response.res.secure_url });
+      }
+    });
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      // setPreview(reader.result);
+    };
+  };
   return (
     <div className="w-full p-5 border border-gray-400 rounded-md h-auto my-5 shadow-sm">
       <div className="flex items-start gap-4">
@@ -35,11 +54,20 @@ const NewPostCard = () => {
       <div className=" pt-2 flex items-center justify-between mt-4">
         <div className="flex items-center gap-4">
           {/* <label> */}
-          <span className="p-2 rounded-full hover:bg-purple-50 cursor-pointer">
+          <label
+            for="postImg"
+            className="p-2 rounded-full hover:bg-purple-50 cursor-pointer"
+          >
             <BsCardImage className="text-xl text-purple-500" />
-          </span>
+          </label>
           {/* </label> */}
-          <input type="file" className="hidden" accept=".jpeg,.jpg,.png" />
+          <input
+            id="postImg"
+            type="file"
+            className="hidden"
+            accept=".jpeg,.jpg,.png"
+            onChange={handleImageChange}
+          />
           <span className="p-2 rounded-full hover:bg-emerald-50 cursor-pointer">
             <BsEmojiSmile className="text-xl text-emerald-500" />
           </span>

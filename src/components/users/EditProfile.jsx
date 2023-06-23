@@ -3,44 +3,43 @@ import { editProfile } from "../../app/features/usersSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { authSelector } from "../../app/features/authSlice";
 
-import axios from "axios";
+import { useMedia } from "../../hooks/useMedia";
 const EditProfile = ({ userDetails, setShowModal }) => {
   const { encodedToken } = useSelector(authSelector);
   const dispatch = useDispatch();
   const [userData, setUserData] = useState(userDetails);
+  const [uploading, setUploading] = useState(false);
+  const { uploadImage } = useMedia();
+
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
+
+  const [preview, setPreview] = useState(null);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log({ userData });
     dispatch(editProfile({ encodedToken, userData }));
     setTimeout(() => {
       setShowModal(false);
     }, 200);
   };
 
-  const uploadImage = async (file) => {
-    console.log({ file });
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", process.env.REACT_APP_CLOUDINARY_API_KEY); // Replace with your upload preset name
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    uploadImage(file).then((response) => {
+      if (response.success) {
+        setUserData({ ...userData, profile: response.res.secure_url });
+      }
+    });
 
-    try {
-      const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/your_cloud_name/image/upload", // Replace with your Cloudinary cloud name
-        formData
-      );
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
 
-      // The uploaded image URL will be available in the response data
-      const imageUrl = response.data.secure_url;
-
-      // Do something with the image URL
-      console.log(imageUrl);
-    } catch (error) {
-      // Handle the error
-      console.log("Upload failed. Error:", error);
-    }
+    reader.onload = () => {
+      setPreview(reader.result);
+    };
   };
 
   return (
@@ -49,11 +48,15 @@ const EditProfile = ({ userDetails, setShowModal }) => {
       onSubmit={handleSubmit}
     >
       <label htmlFor="profile" className="flex flex-col items-center ">
-        <img
-          src={userData?.profile}
-          alt="profile"
-          className="h-28 w-28 object-cover rounded-full"
-        />
+        {uploading ? (
+          <span className="h-28 w-28 object-cover rounded-full">uploading</span>
+        ) : (
+          <img
+            src={preview ?? userData?.profile}
+            alt="profile"
+            className="h-28 w-28 object-cover rounded-full"
+          />
+        )}
       </label>
 
       <input
@@ -61,8 +64,9 @@ const EditProfile = ({ userDetails, setShowModal }) => {
         name="profile"
         id="profile"
         className="hidden"
-        onChange={(e) => uploadImage(e.target.files[0])}
+        onChange={handleImageChange}
       />
+
       <label className="flex flex-col gap-1">
         <span className="font-medium ">Bio</span>
         <textarea
