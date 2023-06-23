@@ -1,5 +1,5 @@
 import React from "react";
-import { BsDot } from "react-icons/bs";
+import { BsDot, BsThreeDotsVertical } from "react-icons/bs";
 import {
   RiHeartFill,
   RiHeartLine,
@@ -9,7 +9,11 @@ import {
 } from "react-icons/ri";
 
 import { useDispatch, useSelector } from "react-redux";
-import { dislikePost, likePost } from "../../app/features/postsSlice";
+import {
+  deletePost,
+  dislikePost,
+  likePost,
+} from "../../app/features/postsSlice";
 import { authSelector } from "../../app/features/authSlice";
 import { getIsPostBookmarked, getIsPostLiked } from "../../utils/postsHelper";
 import {
@@ -17,8 +21,12 @@ import {
   removePostFromBookmarks,
   usersSelector,
 } from "../../app/features/usersSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import moment from "moment/moment";
+
+import { useState } from "react";
+import CustomDropdownMenu from "../common/CustomDropdownMenu";
+import EditPostCard from "./EditPostCard";
 
 const PostCard = ({ postData }) => {
   const dispatch = useDispatch();
@@ -26,36 +34,69 @@ const PostCard = ({ postData }) => {
     encodedToken,
     foundUser: { _id, username },
   } = useSelector(authSelector);
-  const { usersData } = useSelector(usersSelector);
 
+  const { usersData } = useSelector(usersSelector);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [isEditPost, setIsEditPost] = useState(false);
   const likedByUser = getIsPostLiked(postData, username);
   const bookmarkedByUser = getIsPostBookmarked(
     usersData,
     postData._id,
     username
   );
-
+  const dropdownMenu = [
+    {
+      label: "Edit Post",
+      handler: () => setIsEditPost(true),
+    },
+    {
+      label: "Delete Post",
+      handler: () => {
+        dispatch(deletePost({ encodedToken, postId: postData._id }));
+      },
+    },
+  ];
   return (
     <div
       className={`p-5 border  border-black shadow-light-lg mb-4 rounded-md hover:border-pink-500 transition`}
     >
-      <header className="flex gap-2 items-center">
-        <h1 className="text-lg font-semibold">
-          {postData.firstName} {postData.lastName}
-        </h1>
-        <Link
-          to={`/userProfile/${postData.username}`}
-          className="text-sm text-gray-400"
-        >
-          @{postData.username}
-        </Link>
-        <span className="text-sm flex items-center text-lime-500">
-          <BsDot />
-          {moment(postData.updatedAt).fromNow()}
-        </span>
+      <header className="flex justify-between items-center">
+        <section className="flex gap-2 items-center">
+          <h1 className="text-lg font-semibold">
+            {postData.firstName} {postData.lastName}
+          </h1>
+          <Link
+            to={`/userProfile/${postData.username}`}
+            className="text-sm text-gray-400"
+          >
+            @{postData.username}
+          </Link>
+          <span className="text-sm flex items-center text-lime-500">
+            <BsDot />
+            {moment(postData.createdAt).fromNow()}
+          </span>
+        </section>
+        {postData.userId === _id && (
+          <div className="relative inline-block text-left">
+            <BsThreeDotsVertical
+              className="cursor-pointer"
+              onClick={() => setShowDropdown(!showDropdown)}
+            />
+            {showDropdown && (
+              <CustomDropdownMenu
+                dropdownMenu={dropdownMenu}
+                setShowDropdown={setShowDropdown}
+              />
+            )}
+          </div>
+        )}
       </header>
       <main className="">
-        <p>{postData.content}</p>
+        {isEditPost ? (
+          <EditPostCard postData={postData} setIsEditPost={setIsEditPost} />
+        ) : (
+          <p>{postData.content}</p>
+        )}
         <section className="py-2 ">
           {postData.postMedia.length > 0 &&
             (postData.postMedia.includes("mp4") ? (
