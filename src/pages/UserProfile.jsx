@@ -5,7 +5,7 @@ import { getUserByUsername } from "../utils/postsHelper";
 import { useSelector } from "react-redux";
 import { usersSelector } from "../app/features/usersSlice";
 
-import { getPostsByUsername } from "../apis/apiHelper";
+import { getPostsByUsername } from "../services/apiHelper";
 import { PostList, UserProfileCard } from "../components";
 import { postsSelector } from "../app/features/postsSlice";
 

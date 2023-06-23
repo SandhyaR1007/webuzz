@@ -4,19 +4,21 @@ import {
   isRejectedWithValue,
 } from "@reduxjs/toolkit";
 import {
-  bookmarkPostApi,
-  followUserApi,
-  getAllUsersApi,
-  removeBookmarkedPostApi,
-  unfollowUserApi,
-} from "../../apis/apiServices";
+  bookmarkPostService,
+  editProfileService,
+  followUserService,
+  getAllUsersService,
+  removeBookmarkedPostService,
+  unfollowUserService,
+} from "../../services/apiServices";
 
 const initialState = {
   usersData: [],
+  editing: false,
 };
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   try {
-    const response = await getAllUsersApi();
+    const response = await getAllUsersService();
     let usersList = [];
 
     if (response.status === 200) {
@@ -34,7 +36,7 @@ export const bookmarkPost = createAsyncThunk(
   "users/bookmarkPost",
   async ({ token, postId, username }, { rejectWithValue }) => {
     try {
-      const response = await bookmarkPostApi(token, postId);
+      const response = await bookmarkPostService(token, postId);
       console.log({ response });
       if (response.status === 200 || response.status === 201) {
         let foundUser = localStorage.getItem("foundUser");
@@ -59,7 +61,7 @@ export const removePostFromBookmarks = createAsyncThunk(
   "users/removePostFromBookmarks",
   async ({ token, postId, username }, { rejectWithValue }) => {
     try {
-      const response = await removeBookmarkedPostApi(token, postId);
+      const response = await removeBookmarkedPostService(token, postId);
       console.log({ response });
       if (response.status === 200 || response.status === 201) {
         let foundUser = localStorage.getItem("foundUser");
@@ -85,7 +87,7 @@ export const followUser = createAsyncThunk(
   async ({ encodedToken, userId }, { rejectWithValue }) => {
     console.log(userId);
     try {
-      const response = await followUserApi(encodedToken, userId);
+      const response = await followUserService(encodedToken, userId);
       console.log({ response });
       if (response.status === 200) {
         return {
@@ -105,7 +107,7 @@ export const unfollowUser = createAsyncThunk(
   async ({ encodedToken, userId }, { rejectWithValue }) => {
     console.log("unfollow");
     try {
-      const response = await unfollowUserApi(encodedToken, userId);
+      const response = await unfollowUserService(encodedToken, userId);
       console.log({ response });
       if (response.status === 200) {
         return {
@@ -115,6 +117,22 @@ export const unfollowUser = createAsyncThunk(
       }
     } catch (error) {
       console.log("unfollow", { error });
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const editProfile = createAsyncThunk(
+  "users/editProfile",
+  async ({ encodedToken, userData }, { rejectWithValue }) => {
+    try {
+      const response = await editProfileService(encodedToken, userData);
+      console.log({ response });
+      if (response.status === 201) {
+        return response.data.user;
+      }
+    } catch (error) {
+      console.log({ error });
       return rejectWithValue(error.message);
     }
   }
@@ -134,7 +152,7 @@ const usersSlice = createSlice({
         userIndex = state.usersData.findIndex(
           (data) => data.username === action.payload.username
         );
-        console.log({ userIndex });
+
         if (userIndex !== null)
           state.usersData[userIndex].bookmarks = action.payload.bookmarks;
       })
@@ -182,6 +200,16 @@ const usersSlice = createSlice({
         if (userIndex !== undefined) {
           state.usersData[userIndex] = user;
           localStorage.setItem("foundUser", JSON.stringify(user));
+        }
+      })
+      .addCase(editProfile.fulfilled, (state, action) => {
+        const userIndex = state.usersData.findIndex(
+          (data) => data._id === action.payload._id
+        );
+
+        if (userIndex !== undefined) {
+          state.usersData[userIndex] = action.payload;
+          localStorage.setItem("foundUser", JSON.stringify(action.payload));
         }
       });
   },
