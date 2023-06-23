@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { postLogin, postSignup } from "../../apis/apiServices";
+import { postLogin, postSignup } from "../../services/apiServices";
 
 const initialState = {
   encodedToken:

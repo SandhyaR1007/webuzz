@@ -1,10 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
-  createNewPostsApi,
-  dislikePostApi,
-  getAllPostsApi,
-  likePostApi,
-} from "../../apis/apiServices";
+  createNewPostsService,
+  deletePostService,
+  dislikePostService,
+  editPostService,
+  getAllPostsService,
+  likePostService,
+} from "../../services/apiServices";
+import { notify } from "../../utils/toastify";
 
 const initialState = {
   postsData: [],
@@ -15,7 +18,7 @@ const initialState = {
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
   try {
-    const response = await getAllPostsApi();
+    const response = await getAllPostsService();
     let postsList = [];
 
     if (response.status === 200) {
@@ -32,8 +35,8 @@ export const likePost = createAsyncThunk(
   "posts/likePost",
   async ({ token, postId }) => {
     try {
-      const response = await likePostApi(token, postId);
-      console.log({ response });
+      const response = await likePostService(token, postId);
+
       if (response.status === 201) {
         return response.data.posts;
       }
@@ -50,8 +53,8 @@ export const dislikePost = createAsyncThunk(
   "posts/dislikePost",
   async ({ token, postId }) => {
     try {
-      const response = await dislikePostApi(token, postId);
-      console.log({ response });
+      const response = await dislikePostService(token, postId);
+
       if (response.status === 201) {
         return response.data.posts;
       }
@@ -68,8 +71,8 @@ export const createNewPost = createAsyncThunk(
   "posts/createNewPost",
   async ({ encodedToken, postData }, { rejectWithValue }) => {
     try {
-      const response = await createNewPostsApi(encodedToken, postData);
-      console.log({ response });
+      const response = await createNewPostsService(encodedToken, postData);
+
       if (response.status === 201) {
         return response.data.posts;
       }
@@ -79,7 +82,40 @@ export const createNewPost = createAsyncThunk(
     }
   }
 );
-
+export const editPost = createAsyncThunk(
+  "posts/editPost",
+  async ({ encodedToken, postData }, { rejectWithValue }) => {
+    console.log({ encodedToken, postData });
+    try {
+      const response = await editPostService(encodedToken, postData);
+      console.log({ response });
+      if (response.status === 201) {
+        notify("Post Edited Successfully", true);
+        return response.data.posts;
+      }
+    } catch (err) {
+      console.log({ err });
+      return rejectWithValue(err?.message);
+    }
+  }
+);
+export const deletePost = createAsyncThunk(
+  "posts/deletePost",
+  async ({ encodedToken, postId }, { rejectWithValue }) => {
+    console.log({ encodedToken, postId });
+    try {
+      const response = await deletePostService(encodedToken, postId);
+      console.log({ response });
+      if (response.status === 201) {
+        notify("Post Deleted", true);
+        return response.data.posts;
+      }
+    } catch (err) {
+      console.log({ err });
+      return rejectWithValue(err?.message);
+    }
+  }
+);
 const postsSlice = createSlice({
   name: "posts",
   initialState,
@@ -118,7 +154,16 @@ const postsSlice = createSlice({
         state.isLiking = false;
       })
       .addCase(createNewPost.fulfilled, (state, action) => {
-        console.log({ action });
+        if (action.payload) {
+          state.postsData = action.payload;
+        }
+      })
+      .addCase(editPost.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.postsData = action.payload;
+        }
+      })
+      .addCase(deletePost.fulfilled, (state, action) => {
         if (action.payload) {
           state.postsData = action.payload;
         }
