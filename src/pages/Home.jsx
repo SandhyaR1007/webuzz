@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Filters from "../components/filters/Filters";
 import { NewPostCard, PostList, SuggestedUsers } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { postsSelector, fetchPosts } from "../app/features/postsSlice";
 import { usersSelector } from "../app/features/usersSlice";
 import { authSelector } from "../app/features/authSlice";
-import { sortByLatest } from "../utils/filters";
-import CustomModal from "../components/common/CustomModal";
+import { useSort } from "../hooks/useSort";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -15,6 +14,8 @@ const Home = () => {
   const { postsData, loading, error } = useSelector(postsSelector);
 
   const { usersData } = useSelector(usersSelector);
+  const [sortBy, setSortBy] = useState(null);
+  const { sortByLatest, sortByTrending } = useSort();
 
   useEffect(() => {
     dispatch(fetchPosts());
@@ -26,10 +27,16 @@ const Home = () => {
       data.userId === currentUserId ||
       currentUser?.following.some(({ _id }) => _id === data.userId)
   );
-  feedPosts = sortByLatest(feedPosts);
+  feedPosts =
+    sortBy === "latest"
+      ? sortByLatest(feedPosts)
+      : sortBy === "trending"
+      ? sortByTrending(feedPosts)
+      : feedPosts;
+
   return (
     <>
-      <Filters />
+      <Filters sortBy={sortBy} setSortBy={setSortBy} />
       <NewPostCard />
       {loading ? <h3>Loading...</h3> : <PostList posts={feedPosts} />}
     </>
