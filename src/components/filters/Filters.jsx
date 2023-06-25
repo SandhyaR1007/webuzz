@@ -9,8 +9,8 @@ const Filters = ({ sortBy, setSortBy }) => {
         <button
           key={btnName}
           className={`${
-            sortBy == btnName ? "bg-gray-100" : ""
-          } p-3 capitalize transition`}
+            sortBy == btnName ? "bg-gray-500/10" : ""
+          } p-3 capitalize transition text-[--primary-text]`}
           name={btnName}
           onClick={handleClick}
         >

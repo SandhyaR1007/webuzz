@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./styles/custom.styles.css";
+import "./styles/themes.styles.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Index as Routes } from "./routes/index";
 import { useDispatch, useSelector } from "react-redux";
