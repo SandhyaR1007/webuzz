@@ -15,3 +15,7 @@ export const getIsUserFollow = (currentUserId, usersData, username) => {
     .find((data) => data._id === currentUserId)
     ?.following?.find((data) => data.username === username);
 };
+
+export const getPostsFromIds = (postsData, postIdArr) => {
+  return postsData.filter(({ _id }) => postIdArr.some((id) => id === _id));
+};
