@@ -6,13 +6,15 @@ import SuggestedUsers from "../users/SuggestedUsers";
 
 const SharedLayout = () => {
   return (
-    <div className="relative">
+    <div className="relative bg-[--bg-color]">
       <Navbar />
-      <Menubar />
-      <div className="border border-black mt-20 flex items-start  gap-3  md:ms-[21vw] px-10   w-full md:w-[75vw] lg:w-[52vw]">
-        <Outlet />
+      <div className="mt-16">
+        <Menubar />
+        <div className="border border-black flex items-start  gap-3 mx-0 sm:ms-[15vw] lg:ms-[20vw] lg:me-[27vw] xs:px-10   w-full sm:w-[85vw] lg:w-[53vw]">
+          <Outlet />
+        </div>
+        <SuggestedUsers />
       </div>
-      <SuggestedUsers />
     </div>
   );
 };
