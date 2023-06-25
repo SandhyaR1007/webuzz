@@ -19,7 +19,7 @@ export const posts = [
     postMedia:
       "https://w0.peakpx.com/wallpaper/348/902/HD-wallpaper-gojo-satoru.jpg",
     likes: {
-      likeCount: 4,
+      likeCount: 40,
       likedBy: [
         {
           _id: "2c71b5c1-e6dd-4e6e-b072-c54cfe05db89",
@@ -105,7 +105,7 @@ export const posts = [
     content: "The Secret World of Arrietty (2010).",
     postMedia: "https://video.twimg.com/tweet_video/D3YOsvOU0AEruoj.mp4",
     likes: {
-      likeCount: 2,
+      likeCount: 200,
       likedBy: [
         {
           _id: "2c71b5c1-e6dd-4e6e-b072-c54cfe05db89",
@@ -151,7 +151,7 @@ export const posts = [
       "Sed ut perspiciatis unde omnis iste natus error sit voluptatem...",
     postMedia: "https://example.com/image3.jpg",
     likes: {
-      likeCount: 2,
+      likeCount: 120,
       likedBy: [
         {
           _id: "2c71b5c1-e6dd-4e6e-b072-c54cfe05db89",
@@ -202,7 +202,7 @@ export const posts = [
     content: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut...",
     postMedia: "https://example.com/image4.jpg",
     likes: {
-      likeCount: 2,
+      likeCount: 322,
       likedBy: [
         {
           _id: "2c71b5c1-e6dd-4e6e-b072-c54cfe05db89",
@@ -234,7 +234,7 @@ export const posts = [
     content: "Quis autem vel eum iure reprehenderit qui in ea...",
     postMedia: "https://example.com/image5.jpg",
     likes: {
-      likeCount: 2,
+      likeCount: 21,
       likedBy: [
         {
           _id: "2c71b5c1-e6dd-4e6e-b072-c54cfe05db89",
@@ -273,7 +273,7 @@ export const posts = [
     content: "Excepteur sint occaecat cupidatat non proident, sunt in culpa...",
     postMedia: "https://example.com/image6.jpg",
     likes: {
-      likeCount: 2,
+      likeCount: 1112,
       likedBy: [
         {
           _id: "2c71b5c1-e6dd-4e6e-b072-c54cfe05db89",
