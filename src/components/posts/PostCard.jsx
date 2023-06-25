@@ -58,7 +58,7 @@ const PostCard = ({ postData }) => {
   ];
   return (
     <div
-      className={`p-5 border  border-black shadow-light-lg mb-4 rounded-md hover:border-pink-500 transition`}
+      className={`p-5 border  border-gray-700 shadow-light-lg mb-4 rounded-md hover:border-pink-500 transition bg-[--card-bg] text-[--primary-text]`}
     >
       <header className="flex justify-between items-center">
         <section className="flex gap-2 items-center">
@@ -71,7 +71,7 @@ const PostCard = ({ postData }) => {
           >
             @{postData.username}
           </Link>
-          <span className="text-sm flex items-center text-lime-500">
+          <span className="text-sm flex items-center ">
             <BsDot />
             {moment(postData.createdAt).fromNow()}
           </span>
@@ -124,11 +124,11 @@ const PostCard = ({ postData }) => {
             }
           }}
         >
-          <span className="p-2 hover:bg-rose-50 rounded-full transition">
+          <span className="p-2 hover:bg-rose-600/10 hover:text-rose-600 rounded-full transition">
             {likedByUser ? (
               <RiHeartFill className="text-2xl text-rose-600" />
             ) : (
-              <RiHeartLine className="text-2xl hover:text-rose-600" />
+              <RiHeartLine className="text-2xl " />
             )}
           </span>
           <span>
@@ -136,8 +136,8 @@ const PostCard = ({ postData }) => {
           </span>
         </button>
         <button className="flex items-center gap-1">
-          <span className="p-2 hover:bg-sky-50 rounded-full transition">
-            <RiChat1Line className="text-2xl hover:text-sky-600" />
+          <span className="p-2 hover:text-sky-600 hover:bg-sky-600/10 rounded-full transition">
+            <RiChat1Line className="text-2xl " />
           </span>
           <span>
             {postData?.comments?.length > 0 && postData?.comments?.length}
@@ -165,7 +165,7 @@ const PostCard = ({ postData }) => {
             }
           }}
         >
-          <span className="p-2 hover:bg-emerald-50 rounded-full transition hover:text-emerald-500">
+          <span className="p-2 hover:bg-emerald-500/10 rounded-full transition hover:text-emerald-500">
             {bookmarkedByUser ? (
               <RiBookmarkFill className="text-2xl text-emerald-500" />
             ) : (

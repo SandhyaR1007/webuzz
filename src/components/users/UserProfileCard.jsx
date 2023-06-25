@@ -24,7 +24,7 @@ const UserProfileCard = ({ userDetails, userPosts }) => {
     foundUser.username
   );
   return (
-    <header className="flex items-start gap-5 shadow-md border border-gray-500 rounded-md p-4">
+    <header className="flex items-start gap-5 shadow-md border border-gray-500 rounded-md p-4 bg-[--card-bg] text-[--primary-text]">
       <CustomModal
         modalComponent={
           <EditProfile userDetails={userDetails} setShowModal={setShowModal} />

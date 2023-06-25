@@ -18,11 +18,7 @@ const SuggestedUsers = () => {
   );
 
   return (
-    <div
-      className={`hidden lg:block fixed w-[25vw]  right-5 top-20  max-h-[80vh]  pb-10   px-5 rounded-lg overflow-y-scroll ${
-        theme === "light" ? "bg-slate-50" : "bg-mid-black"
-      }`}
-    >
+    <div className="hidden border border-gray-700 lg:block fixed w-[25vw]  right-0  me-5 top-20  max-h-[80vh]  pb-10   px-5 rounded-lg overflow-y-scroll bg-[--card-bg] text-[--primary-text]">
       <h1 className="text-2xl  py-5 font-secondary">Who to follow</h1>
       <div className="flex flex-col gap-6">
         {suggestedUsers?.map((data) => (
