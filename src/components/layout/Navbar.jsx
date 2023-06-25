@@ -8,21 +8,21 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   return (
-    <nav className="fixed left-0 right-0 top-0 py-4 px-2 xs:px-10 md:px-20  flex items-center justify-between gap-2  z-10  bg-[--card-bg] text-[--primary-text] h-16">
+    <nav className="fixed left-0 right-0 top-0 py-4 px-2 xs:px-10 md:px-20  flex items-center justify-between gap-2  z-10  bg-[--card-bg] text-[--primary-text] h-16 shadow-md">
       <div className="text-3xl text-yellow-500 font-secondary">Webuzz</div>
-      <div className="flex gap-10 pe-5 items-center">
+      <div className="flex sm:gap-10 sm:pe-5 items-center">
         <label
-          className={` border border-black rounded-full flex items-center gap-3 py-2 px-4  w-80`}
+          className={`flex bg-gray-500/10 sm:border border-gray-500 rounded-full  items-center gap-3 py-3 sm:py-2  px-3 sm:px-4  sm:w-80`}
         >
           <BsSearch />
           <input
             type="search"
             placeholder="Search"
-            className="outline-none bg-transparent text-sm"
+            className="hidden sm:block outline-none bg-transparent text-sm"
           />
         </label>
         <button
-          className={`text-xl shadow-sm text-[--primary-text] border border-black
+          className={`hidden sm:block text-xl shadow-sm text-[--primary-text] border border-black
             "bg-sky-300 shadow-light"
              
             p-3 rounded-full `}

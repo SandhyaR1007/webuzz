@@ -2,20 +2,25 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  minWidth: 400,
-  bgcolor: "#fff",
-  borderRadius: "10px",
-  boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
-  p: 1.5,
-  zIndex: 1000,
-};
+const CustomModal = ({
+  modalComponent,
+  showModal,
+  setShowModal,
+  width = 400,
+}) => {
+  const style = {
+    position: "absolute",
+    top: "40%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: width,
+    background: "#fff",
+    borderRadius: "10px",
+    boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
+    p: 1.5,
+    zIndex: 1000,
+  };
 
-const CustomModal = ({ modalComponent, showModal, setShowModal }) => {
   return (
     <Modal
       open={showModal}
