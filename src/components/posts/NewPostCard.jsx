@@ -9,7 +9,7 @@ const NewPostCard = () => {
   const dispatch = useDispatch();
   const { uploadImage } = useMedia();
   const { encodedToken, foundUser } = useSelector(authSelector);
-
+  const [uploading, setUploading] = useState(false);
   const [postData, setPostData] = useState({
     content: "",
     postMedia: "",
@@ -17,11 +17,13 @@ const NewPostCard = () => {
     userId: foundUser.userId,
   });
   const handleImageChange = (event) => {
+    setUploading(true);
     const file = event.target.files[0];
     uploadImage(file).then((response) => {
       if (response.success) {
         setPostData({ ...postData, postMedia: response.res.secure_url });
       }
+      setUploading(false);
     });
 
     const reader = new FileReader();
@@ -35,8 +37,8 @@ const NewPostCard = () => {
     <div className="w-full p-5 border border-gray-400 rounded-md h-auto my-5 shadow-sm">
       <div className="flex items-start gap-4">
         <img
-          src="https://pbs.twimg.com/media/FyjuLVNaAAA9vjA?format=jpg&name=900x900"
-          alt="jk"
+          src={foundUser.profile}
+          alt="newpost"
           className="w-10 h-10 rounded-lg border border-black"
         />
         <label className="w-full">
