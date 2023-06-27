@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Filters from "../components/filters/Filters";
-import { NewPostCard, PostList, SuggestedUsers } from "../components";
+import { Loader, NewPostCard, PostList, SuggestedUsers } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { postsSelector, fetchPosts } from "../app/features/postsSlice";
 import { usersSelector } from "../app/features/usersSlice";
@@ -38,7 +38,13 @@ const Home = () => {
     <>
       <Filters sortBy={sortBy} setSortBy={setSortBy} />
       <NewPostCard />
-      {loading ? <h3>Loading...</h3> : <PostList posts={feedPosts} />}
+      {loading ? (
+        <div className="text-center py-3">
+          <Loader />
+        </div>
+      ) : (
+        <PostList posts={feedPosts} />
+      )}
     </>
   );
 };

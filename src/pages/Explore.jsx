@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts, postsSelector } from "../app/features/postsSlice";
-import { PostList } from "../components";
+import { Loader, PostList } from "../components";
 
 const Explore = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,15 @@ const Explore = () => {
   }, []);
 
   return (
-    <div>{loading ? <h3>Loading...</h3> : <PostList posts={postsData} />}</div>
+    <div>
+      {loading ? (
+        <div className="text-center py-3">
+          <Loader />
+        </div>
+      ) : (
+        <PostList posts={postsData} />
+      )}
+    </div>
   );
 };
 
