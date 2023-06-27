@@ -1,5 +1,15 @@
 import React, { useState } from "react";
 import { BsCardImage, BsEmojiSmile } from "react-icons/bs";
+import EmojiPicker, {
+  EmojiStyle,
+  SkinTones,
+  Theme,
+  Categories,
+  EmojiClickData,
+  Emoji,
+  SuggestionMode,
+  SkinTonePickerLocation,
+} from "emoji-picker-react";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewPost } from "../../app/features/postsSlice";
 import { authSelector } from "../../app/features/authSlice";
@@ -16,6 +26,7 @@ const NewPostCard = () => {
     username: foundUser.username,
     userId: foundUser.userId,
   });
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const handleImageChange = (event) => {
     setUploading(true);
     const file = event.target.files[0];
@@ -54,7 +65,7 @@ const NewPostCard = () => {
         </label>
       </div>
       <div className=" pt-2 flex items-center justify-between mt-4">
-        <div className="flex items-center gap-4">
+        <div className="relative  flex items-center gap-4">
           {/* <label> */}
           <label
             for="postImg"
@@ -70,9 +81,26 @@ const NewPostCard = () => {
             accept=".jpeg,.jpg,.png"
             onChange={handleImageChange}
           />
-          <span className="p-2 rounded-full hover:bg-emerald-50 cursor-pointer">
-            <BsEmojiSmile className="text-xl text-emerald-500" />
+          <span className=" p-2 rounded-full hover:bg-emerald-50 cursor-pointer">
+            <BsEmojiSmile
+              className="text-xl text-emerald-500"
+              onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+            />
           </span>
+          {showEmojiPicker && (
+            <div className="absolute top-10 left-10">
+              <EmojiPicker
+                onEmojiClick={(emojiData) => {
+                  let text = postData.content;
+                  text = `${text}${emojiData.emoji}`;
+                  setPostData({ ...postData, content: text });
+                }}
+                autoFocusSearch={false}
+                emojiStyle={EmojiStyle.NATIVE}
+                height={350}
+              />
+            </div>
+          )}
         </div>
         <button
           className={`bg-amber-300   px-5 py-0.5 rounded-full btn-light`}
