@@ -46,14 +46,20 @@ const PostCard = ({ postData }) => {
   );
   const dropdownMenu = [
     {
-      label: "Edit Post",
-      handler: () => setIsEditPost(true),
+      key: "1",
+      label: <span onClick={() => setIsEditPost(true)}>Edit Post</span>,
     },
     {
-      label: "Delete Post",
-      handler: () => {
-        dispatch(deletePost({ encodedToken, postId: postData._id }));
-      },
+      key: "2",
+      label: (
+        <span
+          onClick={() => {
+            dispatch(deletePost({ encodedToken, postId: postData._id }));
+          }}
+        >
+          Delete Post
+        </span>
+      ),
     },
   ];
   return (
@@ -78,16 +84,15 @@ const PostCard = ({ postData }) => {
         </section>
         {postData.userId === _id && (
           <div className="relative inline-block text-left">
-            <BsThreeDotsVertical
-              className="cursor-pointer"
-              onClick={() => setShowDropdown(!showDropdown)}
+            <CustomDropdownMenu
+              dropdownMenu={dropdownMenu}
+              icon={
+                <BsThreeDotsVertical
+                  className="cursor-pointer"
+                  onClick={() => setShowDropdown(!showDropdown)}
+                />
+              }
             />
-            {showDropdown && (
-              <CustomDropdownMenu
-                dropdownMenu={dropdownMenu}
-                setShowDropdown={setShowDropdown}
-              />
-            )}
           </div>
         )}
       </header>
