@@ -1,4 +1,11 @@
-import { Bookmarks, Explore, Login, Signup, UserProfile } from "../pages";
+import {
+  Bookmarks,
+  Explore,
+  Login,
+  PostDetails,
+  Signup,
+  UserProfile,
+} from "../pages";
 import Home from "../pages/Home";
 
 const contentRoutes = [
@@ -17,6 +24,10 @@ const contentRoutes = [
   {
     path: "/userProfile/:username",
     element: <UserProfile />,
+  },
+  {
+    path: "/post/:postId",
+    element: <PostDetails />,
   },
 ];
 const publicRoutes = [
