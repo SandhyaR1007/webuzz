@@ -28,14 +28,13 @@ const Login = () => {
   }, [encodedToken]);
 
   return (
-    <div className="w-full flex">
-      <div className="w-full sm:w-1/2 h-screen bg-yellow flex flex-col items-center  justify-center gap-10 px-5">
-        <h1 className="font-secondary text-6xl">Webuzz</h1>
+    <div className="w-full flex align-center justify-center  h-screen bg-slate-100">
+      <div className="w-full   flex flex-col items-center  justify-center gap-5 px-5">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col  gap-3 bg-lime py-5 px-10 border-rounded-dark btn-shadow-lg  w-full  md:w-[75%]"
+          className="flex flex-col  gap-3 bg-white py-5 px-10 rounded-lg border shadow-md  w-full xs:w-96"
         >
-          <h1 className="text-2xl text-gray-800 text-center">Welcome back!</h1>
+          <h1 className="font-secondary text-3xl text-center">Webuzz</h1>
           <p className="text-red-500">{error}</p>
           <label htmlFor="username font-xl">
             <span className="text-lg">Username</span>
@@ -89,7 +88,6 @@ const Login = () => {
           </section>
         </form>
       </div>
-      <div className="hidden sm:block w-1/2 h-screen bg-purple"></div>
     </div>
   );
 };
