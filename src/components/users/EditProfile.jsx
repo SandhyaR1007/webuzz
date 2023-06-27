@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import { FaEdit } from "react-icons/fa";
 import { editProfile } from "../../app/features/usersSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { authSelector } from "../../app/features/authSlice";
 
 import { useMedia } from "../../hooks/useMedia";
+import CustomDropdownMenu from "../common/CustomDropdownMenu";
+import { avatars } from "../../utils/constants";
+import Loader from "../common/Loader";
 const EditProfile = ({ userDetails, setShowModal }) => {
   const { encodedToken } = useSelector(authSelector);
   const dispatch = useDispatch();
@@ -27,8 +31,10 @@ const EditProfile = ({ userDetails, setShowModal }) => {
   };
 
   const handleImageChange = (event) => {
+    setUploading(true);
     const file = event.target.files[0];
     uploadImage(file).then((response) => {
+      setUploading(false);
       if (response.success) {
         setUserData({ ...userData, profile: response.res.secure_url });
       }
@@ -42,31 +48,58 @@ const EditProfile = ({ userDetails, setShowModal }) => {
     };
   };
 
+  const dropdownMenu = [
+    {
+      key: "1",
+      label: <label htmlFor="profile">Upload</label>,
+    },
+    {
+      key: "2",
+      label: <span>Choose Avatar</span>,
+      children: avatars.map((data, index) => ({
+        key: index,
+        label: (
+          <img
+            src={data}
+            className="w-8 h-8"
+            onClick={() => setUserData({ ...userData, profile: data })}
+          />
+        ),
+      })),
+      placement: "bottom",
+    },
+  ];
+
   return (
     <form
-      className="flex flex-col py-3 px-5 gap-3 border border-gray-400 bg-purple-50 rounded-md"
+      className="flex flex-col py-3 px-5 gap-3 border border-gray-400 bg-purple-50 rounded-md "
       onSubmit={handleSubmit}
     >
-      <label htmlFor="profile" className="flex flex-col items-center ">
-        {uploading ? (
-          <span className="h-28 w-28 object-cover rounded-full">uploading</span>
-        ) : (
-          <img
-            src={preview ?? userData?.profile}
-            alt="profile"
-            className="h-28 w-28 object-cover rounded-full"
-          />
+      <section className="relative">
+        {uploading && (
+          <span className="absolute top-1/3 left-10 ">
+            <Loader />
+          </span>
         )}
-      </label>
-
-      <input
-        type="file"
-        name="profile"
-        id="profile"
-        className="hidden"
-        onChange={handleImageChange}
-      />
-
+        <img
+          src={preview ?? userData?.profile}
+          alt="profile"
+          className="h-28 w-28 object-cover rounded-full border-2 border-pink-500 bg-pink-100"
+        />
+        <CustomDropdownMenu
+          dropdownMenu={dropdownMenu}
+          icon={
+            <FaEdit className="cursor-pointer absolute left-24 bottom-2 text-pink-500 text-lg" />
+          }
+        />
+        <input
+          type="file"
+          name="profile"
+          id="profile"
+          className="hidden"
+          onChange={handleImageChange}
+        />
+      </section>
       <label className="flex flex-col gap-1">
         <span className="font-medium ">Bio</span>
         <textarea
@@ -95,7 +128,11 @@ const EditProfile = ({ userDetails, setShowModal }) => {
         >
           Cancel
         </button>
-        <button type="submit" className="btn-light bg-yellow px-5 py-1">
+        <button
+          disabled={uploading}
+          type="submit"
+          className="btn-light bg-yellow px-5 py-1 disabled:bg-yellow-400/70 disabled:text-gray-500"
+        >
           Save
         </button>
       </div>
