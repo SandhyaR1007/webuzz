@@ -119,7 +119,56 @@ export const deletePost = createAsyncThunk(
 const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {},
+  reducers: {
+    addComment: (state, action) => {
+      console.log(state, action);
+      const { newComment, _id } = action.payload;
+      const postIndex = state.postsData.findIndex((post) => post._id === _id);
+      if (postIndex !== undefined) {
+        state.postsData[postIndex].comments.push(newComment);
+      }
+    },
+    editComment: (state, action) => {
+      const { updatedComment, postId, commentId } = action.payload;
+      const postIndex = state.postsData.findIndex(
+        (post) => post._id === postId
+      );
+      const commentIndex = state.postsData[postIndex].comments.findIndex(
+        (comment) => comment._id === commentId
+      );
+      if (postIndex !== undefined) {
+        state.postsData[postIndex].comments[commentIndex] = updatedComment;
+      }
+    },
+    deleteComment: (state, action) => {
+      const { postId, commentId } = action.payload;
+      const postIndex = state.postsData.findIndex(
+        (post) => post._id === postId
+      );
+      const commentIndex = state.postsData[postIndex].comments.findIndex(
+        (comment) => comment._id === commentId
+      );
+      if (postIndex !== undefined) {
+        state.postsData[postIndex].comments.splice(commentIndex, 1);
+      }
+    },
+    replyOnComment: (state, action) => {
+      const { reply, postId, commentId } = action.payload;
+      const postIndex = state.postsData.findIndex(
+        (post) => post._id === postId
+      );
+      const commentIndex = state.postsData[postIndex].comments.findIndex(
+        (comment) => comment._id === commentId
+      );
+      if (postIndex !== undefined) {
+        if (state.postsData[postIndex].comments[commentIndex].replies) {
+          state.postsData[postIndex].comments[commentIndex].replies.push(reply);
+        } else {
+          state.postsData[postIndex].comments[commentIndex].replies = [reply];
+        }
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPosts.pending, (state) => {
@@ -173,4 +222,6 @@ const postsSlice = createSlice({
 
 export const postsSelector = (state) => state.posts;
 
+export const { addComment, editComment, deleteComment, replyOnComment } =
+  postsSlice.actions;
 export default postsSlice.reducer;
