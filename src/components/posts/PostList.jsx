@@ -4,7 +4,7 @@ import PostCard from "./PostCard";
 
 const PostList = ({ posts }) => {
   return (
-    <div className="">
+    <div className="flex flex-col gap-4">
       {posts.map((post) => (
         <PostCard postData={post} key={post._id} />
       ))}

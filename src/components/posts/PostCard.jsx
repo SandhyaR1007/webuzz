@@ -1,5 +1,5 @@
 import React from "react";
-import { BsDot, BsThreeDotsVertical } from "react-icons/bs";
+import { BsDot, BsThreeDots } from "react-icons/bs";
 import {
   RiHeartFill,
   RiHeartLine,
@@ -28,20 +28,20 @@ import { useState } from "react";
 import CustomDropdownMenu from "../common/CustomDropdownMenu";
 import EditPostCard from "./EditPostCard";
 
-const PostCard = ({ postData }) => {
+const PostCard = ({ postData, noBorder }) => {
   const dispatch = useDispatch();
   const {
     encodedToken,
     foundUser: { _id, username },
   } = useSelector(authSelector);
-
+  const navigate = useNavigate();
   const { usersData } = useSelector(usersSelector);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isEditPost, setIsEditPost] = useState(false);
   const likedByUser = getIsPostLiked(postData, username);
   const bookmarkedByUser = getIsPostBookmarked(
     usersData,
-    postData._id,
+    postData?._id,
     username
   );
   const dropdownMenu = [
@@ -64,30 +64,34 @@ const PostCard = ({ postData }) => {
   ];
   return (
     <div
-      className={`p-5 border  border-gray-700 shadow-light-lg mb-4 rounded-md hover:border-pink-500 transition bg-[--card-bg] text-[--primary-text]`}
+      className={`px-5 py-4   ${
+        noBorder
+          ? ""
+          : "border border-gray-700 shadow-light-lg hover:border-pink-500"
+      }  rounded-md  transition bg-[--card-bg] text-[--primary-text]`}
     >
       <header className="flex justify-between items-center">
         <section className="flex gap-2 items-center">
           <h1 className="text-lg font-semibold">
-            {postData.firstName} {postData.lastName}
+            {postData?.firstName} {postData?.lastName}
           </h1>
           <Link
-            to={`/userProfile/${postData.username}`}
+            to={`/userProfile/${postData?.username}`}
             className="text-sm text-gray-400"
           >
-            @{postData.username}
+            @{postData?.username}
           </Link>
           <span className="text-sm flex items-center ">
             <BsDot />
-            {moment(postData.createdAt).fromNow()}
+            {moment(postData?.createdAt).fromNow()}
           </span>
         </section>
-        {postData.userId === _id && (
+        {postData?.userId === _id && (
           <div className="relative inline-block text-left">
             <CustomDropdownMenu
               dropdownMenu={dropdownMenu}
               icon={
-                <BsThreeDotsVertical
+                <BsThreeDots
                   className="cursor-pointer"
                   onClick={() => setShowDropdown(!showDropdown)}
                 />
@@ -96,36 +100,37 @@ const PostCard = ({ postData }) => {
           </div>
         )}
       </header>
-      <main className="">
+      <main className="" onClick={() => navigate(`/post/${postData._id}`)}>
         {isEditPost ? (
           <EditPostCard postData={postData} setIsEditPost={setIsEditPost} />
         ) : (
-          <p>{postData.content}</p>
+          <p>{postData?.content}</p>
         )}
         <section className="py-2 ">
-          {postData.postMedia.length > 0 &&
-            (postData.postMedia.includes("mp4") ? (
-              <video src={postData.postMedia} alt="" className="rounded-xl" />
+          {postData?.postMedia.length > 0 &&
+            (postData?.postMedia.includes("mp4") ? (
+              <video src={postData?.postMedia} alt="" className="rounded-xl" />
             ) : (
               <img
-                src={postData.postMedia}
+                src={postData?.postMedia}
                 className="rounded-xl border border-black"
                 alt=""
               />
             ))}
         </section>
       </main>
-      <footer className="flex pt-4 items-center gap-6">
+      <footer className="flex pt-2 items-center gap-6">
         <button
           className="flex items-center gap-1"
           onClick={() => {
-            console.log("vliked", postData._id);
             if (likedByUser) {
               dispatch(
-                dislikePost({ token: encodedToken, postId: postData._id })
+                dislikePost({ token: encodedToken, postId: postData?._id })
               );
             } else {
-              dispatch(likePost({ token: encodedToken, postId: postData._id }));
+              dispatch(
+                likePost({ token: encodedToken, postId: postData?._id })
+              );
             }
           }}
         >
@@ -140,7 +145,10 @@ const PostCard = ({ postData }) => {
             {postData?.likes?.likeCount > 0 && postData?.likes?.likeCount}
           </span>
         </button>
-        <button className="flex items-center gap-1">
+        <button
+          className="flex items-center gap-1"
+          onClick={() => navigate(`/post/${postData._id}`)}
+        >
           <span className="p-2 hover:text-sky-600 hover:bg-sky-600/10 rounded-full transition">
             <RiChat1Line className="text-2xl " />
           </span>
