@@ -2,14 +2,12 @@ import { v4 as uuid } from "uuid";
 import { BsThreeDots } from "react-icons/bs";
 import CustomDropdownMenu from "../common/CustomDropdownMenu";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import {
-  deleteComment,
-  editComment,
-  replyOnComment,
-} from "../../app/features/postsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { commentOnPost, replyOnComment } from "../../app/features/postsSlice";
+import { authSelector } from "../../app/features/authSlice";
 
-const CommentCard = ({ comment, postId, currentUsername }) => {
+const CommentCard = ({ comment, postData, currentUsername }) => {
+  const { encodedToken } = useSelector(authSelector);
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState(comment?.comment);
@@ -31,7 +29,7 @@ const CommentCard = ({ comment, postId, currentUsername }) => {
       label: (
         <span
           onClick={() => {
-            dispatch(deleteComment({ postId, commentId: comment._id }));
+            deleteComment();
           }}
         >
           Delete
@@ -39,8 +37,50 @@ const CommentCard = ({ comment, postId, currentUsername }) => {
       ),
     },
   ];
+  const editComment = () => {
+    const updatedData = postData.comments.map((data) =>
+      data._id === comment._id ? { ...data, comment: editText } : data
+    );
+
+    dispatch(
+      commentOnPost({
+        encodedToken,
+        postData: { ...postData, comments: updatedData },
+      })
+    );
+  };
+  const deleteComment = () => {
+    const updatedData = postData.comments.filter(
+      (data) => data._id !== comment._id
+    );
+    dispatch(
+      commentOnPost({
+        encodedToken,
+        postData: { ...postData, comments: updatedData },
+      })
+    );
+  };
+
+  const replyComment = () => {
+    const updatedData = postData.comments.map((data) =>
+      data._id === comment._id
+        ? {
+            ...data,
+            replies: data?.replies ? [...data.replies, reply] : [reply],
+          }
+        : data
+    );
+
+    dispatch(
+      commentOnPost({
+        encodedToken,
+        postData: { ...postData, comments: updatedData },
+      })
+    );
+  };
+
   return (
-    <div className="p-1 flex items-start gap-3 border-b pb-1 mb-3 hover:bg-gray-400/10">
+    <div className="p-1 flex items-start gap-3 border-b pb-1 mb-3 ">
       <span className="w-12">
         <img
           className="w-10 h-10 rounded-full object-cover"
@@ -78,13 +118,7 @@ const CommentCard = ({ comment, postId, currentUsername }) => {
               <button onClick={() => setIsEdit(false)}>cancel</button>
               <button
                 onClick={() => {
-                  dispatch(
-                    editComment({
-                      updatedComment: { ...comment, comment: editText },
-                      postId,
-                      commentId: comment._id,
-                    })
-                  );
+                  editComment();
                   setIsEdit(false);
                 }}
               >
@@ -110,7 +144,10 @@ const CommentCard = ({ comment, postId, currentUsername }) => {
                   <div className="flex gap-3 ">
                     <button
                       className="text-xs text-yellow-400"
-                      onClick={() => setIsReply(false)}
+                      onClick={() => {
+                        setIsReply(false);
+                        setReply({ ...reply, reply: "" });
+                      }}
                     >
                       cancel
                     </button>
@@ -118,14 +155,9 @@ const CommentCard = ({ comment, postId, currentUsername }) => {
                       disabled={reply?.reply?.trim().length === 0}
                       className="text-xs text-pink-500"
                       onClick={() => {
-                        dispatch(
-                          replyOnComment({
-                            reply,
-                            postId,
-                            commentId: comment._id,
-                          })
-                        );
+                        replyComment();
                         setIsReply(false);
+                        setReply({ ...reply, reply: "" });
                       }}
                     >
                       save

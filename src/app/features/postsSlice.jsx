@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  commentOnPostService,
   createNewPostsService,
   deletePostService,
   dislikePostService,
@@ -116,6 +117,23 @@ export const deletePost = createAsyncThunk(
     }
   }
 );
+export const commentOnPost = createAsyncThunk(
+  "posts/commentOnPost",
+  async ({ encodedToken, postData }, { rejectWithValue }) => {
+    console.log({ encodedToken, postData });
+    try {
+      const response = await commentOnPostService(encodedToken, postData);
+      console.log({ response });
+      if (response.status === 201) {
+        return response.data.posts;
+      }
+    } catch (err) {
+      console.log({ err });
+      return rejectWithValue(err?.message);
+    }
+  }
+);
+
 const postsSlice = createSlice({
   name: "posts",
   initialState,
@@ -213,6 +231,11 @@ const postsSlice = createSlice({
         }
       })
       .addCase(deletePost.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.postsData = action.payload;
+        }
+      })
+      .addCase(commentOnPost.fulfilled, (state, action) => {
         if (action.payload) {
           state.postsData = action.payload;
         }
