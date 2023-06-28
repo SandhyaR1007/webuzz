@@ -34,3 +34,6 @@ code {
 *::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.1);
 }
+.ant-modal-content,
+.ant-dropdown-menu {
+}
