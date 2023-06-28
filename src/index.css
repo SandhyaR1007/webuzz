@@ -12,6 +12,7 @@ body {
   color: var(--primary-text);
   /* background-color: #151515;
   color: rgb(226, 226, 226); */
+  overflow-x: hidden;
 }
 
 code {

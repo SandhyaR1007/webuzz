@@ -46,11 +46,11 @@ const Menubar = () => {
       icon: <FaFeatherAlt className="text-2xl " />,
       handler: () => setShowModal(true),
     },
-    // {
-    //   name: "Log Out",
-    //   icon: <AiOutlineLogout className="text-xl " />,
-    //   handler: () => dispatch(logoutUser()),
-    // },
+    {
+      name: "Log Out",
+      icon: <AiOutlineLogout className="text-xl " />,
+      handler: () => dispatch(logoutUser()),
+    },
   ];
   return (
     <>
@@ -74,10 +74,10 @@ const Menubar = () => {
           ))}
 
           <div
-            className="shadow-sm cursor-pointer md:absolute bottom-20 flex items-center justify-between border border-gray-300 rounded-full p-1 md:px-4 md:py-2 bg-[--bg-color]"
+            className="shadow-sm cursor-pointer sm:absolute bottom-20 flex items-center justify-between border border-gray-300 rounded-full p-1 md:px-4 md:py-2 bg-[--bg-color]"
             onClick={() => navigate(`/userProfile/${username}`)}
           >
-            <div className="flex items-center gap-2 ">
+            <div className="flex items-center gap-2 overflow-hidden text-ellipsis  whitespace-nowrap">
               <img
                 src={profile}
                 alt={username}
