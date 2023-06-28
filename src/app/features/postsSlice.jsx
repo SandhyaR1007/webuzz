@@ -91,7 +91,7 @@ export const editPost = createAsyncThunk(
       const response = await editPostService(encodedToken, postData);
       console.log({ response });
       if (response.status === 201) {
-        notify("Post Edited Successfully", true);
+        notify("success", "Post Edited Successfully");
         return response.data.posts;
       }
     } catch (err) {
@@ -108,7 +108,7 @@ export const deletePost = createAsyncThunk(
       const response = await deletePostService(encodedToken, postId);
       console.log({ response });
       if (response.status === 201) {
-        notify("Post Deleted", true);
+        notify("info", "Post Deleted");
         return response.data.posts;
       }
     } catch (err) {

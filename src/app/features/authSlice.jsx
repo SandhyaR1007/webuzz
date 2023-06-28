@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { postLogin, postSignup } from "../../services/apiServices";
+import { notify } from "../../utils/toastify";
 
 const initialState = {
   encodedToken:
@@ -13,7 +14,8 @@ const initialState = {
       ? null
       : JSON.parse(localStorage.getItem("foundUser")),
   loggingIn: false,
-  error: null,
+  loginError: null,
+  signupError: null,
 };
 export const userLogin = createAsyncThunk(
   "auth/userLogin",
@@ -30,6 +32,7 @@ export const userLogin = createAsyncThunk(
       return {};
     } catch (err) {
       console.log(err);
+      notify("error", err?.response?.data?.errors[0] ?? err.message);
       return rejectWithValue(err?.response?.data?.errors[0] ?? err.message);
     }
   }
@@ -49,6 +52,7 @@ export const userSignup = createAsyncThunk(
       return {};
     } catch (err) {
       console.log(err);
+      notify("error", err?.response?.data?.errors[0] ?? err.message);
       return rejectWithValue(err?.response?.data?.errors[0] ?? err.message);
     }
   }
@@ -81,7 +85,7 @@ const authSlice = createSlice({
       })
       .addCase(userLogin.rejected, (state, action) => {
         state.loggingIn = false;
-        state.error = action.payload;
+        state.loginError = action.payload;
       })
       .addCase(userSignup.pending, (state) => {
         state.loggingIn = true;
@@ -98,7 +102,7 @@ const authSlice = createSlice({
       })
       .addCase(userSignup.rejected, (state, action) => {
         state.loggingIn = false;
-        state.error = action.payload;
+        state.signupError = action.payload;
       });
   },
 });
