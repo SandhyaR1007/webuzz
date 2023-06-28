@@ -1,0 +1,53 @@
+:root {
+  --pink-color: #f3bac8;
+  --purple-color: #d8b4fe;
+  --blue-color: #bfdbfe;
+
+  --orange-color: #fed7aa;
+}
+.bg-dark {
+  background-color: rgb(21, 21, 21);
+}
+.bg-mid-black {
+  background-color: rgb(79 77 77 / 24%);
+}
+.shadow-light {
+  box-shadow: 2px 2px 0 rgb(1, 1, 1);
+}
+.btn-shadow-lg {
+  box-shadow: 3px 3px 0 rgb(1, 1, 1);
+}
+.shadow-dark {
+  box-shadow: 2px 2px 0 rgb(209, 208, 208);
+}
+.shadow-light-sm {
+  box-shadow: 4px 4px 0 rgb(209, 208, 208);
+}
+.shadow-dark-lg {
+  box-shadow: 4px 4px 0 rgb(209, 208, 208);
+}
+
+.btn-light {
+  @apply text-black border border-black rounded-full;
+  box-shadow: 2px 2px 0 rgb(1, 1, 1);
+}
+.btn-dark {
+  @apply text-black border border-black rounded-full;
+  box-shadow: 2px 2px 0 rgb(209, 208, 208);
+}
+
+.bg-pink {
+  @apply bg-pink-300;
+}
+.bg-purple {
+  @apply bg-purple-300;
+}
+.bg-lime {
+  @apply bg-lime-300;
+}
+.bg-yellow {
+  @apply bg-amber-300;
+}
+.border-rounded-dark {
+  @apply border border-black rounded-md;
+}
