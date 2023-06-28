@@ -34,7 +34,7 @@ const Search = () => {
   return (
     <div className="w-60 sm:w-80 relative">
       <label
-        className={`flex bg-gray-500/10 border border-gray-500 rounded-full  items-center gap-3 py-2  px-3 sm:px-4 w-full`}
+        className={`flex bg-gray-500/10 border border-gray-500 rounded-full  items-center gap-3 py-1 sm:py-2  px-3 sm:px-4 w-full`}
       >
         <BsSearch />
         <input

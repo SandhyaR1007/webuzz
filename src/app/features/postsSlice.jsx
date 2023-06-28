@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  commentOnPostService,
   createNewPostsService,
   deletePostService,
   dislikePostService,
@@ -90,7 +91,7 @@ export const editPost = createAsyncThunk(
       const response = await editPostService(encodedToken, postData);
       console.log({ response });
       if (response.status === 201) {
-        notify("Post Edited Successfully", true);
+        notify("success", "Post Edited Successfully");
         return response.data.posts;
       }
     } catch (err) {
@@ -107,7 +108,7 @@ export const deletePost = createAsyncThunk(
       const response = await deletePostService(encodedToken, postId);
       console.log({ response });
       if (response.status === 201) {
-        notify("Post Deleted", true);
+        notify("info", "Post Deleted");
         return response.data.posts;
       }
     } catch (err) {
@@ -116,6 +117,23 @@ export const deletePost = createAsyncThunk(
     }
   }
 );
+export const commentOnPost = createAsyncThunk(
+  "posts/commentOnPost",
+  async ({ encodedToken, postData }, { rejectWithValue }) => {
+    console.log({ encodedToken, postData });
+    try {
+      const response = await commentOnPostService(encodedToken, postData);
+      console.log({ response });
+      if (response.status === 201) {
+        return response.data.posts;
+      }
+    } catch (err) {
+      console.log({ err });
+      return rejectWithValue(err?.message);
+    }
+  }
+);
+
 const postsSlice = createSlice({
   name: "posts",
   initialState,
@@ -213,6 +231,11 @@ const postsSlice = createSlice({
         }
       })
       .addCase(deletePost.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.postsData = action.payload;
+        }
+      })
+      .addCase(commentOnPost.fulfilled, (state, action) => {
         if (action.payload) {
           state.postsData = action.payload;
         }

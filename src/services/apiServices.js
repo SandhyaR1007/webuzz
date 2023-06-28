@@ -13,6 +13,7 @@ import {
   SIGNUP,
   EDIT_PROFILE,
   EDIT_POST,
+  COMMENT_ON_POST,
 } from "./apiUrls";
 
 export const postLogin = (username, password) =>
@@ -27,6 +28,7 @@ export const postSignup = (userInfo) =>
   });
 
 export const getAllPostsService = () => axios.get(POSTS);
+export const getPostByIdService = (postId) => axios.get(`${POSTS}/${postId}`);
 
 export const createNewPostsService = (token, postData) =>
   axios.post(
@@ -79,6 +81,18 @@ export const deletePostService = (token, postId) =>
       authorization: token,
     },
   });
+
+export const commentOnPostService = (token, postData) => {
+  return axios.post(
+    `${COMMENT_ON_POST}${postData._id}`,
+    { postData },
+    {
+      headers: {
+        authorization: token,
+      },
+    }
+  );
+};
 
 export const getAllUsersService = () => axios.get(GET_ALL_USERS);
 

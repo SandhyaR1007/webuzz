@@ -9,6 +9,7 @@ export const DISLIKE_A_POST = `${baseUrl}/posts/dislike/`;
 export const BOOKMARK_A_POST = `${baseUrl}/users/bookmark/`;
 export const REMOVE_BOOKMARKED_POST = `${baseUrl}/users/remove-bookmark/`;
 export const EDIT_POST = `${baseUrl}/posts/edit/`;
+export const COMMENT_ON_POST = `${baseUrl}/posts/comment/`;
 
 export const GET_ALL_USERS = `${baseUrl}/users`;
 

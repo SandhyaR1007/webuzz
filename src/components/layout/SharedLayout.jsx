@@ -10,7 +10,7 @@ const SharedLayout = () => {
       <Navbar />
       <div className="mt-16">
         <Menubar />
-        <div className="border border-black flex items-start  gap-3 mx-0 sm:ms-[100px] md:ms-[250px] lg:me-[27vw] xs:px-10 min-h-screen  w-full sm:w-[80vw] lg:w-[53vw] bg-[--bg-color]">
+        <div className="border border-black flex items-start  gap-3 mx-0 sm:ms-[90px] md:ms-[250px] me-0 lg:me-[304px] px-3 sm:px-10 min-h-screen   sm:w-[100%-110px] md:w-[100%-250px] lg:w-[calc(100%-555px)] bg-[--bg-color] overflow-x-hidden">
           <Outlet />
         </div>
         <SuggestedUsers />

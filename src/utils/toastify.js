@@ -1,10 +1,25 @@
 import { toast } from "react-toastify";
 
-export const notify = (message, success) => {
-  console.log({ message });
-  if (success) {
-    toast.success(message);
+export const notify = (type, message, delay) => {
+  if (type === "success") {
+    toast.success(message, {
+      position: toast.POSITION.BOTTOM_LEFT,
+      delay,
+    });
+  } else if (type === "error") {
+    toast.error(message, {
+      position: toast.POSITION.BOTTOM_LEFT,
+      delay,
+    });
+  } else if (type === "warn") {
+    toast.warn(message, {
+      position: toast.POSITION.BOTTOM_LEFT,
+      delay,
+    });
   } else {
-    toast.error(message);
+    toast.info(message, {
+      position: toast.POSITION.BOTTOM_LEFT,
+      delay,
+    });
   }
 };

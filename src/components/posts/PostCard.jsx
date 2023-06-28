@@ -62,6 +62,7 @@ const PostCard = ({ postData, noBorder }) => {
       ),
     },
   ];
+
   return (
     <div
       className={`px-5 py-4   ${
@@ -87,12 +88,12 @@ const PostCard = ({ postData, noBorder }) => {
           </span>
         </section>
         {postData?.userId === _id && (
-          <div className="relative inline-block text-left">
+          <div className="relative inline-block text-left z-0">
             <CustomDropdownMenu
               dropdownMenu={dropdownMenu}
               icon={
                 <BsThreeDots
-                  className="cursor-pointer"
+                  className="cursor-pointer "
                   onClick={() => setShowDropdown(!showDropdown)}
                 />
               }
@@ -107,16 +108,13 @@ const PostCard = ({ postData, noBorder }) => {
           <p>{postData?.content}</p>
         )}
         <section className="py-2 ">
-          {postData?.postMedia.length > 0 &&
-            (postData?.postMedia.includes("mp4") ? (
-              <video src={postData?.postMedia} alt="" className="rounded-xl" />
-            ) : (
-              <img
-                src={postData?.postMedia}
-                className="rounded-xl border border-black"
-                alt=""
-              />
-            ))}
+          {postData?.postMedia?.length > 0 && (
+            <img
+              src={postData?.postMedia}
+              className="rounded-xl border border-black"
+              alt=""
+            />
+          )}
         </section>
       </main>
       <footer className="flex pt-2 items-center gap-6">
