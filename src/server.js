@@ -11,6 +11,7 @@ import {
   getPostHandler,
   deletePostHandler,
   editPostHandler,
+  commentOnPostHandler,
   likePostHandler,
   dislikePostHandler,
   getAllUserPostsHandler,
@@ -67,6 +68,7 @@ export function makeServer({ environment = "development" } = {}) {
       this.post("/posts", createPostHandler.bind(this));
       this.delete("/posts/:postId", deletePostHandler.bind(this));
       this.post("/posts/edit/:postId", editPostHandler.bind(this));
+      this.post("/posts/comment/:postId", commentOnPostHandler.bind(this));
       this.post("/posts/like/:postId", likePostHandler.bind(this));
       this.post("/posts/dislike/:postId", dislikePostHandler.bind(this));
 

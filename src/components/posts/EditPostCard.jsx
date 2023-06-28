@@ -15,7 +15,10 @@ const EditPostCard = ({ postData, setIsEditPost }) => {
     setIsEditPost(false);
   };
   return (
-    <div className="w-full p-5 border border-gray-400 rounded-md h-auto my-5 shadow-sm">
+    <div
+      onClick={(e) => e.stopPropagation()}
+      className="w-full p-5 border border-gray-400 rounded-md h-auto my-5 shadow-sm"
+    >
       <div className="flex items-start gap-4">
         <label className="w-full">
           <textarea

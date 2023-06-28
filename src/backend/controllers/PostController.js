@@ -151,7 +151,37 @@ export const editPostHandler = function (schema, request) {
     );
   }
 };
+export const commentOnPostHandler = function (schema, request) {
+  const user = requiresAuth.call(this, request);
+  try {
+    if (!user) {
+      return new Response(
+        404,
+        {},
+        {
+          errors: [
+            "The username you entered is not Registered. Not Found error",
+          ],
+        }
+      );
+    }
+    const postId = request.params.postId;
+    const { postData } = JSON.parse(request.requestBody);
+    let post = schema.posts.findBy({ _id: postId }).attrs;
 
+    post = { ...post, ...postData };
+    this.db.posts.update({ _id: postId }, post);
+    return new Response(201, {}, { posts: this.db.posts });
+  } catch (error) {
+    return new Response(
+      500,
+      {},
+      {
+        error,
+      }
+    );
+  }
+};
 /**
  * This handler handles liking a post in the db.
  * send POST Request at /api/posts/like/:postId
