@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { usersSelector } from "../app/features/usersSlice";
 
 import { getPostsByUsername } from "../services/apiHelper";
-import { PostList, UserProfileCard } from "../components";
+import { Loader, PostList, UserProfileCard } from "../components";
 import { postsSelector } from "../app/features/postsSlice";
 
 const UserProfile = () => {
@@ -48,7 +48,12 @@ const UserProfile = () => {
       });
     }
   }, [postsData]);
-  if (loading) return <h1>Loading.....</h1>;
+  if (loading)
+    return (
+      <div className="pt-5 text-center">
+        <Loader />
+      </div>
+    );
   return (
     <>
       <div className="flex flex-col gap-4 w-full p-1">

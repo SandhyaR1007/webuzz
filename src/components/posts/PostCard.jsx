@@ -73,16 +73,16 @@ const PostCard = ({ postData, noBorder }) => {
     >
       <header className="flex justify-between items-center">
         <section className="flex gap-2 items-center">
-          <h1 className="text-lg font-semibold">
+          <h1 className="text-sm sm:text-lg font-semibold">
             {postData?.firstName} {postData?.lastName}
           </h1>
           <Link
             to={`/userProfile/${postData?.username}`}
-            className="text-sm text-gray-400"
+            className="text-xs sm:text-sm text-gray-400"
           >
             @{postData?.username}
           </Link>
-          <span className="text-sm flex items-center ">
+          <span className="text-xs sm:text-sm flex items-center ">
             <BsDot />
             {moment(postData?.createdAt).fromNow()}
           </span>
