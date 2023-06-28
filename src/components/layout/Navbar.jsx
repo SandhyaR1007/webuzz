@@ -18,10 +18,10 @@ const Navbar = () => {
       <Search />
       <div className="flex sm:gap-10 sm:pe-5 items-center">
         <button
-          className={`hidden sm:block text-xl shadow-sm text-[--primary-text] border 
+          className={`  text-sm sm:text-xl shadow-sm text-[--primary-text] border 
             "bg-sky-300 shadow-light"
              
-            p-3 rounded-full `}
+             p-2 sm:p-3 rounded-full `}
           onClick={() => {
             const root = document.getElementById("root");
             if (theme) {
