@@ -6,6 +6,8 @@ import { Index as Routes } from "./routes/index";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers, usersSelector } from "./app/features/usersSlice";
 import { authSelector } from "./app/features/authSlice";
+import { theme, themeSwitcher } from "./utils/constants";
+import { setDefaultTheme } from "./app/features/themeSlice";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -14,6 +16,10 @@ const App = () => {
   useEffect(() => {
     if (encodedToken) dispatch(fetchUsers());
   }, [encodedToken]);
+  useEffect(() => {
+    dispatch(setDefaultTheme());
+  }, []);
+
   return (
     <div>
       <Routes />

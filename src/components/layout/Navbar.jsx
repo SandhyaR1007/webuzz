@@ -4,9 +4,10 @@ import { FaSun } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import Search from "../filters/Search";
 import logo from "../../assets/webuzzlogo.svg";
+import { themeSelector, themeSwitcher } from "../../app/features/themeSlice";
 
 const Navbar = () => {
-  const [theme, setTheme] = useState(false);
+  const { theme } = useSelector(themeSelector);
   const dispatch = useDispatch();
 
   return (
@@ -23,16 +24,10 @@ const Navbar = () => {
              
              p-2 sm:p-3 rounded-full `}
           onClick={() => {
-            const root = document.getElementById("root");
-            if (theme) {
-              root.setAttribute("class", "light-theme");
-            } else {
-              root.setAttribute("class", "dark-theme");
-            }
-            setTheme(!theme);
+            dispatch(themeSwitcher());
           }}
         >
-          <BsFillMoonStarsFill />
+          {theme === "dark" ? <BsFillMoonStarsFill /> : <FaSun />}
         </button>
       </div>
     </nav>

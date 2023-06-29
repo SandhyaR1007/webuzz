@@ -1,4 +1,4 @@
-.light-theme {
+.light {
   --bg-color: #fff;
   --primary-text: #000;
   --secondary-text: #6b7280;
@@ -6,7 +6,7 @@
   --shadow-lg: 3px 3px 0 rgb(1, 1, 1);
   --card-bg: #f9fafb;
 }
-.dark-theme {
+.dark {
   --bg-color: #17181c;
   --primary-text: #fff;
   --secondary-text: #6b7280;
