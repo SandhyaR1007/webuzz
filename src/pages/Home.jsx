@@ -28,11 +28,7 @@ const Home = () => {
       currentUser?.following.some(({ _id }) => _id === data.userId)
   );
   feedPosts =
-    sortBy === "latest"
-      ? sortByLatest(feedPosts)
-      : sortBy === "trending"
-      ? sortByTrending(feedPosts)
-      : feedPosts;
+    sortBy === "trending" ? sortByTrending(feedPosts) : sortByLatest(feedPosts);
 
   return (
     <>
