@@ -34,7 +34,7 @@ const Search = () => {
   return (
     <div className="w-60 sm:w-80 relative">
       <label
-        className={`flex bg-gray-500/10 border border-gray-500 rounded-full  items-center gap-3 py-1 sm:py-2  px-3 sm:px-4 w-full`}
+        className={`flex bg-gray-500/10 border border-[--border-color] rounded-full  items-center gap-3 py-1 sm:py-2  px-3 sm:px-4 w-full`}
       >
         <BsSearch />
         <input
@@ -46,7 +46,7 @@ const Search = () => {
         />
       </label>
       {searchQuery.length > 0 && (
-        <ul className="border border-gray-100/10 mt-1 absolute  z-1000 bg-[--card-bg] w-full shadow-sm p-1 rounded-lg text-[--primary-text]">
+        <ul className="border border-[--border-color] mt-1 absolute  z-1000 bg-[--card-bg] w-full shadow-sm p-1 rounded-lg text-[--primary-text]">
           {searching ? (
             <div className="text-center">
               {" "}
@@ -57,7 +57,7 @@ const Search = () => {
           ) : (
             foundUsers.map(({ profile, username, firstName, lastName }) => (
               <li
-                className="cursor-pointer hover:bg-black/10 text-sm p-2 border-b border-gray-100/10"
+                className="cursor-pointer hover:bg-black/10 text-sm p-2 border-b border-[--border-color]"
                 onClick={() => {
                   navigate(`/userProfile/${username}`);
                   setSearchQuery("");
