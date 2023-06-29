@@ -19,8 +19,8 @@ const Navbar = () => {
       <Search />
       <div className="flex sm:gap-10 sm:pe-5 items-center">
         <button
-          className={`  text-sm sm:text-xl shadow-sm text-[--primary-text] border 
-            "bg-sky-300 shadow-light"
+          className={`  text-sm sm:text-xl shadow-sm text-[--primary-text] border border-[--primary-text]
+            "bg-sky-300 shadow-sm"
              
              p-2 sm:p-3 rounded-full `}
           onClick={() => {

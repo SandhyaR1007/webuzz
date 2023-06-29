@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts, postsSelector } from "../app/features/postsSlice";
 import { Loader, PostList } from "../components";
@@ -18,7 +18,9 @@ const Explore = () => {
           <Loader />
         </div>
       ) : (
-        <PostList posts={postsData} />
+        <>
+          <PostList posts={postsData} />
+        </>
       )}
     </div>
   );
