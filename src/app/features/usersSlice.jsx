@@ -1,8 +1,4 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  isRejectedWithValue,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   bookmarkPostService,
   editProfileService,
@@ -11,33 +7,42 @@ import {
   removeBookmarkedPostService,
   unfollowUserService,
 } from "../../services/apiServices";
+import { notify } from "../../utils/toastify";
 
 const initialState = {
   usersData: [],
-  editing: false,
+
+  disabled: {
+    bookmarkDisabled: false,
+    followDisabled: false,
+    editDisabled: false,
+  },
 };
-export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
-  try {
-    const response = await getAllUsersService();
-    let usersList = [];
+export const fetchUsers = createAsyncThunk(
+  "users/fetchUsers",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await getAllUsersService();
+      let usersList = [];
 
-    if (response.status === 200) {
-      usersList = response.data.users;
+      if (response.status === 200) {
+        usersList = response.data.users;
+      }
+
+      return usersList;
+    } catch (err) {
+      console.log({ err });
+      return rejectWithValue(err?.message);
     }
-
-    return usersList;
-  } catch (err) {
-    console.log({ err });
-    return err;
   }
-});
+);
 
 export const bookmarkPost = createAsyncThunk(
   "users/bookmarkPost",
   async ({ token, postId, username }, { rejectWithValue }) => {
     try {
       const response = await bookmarkPostService(token, postId);
-      console.log({ response });
+
       if (response.status === 200 || response.status === 201) {
         let foundUser = localStorage.getItem("foundUser");
         if (foundUser) {
@@ -47,11 +52,11 @@ export const bookmarkPost = createAsyncThunk(
             JSON.stringify({ ...foundUser, bookmarks: response.data.bookmarks })
           );
         }
+        notify("success", "Post Bookmarked");
         return { bookmarks: response.data.bookmarks, username };
       }
       return {};
     } catch (err) {
-      console.log({ err });
       return rejectWithValue(err?.response?.data?.errors[0] || err?.message);
     }
   }
@@ -62,7 +67,7 @@ export const removePostFromBookmarks = createAsyncThunk(
   async ({ token, postId, username }, { rejectWithValue }) => {
     try {
       const response = await removeBookmarkedPostService(token, postId);
-      console.log({ response });
+
       if (response.status === 200 || response.status === 201) {
         let foundUser = localStorage.getItem("foundUser");
         if (foundUser) {
@@ -72,6 +77,7 @@ export const removePostFromBookmarks = createAsyncThunk(
             JSON.stringify({ ...foundUser, bookmarks: response.data.bookmarks })
           );
         }
+        notify("info", "Removed from Bookmarks");
         return { bookmarks: response.data.bookmarks, username };
       }
       return {};
@@ -85,11 +91,11 @@ export const removePostFromBookmarks = createAsyncThunk(
 export const followUser = createAsyncThunk(
   "users/followUser",
   async ({ encodedToken, userId }, { rejectWithValue }) => {
-    console.log(userId);
     try {
       const response = await followUserService(encodedToken, userId);
-      console.log({ response });
+
       if (response.status === 200) {
+        notify("success", "User Followed");
         return {
           followUser: response.data.followUser,
           user: response.data.user,
@@ -105,11 +111,11 @@ export const followUser = createAsyncThunk(
 export const unfollowUser = createAsyncThunk(
   "users/unfollowUser",
   async ({ encodedToken, userId }, { rejectWithValue }) => {
-    console.log("unfollow");
     try {
       const response = await unfollowUserService(encodedToken, userId);
-      console.log({ response });
+
       if (response.status === 200) {
+        notify("warn", "User UnFollowed");
         return {
           followUser: response.data.followUser,
           user: response.data.user,
@@ -127,8 +133,9 @@ export const editProfile = createAsyncThunk(
   async ({ encodedToken, userData }, { rejectWithValue }) => {
     try {
       const response = await editProfileService(encodedToken, userData);
-      console.log({ response });
+
       if (response.status === 201) {
+        notify("success", "Profile Edited Successfully");
         return response.data.user;
       }
     } catch (error) {
@@ -146,28 +153,44 @@ const usersSlice = createSlice({
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.usersData = action.payload;
       })
+      .addCase(bookmarkPost.pending, (state) => {
+        state.disabled.bookmarkDisabled = true;
+      })
       .addCase(bookmarkPost.fulfilled, (state, action) => {
-        console.log({ action });
         let userIndex = null;
         userIndex = state.usersData.findIndex(
           (data) => data.username === action.payload.username
         );
 
-        if (userIndex !== null)
+        if (userIndex !== null && userIndex !== undefined) {
           state.usersData[userIndex].bookmarks = action.payload.bookmarks;
+        }
+        state.disabled.bookmarkDisabled = false;
+      })
+      .addCase(bookmarkPost.rejected, (state) => {
+        state.disabled.bookmarkDisabled = false;
+      })
+      .addCase(removePostFromBookmarks.pending, (state) => {
+        state.disabled.bookmarkDisabled = true;
       })
       .addCase(removePostFromBookmarks.fulfilled, (state, action) => {
-        console.log({ action });
         let userIndex = null;
         userIndex = state.usersData.findIndex(
           (data) => data.username === action.payload.username
         );
-        console.log({ userIndex });
-        if (userIndex !== null)
+
+        if (userIndex !== null && userIndex !== undefined) {
           state.usersData[userIndex].bookmarks = action.payload.bookmarks;
+        }
+        state.disabled.bookmarkDisabled = false;
+      })
+      .addCase(removePostFromBookmarks.rejected, (state) => {
+        state.disabled.bookmarkDisabled = false;
+      })
+      .addCase(followUser.pending, (state) => {
+        state.disabled.followDisabled = true;
       })
       .addCase(followUser.fulfilled, (state, action) => {
-        console.log(action.payload);
         const { followUser, user } = action.payload;
         const followIndex = state.usersData.findIndex(
           (data) => data._id === followUser._id
@@ -175,7 +198,7 @@ const usersSlice = createSlice({
         const userIndex = state.usersData.findIndex(
           (data) => data._id === user._id
         );
-        console.log(followIndex, userIndex);
+
         if (followIndex !== undefined) {
           state.usersData[followIndex] = followUser;
         }
@@ -183,9 +206,15 @@ const usersSlice = createSlice({
           state.usersData[userIndex] = user;
           localStorage.setItem("foundUser", JSON.stringify(user));
         }
+        state.disabled.followDisabled = false;
+      })
+      .addCase(followUser.rejected, (state) => {
+        state.disabled.followDisabled = false;
+      })
+      .addCase(unfollowUser.pending, (state) => {
+        state.disabled.followDisabled = true;
       })
       .addCase(unfollowUser.fulfilled, (state, action) => {
-        console.log(action.payload);
         const { followUser, user } = action.payload;
         const followIndex = state.usersData.findIndex(
           (data) => data._id === followUser._id
@@ -193,7 +222,7 @@ const usersSlice = createSlice({
         const userIndex = state.usersData.findIndex(
           (data) => data._id === user._id
         );
-        console.log(followIndex, userIndex);
+
         if (followIndex !== undefined) {
           state.usersData[followIndex] = followUser;
         }
@@ -201,6 +230,13 @@ const usersSlice = createSlice({
           state.usersData[userIndex] = user;
           localStorage.setItem("foundUser", JSON.stringify(user));
         }
+        state.disabled.followDisabled = false;
+      })
+      .addCase(unfollowUser.rejected, (state) => {
+        state.disabled.followDisabled = false;
+      })
+      .addCase(editProfile.pending, (state) => {
+        state.disabled.editDisabled = true;
       })
       .addCase(editProfile.fulfilled, (state, action) => {
         const userIndex = state.usersData.findIndex(
@@ -211,6 +247,10 @@ const usersSlice = createSlice({
           state.usersData[userIndex] = action.payload;
           localStorage.setItem("foundUser", JSON.stringify(action.payload));
         }
+        state.disabled.editDisabled = false;
+      })
+      .addCase(editProfile.rejected, (state) => {
+        state.disabled.editDisabled = false;
       });
   },
 });

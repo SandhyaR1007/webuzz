@@ -16,6 +16,7 @@ const initialState = {
   loggingIn: false,
   loginError: null,
   signupError: null,
+  signingUp: false,
 };
 export const userLogin = createAsyncThunk(
   "auth/userLogin",
@@ -24,6 +25,7 @@ export const userLogin = createAsyncThunk(
       const response = await postLogin(username, password);
       console.log({ response });
       if (response.status === 200) {
+        notify("success", "Successfully Logged In");
         return {
           encodedToken: response.data.encodedToken,
           foundUser: response.data.foundUser,
@@ -44,6 +46,7 @@ export const userSignup = createAsyncThunk(
       const response = await postSignup(userInfo);
       console.log({ response });
       if (response.status === 201) {
+        notify("success", "Successfully Signed Up");
         return {
           encodedToken: response.data.encodedToken,
           foundUser: response.data.createdUser,
@@ -66,6 +69,7 @@ const authSlice = createSlice({
       localStorage.removeItem("foundUser");
       state.encodedToken = null;
       state.foundUser = null;
+      notify("info", "Successfully Logged Out");
     },
   },
   extraReducers: (builder) => {
@@ -88,10 +92,10 @@ const authSlice = createSlice({
         state.loginError = action.payload;
       })
       .addCase(userSignup.pending, (state) => {
-        state.loggingIn = true;
+        state.signingUp = true;
       })
       .addCase(userSignup.fulfilled, (state, action) => {
-        state.loggingIn = false;
+        state.signingUp = false;
         state.encodedToken = action.payload.encodedToken;
         localStorage.setItem("encodedToken", action.payload.encodedToken);
         state.foundUser = action.payload.foundUser;
@@ -101,7 +105,7 @@ const authSlice = createSlice({
         );
       })
       .addCase(userSignup.rejected, (state, action) => {
-        state.loggingIn = false;
+        state.signingUp = false;
         state.signupError = action.payload;
       });
   },

@@ -3,8 +3,11 @@ import { contentRoutes, privateRoutes, publicRoutes } from "./allRoutes";
 import { FeedWrapper } from "../components";
 import RequiresAuth from "./RequiresAuth";
 import { ToastContainer } from "react-toastify";
+import { useSelector } from "react-redux";
+import { themeSelector } from "../app/features/themeSlice";
 
 const Index = () => {
+  const { theme } = useSelector(themeSelector);
   return (
     <>
       <ToastContainer
@@ -17,7 +20,7 @@ const Index = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme={theme}
       />
       <Routes>
         {publicRoutes.map((data, idx) => (

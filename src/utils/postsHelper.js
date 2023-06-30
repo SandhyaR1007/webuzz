@@ -10,10 +10,13 @@ export const getIsPostBookmarked = (usersData, postId, username) => {
 export const getUserByUsername = (usersData, username) =>
   usersData?.find((data) => data.username === username);
 
-export const getIsUserFollow = (currentUserId, usersData, username) => {
-  return usersData
-    .find((data) => data._id === currentUserId)
-    ?.following?.find((data) => data.username === username);
+export const getIsUserFollow = (currentUsername, usersData, username) => {
+  return (
+    usersData
+      .find((data) => data.username === username)
+      ?.following?.filter((data) => data.username === currentUsername).length >
+    0
+  );
 };
 
 export const getPostsFromIds = (postsData, postIdArr) => {
