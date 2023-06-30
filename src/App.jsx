@@ -7,13 +7,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers, usersSelector } from "./app/features/usersSlice";
 import { authSelector } from "./app/features/authSlice";
 
+import { setDefaultTheme, themeSelector } from "./app/features/themeSlice";
+
 const App = () => {
   const dispatch = useDispatch();
   const { encodedToken } = useSelector(authSelector);
+  const { theme } = useSelector(themeSelector);
 
   useEffect(() => {
     if (encodedToken) dispatch(fetchUsers());
   }, [encodedToken]);
+  useEffect(() => {
+    dispatch(setDefaultTheme());
+  }, []);
+
   return (
     <div>
       <Routes />

@@ -1,16 +1,27 @@
-.light-theme {
+.light {
   --bg-color: #fff;
   --primary-text: #000;
   --secondary-text: #6b7280;
   --shadow-sm: 2px 2px 0 rgb(1, 1, 1);
   --shadow-lg: 3px 3px 0 rgb(1, 1, 1);
   --card-bg: #f9fafb;
+  --border-color: rgb(212, 212, 212);
 }
-.dark-theme {
+.dark {
   --bg-color: #17181c;
   --primary-text: #fff;
   --secondary-text: #6b7280;
   --shadow-sm: 2px 2px 0 rgb(209, 208, 208);
   --shadow-lg: 4px 4px 0 rgb(209, 208, 208);
   --card-bg: #1e1f23;
+  --border-color: rgb(243 244 246 / 0.1);
+}
+
+.dark .ant-modal .ant-modal-content {
+  background-color: #17181c !important;
+  color: #fff !important;
+}
+.dark .ant-modal .ant-modal-body {
+  background-color: #17181c !important;
+  color: #fff !important;
 }

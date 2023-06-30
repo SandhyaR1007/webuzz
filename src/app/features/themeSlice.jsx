@@ -1,29 +1,46 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  theme: "light",
+  theme: localStorage.getItem("theme") ?? "dark",
 };
 const themeSlice = createSlice({
   name: "theme",
   initialState,
   reducers: {
-    updateTheme: (state, action) => {
-      let root = document.body;
-      if (action.payload === "dark") {
-        state.theme = action.payload;
-
-        root.style.backgroundColor = "#151515";
-        root.style.color = "rgb(246, 246, 246)";
+    themeSwitcher: (state) => {
+      const root = document.getElementById("root");
+      if (localStorage.getItem("theme")) {
+        if (state.theme === "dark") {
+          localStorage.setItem("theme", "light");
+          root.setAttribute("class", "light");
+          state.theme = "light";
+        } else {
+          localStorage.setItem("theme", "dark");
+          root.setAttribute("class", "dark");
+          state.theme = "dark";
+        }
       } else {
-        state.theme = action.payload;
-        root.style.backgroundColor = "rgb(246, 246, 246)";
-        root.style.color = "#000";
+        localStorage.setItem("theme", "dark");
+        root.setAttribute("class", "dark");
+        state.theme = "dark";
+      }
+    },
+    setDefaultTheme: (state) => {
+      const currentTheme = localStorage.getItem("theme");
+      const root = document.getElementById("root");
+      if (currentTheme) {
+        root.setAttribute("class", currentTheme);
+        state.theme = currentTheme;
+      } else {
+        localStorage.setItem("theme", "dark");
+        root.setAttribute("class", "dark");
+        state.theme = "dark";
       }
     },
   },
 });
 
-export const { updateTheme } = themeSlice.actions;
+export const { themeSwitcher, setDefaultTheme } = themeSlice.actions;
 export const themeSelector = (state) => state.theme;
 
 export default themeSlice.reducer;

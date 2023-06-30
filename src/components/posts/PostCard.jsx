@@ -27,6 +27,7 @@ import moment from "moment/moment";
 import { useState } from "react";
 import CustomDropdownMenu from "../common/CustomDropdownMenu";
 import EditPostCard from "./EditPostCard";
+import { formatTimestamp } from "../../utils/constants";
 
 const PostCard = ({ postData, noBorder }) => {
   const dispatch = useDispatch();
@@ -54,7 +55,14 @@ const PostCard = ({ postData, noBorder }) => {
       label: (
         <span
           onClick={() => {
-            dispatch(deletePost({ encodedToken, postId: postData._id }));
+            {
+              dispatch(deletePost({ encodedToken, postId: postData._id }));
+              if (noBorder) {
+                setTimeout(() => {
+                  navigate("/");
+                }, 250);
+              }
+            }
           }}
         >
           Delete Post
@@ -84,7 +92,7 @@ const PostCard = ({ postData, noBorder }) => {
           </Link>
           <span className="text-xs sm:text-sm flex items-center ">
             <BsDot />
-            {moment(postData?.createdAt).fromNow()}
+            {formatTimestamp(postData?.createdAt)}
           </span>
         </section>
         {postData?.userId === _id && (
