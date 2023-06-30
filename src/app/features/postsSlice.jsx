@@ -14,7 +14,11 @@ const initialState = {
   postsData: [],
   error: null,
   loading: false,
-  isLiking: false,
+
+  disabled: {
+    likeDisabled: false,
+    commentDisabled: false,
+  },
 };
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
@@ -39,6 +43,7 @@ export const likePost = createAsyncThunk(
       const response = await likePostService(token, postId);
 
       if (response.status === 201) {
+        notify("success", "Liked Post");
         return response.data.posts;
       }
 
@@ -57,6 +62,7 @@ export const dislikePost = createAsyncThunk(
       const response = await dislikePostService(token, postId);
 
       if (response.status === 201) {
+        notify("info", "DisLiked Post");
         return response.data.posts;
       }
 
@@ -201,24 +207,24 @@ const postsSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(likePost.pending, (state) => {
-        state.isLiking = true;
+        state.disabled.likeDisabled = true;
       })
       .addCase(likePost.fulfilled, (state, action) => {
-        state.isLiking = false;
+        state.disabled.likeDisabled = false;
         state.postsData = action.payload;
       })
       .addCase(likePost.rejected, (state) => {
-        state.isLiking = false;
+        state.disabled.likeDisabled = false;
       })
       .addCase(dislikePost.pending, (state) => {
-        state.isLiking = true;
+        state.disabled.likeDisabled = true;
       })
       .addCase(dislikePost.fulfilled, (state, action) => {
-        state.isLiking = false;
+        state.disabled.likeDisabled = false;
         state.postsData = action.payload;
       })
       .addCase(dislikePost.rejected, (state) => {
-        state.isLiking = false;
+        state.disabled.likeDisabled = false;
       })
       .addCase(createNewPost.fulfilled, (state, action) => {
         if (action.payload) {
@@ -235,10 +241,17 @@ const postsSlice = createSlice({
           state.postsData = action.payload;
         }
       })
+      .addCase(commentOnPost.pending, (state) => {
+        state.disabled.commentDisabled = true;
+      })
       .addCase(commentOnPost.fulfilled, (state, action) => {
         if (action.payload) {
           state.postsData = action.payload;
         }
+        state.disabled.commentDisabled = false;
+      })
+      .addCase(commentOnPost.rejected, (state) => {
+        state.disabled.commentDisabled = false;
       });
   },
 });

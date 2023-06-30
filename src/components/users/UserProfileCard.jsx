@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BiLink } from "react-icons/bi";
-import { AiFillEdit } from "react-icons/ai";
+
 import { useDispatch, useSelector } from "react-redux";
 import { authSelector } from "../../app/features/authSlice";
 
@@ -13,22 +13,26 @@ import { getIsUserFollow } from "../../utils/postsHelper";
 import EditProfile from "./EditProfile";
 import CustomModal from "../common/CustomModal";
 
-const UserProfileCard = ({ userDetails, userPosts }) => {
+const UserProfileCard = ({ username, userDetails, userPosts }) => {
   const dispatch = useDispatch();
   const { encodedToken, foundUser } = useSelector(authSelector);
-  const { usersData } = useSelector(usersSelector);
+  const {
+    usersData,
+    disabled: { followDisabled, editDisabled },
+  } = useSelector(usersSelector);
   const [showModal, setShowModal] = useState(false);
 
-  const isFollowing = getIsUserFollow(
-    foundUser._id,
-    usersData,
-    foundUser.username
-  );
+  const isFollowing = getIsUserFollow(username, usersData, foundUser?.username);
+
   return (
     <header className="flex flex-col sm:flex-row items-center sm:items-start gap-1 sm:gap-5 shadow-md border border-gray-500 rounded-md p-1 sm:p-4 bg-[--card-bg] text-[--primary-text]">
       <CustomModal
         modalComponent={
-          <EditProfile userDetails={userDetails} setShowModal={setShowModal} />
+          <EditProfile
+            userDetails={userDetails}
+            setShowModal={setShowModal}
+            editDisabled={editDisabled}
+          />
         }
         showModal={showModal}
         setShowModal={setShowModal}
@@ -50,12 +54,14 @@ const UserProfileCard = ({ userDetails, userPosts }) => {
             {foundUser?._id === userDetails?._id ? (
               <>
                 <button
+                  disabled={editDisabled}
                   className={`hidden xs:block text-xs sm:text-base py-0.5 px-2 sm:px-5 btn-shadow bg-yellow btn-light`}
                   onClick={() => setShowModal(true)}
                 >
                   Edit Profile
                 </button>
                 <button
+                  disabled={editDisabled}
                   className={` xs:hidden text-xs sm:text-base py-0.5 px-2 sm:px-5 btn-shadow bg-yellow btn-light`}
                   onClick={() => setShowModal(true)}
                 >
@@ -64,11 +70,12 @@ const UserProfileCard = ({ userDetails, userPosts }) => {
               </>
             ) : (
               <button
+                disabled={followDisabled}
                 className={`text-xs sm:text-base py-0.5 px-3  ${
                   isFollowing
                     ? "bg-white border border-black"
                     : "bg-emerald-300"
-                } btn-light`}
+                } btn-light disabled:cursor-not-allowed`}
                 onClick={() => {
                   if (isFollowing) {
                     dispatch(

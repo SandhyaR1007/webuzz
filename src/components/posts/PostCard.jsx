@@ -13,6 +13,7 @@ import {
   deletePost,
   dislikePost,
   likePost,
+  postsSelector,
 } from "../../app/features/postsSlice";
 import { authSelector } from "../../app/features/authSlice";
 import { getIsPostBookmarked, getIsPostLiked } from "../../utils/postsHelper";
@@ -36,7 +37,13 @@ const PostCard = ({ postData, noBorder }) => {
     foundUser: { _id, username },
   } = useSelector(authSelector);
   const navigate = useNavigate();
-  const { usersData } = useSelector(usersSelector);
+  const {
+    usersData,
+    disabled: { bookmarkDisabled },
+  } = useSelector(usersSelector);
+  const {
+    disabled: { likeDisabled, commentDisabled },
+  } = useSelector(postsSelector);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isEditPost, setIsEditPost] = useState(false);
   const likedByUser = getIsPostLiked(postData, username);
@@ -127,7 +134,8 @@ const PostCard = ({ postData, noBorder }) => {
       </main>
       <footer className="flex pt-2 items-center gap-6">
         <button
-          className="flex items-center gap-1"
+          disabled={likeDisabled}
+          className="flex items-center gap-1 disabled:cursor-not-allowed"
           onClick={() => {
             if (likedByUser) {
               dispatch(
@@ -152,7 +160,8 @@ const PostCard = ({ postData, noBorder }) => {
           </span>
         </button>
         <button
-          className="flex items-center gap-1"
+          disabled={commentDisabled}
+          className="flex items-center gap-1 disabled:cursor-not-allowed"
           onClick={() => navigate(`/post/${postData._id}`)}
         >
           <span className="p-2 hover:text-sky-600 hover:bg-sky-600/10 rounded-full transition">
@@ -163,7 +172,8 @@ const PostCard = ({ postData, noBorder }) => {
           </span>
         </button>
         <button
-          className="flex items-center"
+          disabled={bookmarkDisabled}
+          className="flex items-center disabled:cursor-not-allowed"
           onClick={() => {
             if (bookmarkedByUser) {
               dispatch(

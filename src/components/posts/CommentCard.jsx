@@ -3,10 +3,15 @@ import { BsThreeDots } from "react-icons/bs";
 import CustomDropdownMenu from "../common/CustomDropdownMenu";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { commentOnPost, replyOnComment } from "../../app/features/postsSlice";
+import { commentOnPost } from "../../app/features/postsSlice";
 import { authSelector } from "../../app/features/authSlice";
 
-const CommentCard = ({ comment, postData, currentUsername }) => {
+const CommentCard = ({
+  comment,
+  postData,
+  currentUsername,
+  commentDisabled,
+}) => {
   const { encodedToken } = useSelector(authSelector);
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false);
@@ -117,6 +122,8 @@ const CommentCard = ({ comment, postData, currentUsername }) => {
             <div className="flex gap-3">
               <button onClick={() => setIsEdit(false)}>cancel</button>
               <button
+                disabled={commentDisabled}
+                className="disabled:cursor-not-allowed"
                 onClick={() => {
                   editComment();
                   setIsEdit(false);
@@ -152,8 +159,10 @@ const CommentCard = ({ comment, postData, currentUsername }) => {
                       cancel
                     </button>
                     <button
-                      disabled={reply?.reply?.trim().length === 0}
-                      className="text-xs text-pink-500"
+                      disabled={
+                        reply?.reply?.trim().length === 0 || commentDisabled
+                      }
+                      className="text-xs text-pink-500 disabled:cursor-not-allowed"
                       onClick={() => {
                         replyComment();
                         setIsReply(false);
@@ -167,8 +176,9 @@ const CommentCard = ({ comment, postData, currentUsername }) => {
               ) : (
                 <div>
                   <button
+                    disabled={commentDisabled}
                     onClick={() => setIsReply(true)}
-                    className="text-xs font-semibold text-sky-500 p-1 rounded-sm"
+                    className="text-xs font-semibold text-sky-500 p-1 rounded-sm disabled:cursor-not-allowed"
                   >
                     Reply
                   </button>

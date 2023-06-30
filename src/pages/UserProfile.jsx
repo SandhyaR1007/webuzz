@@ -57,7 +57,11 @@ const UserProfile = () => {
   return (
     <>
       <div className="flex flex-col gap-4 w-full p-1">
-        <UserProfileCard userDetails={userDetails} userPosts={userPosts} />
+        <UserProfileCard
+          username={username}
+          userDetails={userDetails}
+          userPosts={userPosts}
+        />
         <main>{<PostList posts={userPosts} />}</main>
       </div>
     </>
