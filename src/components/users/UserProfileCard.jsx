@@ -12,6 +12,7 @@ import {
 import { getIsUserFollow } from "../../utils/postsHelper";
 import EditProfile from "./EditProfile";
 import CustomModal from "../common/CustomModal";
+import UsersList from "./UsersList";
 
 const UserProfileCard = ({ username, userDetails, userPosts }) => {
   const dispatch = useDispatch();
@@ -20,20 +21,14 @@ const UserProfileCard = ({ username, userDetails, userPosts }) => {
     usersData,
     disabled: { followDisabled, editDisabled },
   } = useSelector(usersSelector);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(null);
 
   const isFollowing = getIsUserFollow(username, usersData, foundUser?.username);
 
   return (
     <header className="flex flex-col sm:flex-row items-center sm:items-start gap-1 sm:gap-5 shadow-md border border-gray-500 rounded-md p-1 sm:p-4 bg-[--card-bg] text-[--primary-text]">
       <CustomModal
-        modalComponent={
-          <EditProfile
-            userDetails={userDetails}
-            setShowModal={setShowModal}
-            editDisabled={editDisabled}
-          />
-        }
+        modalComponent={showModal}
         showModal={showModal}
         setShowModal={setShowModal}
       />
@@ -56,14 +51,30 @@ const UserProfileCard = ({ username, userDetails, userPosts }) => {
                 <button
                   disabled={editDisabled}
                   className={`hidden xs:block text-xs sm:text-base py-0.5 px-2 sm:px-5 btn-shadow bg-yellow btn-light`}
-                  onClick={() => setShowModal(true)}
+                  onClick={() =>
+                    setShowModal(
+                      <EditProfile
+                        userDetails={userDetails}
+                        setShowModal={setShowModal}
+                        editDisabled={editDisabled}
+                      />
+                    )
+                  }
                 >
                   Edit Profile
                 </button>
                 <button
                   disabled={editDisabled}
                   className={` xs:hidden text-xs sm:text-base py-0.5 px-2 sm:px-5 btn-shadow bg-yellow btn-light`}
-                  onClick={() => setShowModal(true)}
+                  onClick={() =>
+                    setShowModal(
+                      <EditProfile
+                        userDetails={userDetails}
+                        setShowModal={setShowModal}
+                        editDisabled={editDisabled}
+                      />
+                    )
+                  }
                 >
                   Edit
                 </button>
@@ -106,11 +117,25 @@ const UserProfileCard = ({ username, userDetails, userPosts }) => {
           >
             {userPosts.length} Posts
           </span>
-          <span className="bg-emerald-100 rounded-full text-xs sm:text-sm py-1 px-4">
+          <span
+            onClick={() =>
+              setShowModal(
+                <UsersList isFollow usersArr={userDetails?.followers} />
+              )
+            }
+            className="cursor-pointer bg-emerald-100 rounded-full text-xs sm:text-sm py-1 px-4"
+          >
             {userDetails?.followers.length} Followers
           </span>
-          <span className="bg-amber-100 rounded-full text-xs sm:text-sm py-1 px-4">
-            {userDetails?.following.length} Following
+          <span
+            onClick={() =>
+              setShowModal(
+                <UsersList isFollow usersArr={userDetails?.following} />
+              )
+            }
+            className="cursor-pointer bg-amber-100 rounded-full text-xs sm:text-sm py-1 px-4"
+          >
+            {userDetails?.following?.length} Following
           </span>
         </div>
         <div className="flex items-center gap-1">
