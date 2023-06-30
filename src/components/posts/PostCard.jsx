@@ -23,7 +23,6 @@ import {
   usersSelector,
 } from "../../app/features/usersSlice";
 import { Link, useNavigate } from "react-router-dom";
-import moment from "moment/moment";
 
 import { useState } from "react";
 import CustomDropdownMenu from "../common/CustomDropdownMenu";

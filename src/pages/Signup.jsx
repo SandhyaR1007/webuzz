@@ -59,7 +59,7 @@ const Signup = () => {
                 name="firstName"
                 value={userInfo.firstName}
                 onChange={handleInputChange}
-                className="border border-gray-600 px-2 py-1 sm:text-sm py-1 sm:py-2 bg-[#1e1f23] text-gray-50  w-full outline-none rounded-lg "
+                className="border border-gray-600 px-2  sm:text-sm py-1 sm:py-2 bg-[#1e1f23] text-gray-50  w-full outline-none rounded-lg "
               />
             </label>
             <label htmlFor="lastName">
