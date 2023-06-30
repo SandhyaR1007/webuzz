@@ -18,3 +18,6 @@ export { default as Loader } from "./common/Loader";
 
 export { default as Filters } from "./filters/Filters";
 export { default as Search } from "./filters/Search";
+
+export { default as UsersList } from "./users/UsersList";
+export { default as SuggestedUsersList } from "./users/SuggestedUsersList";

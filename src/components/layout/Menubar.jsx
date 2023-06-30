@@ -11,6 +11,8 @@ import CustomModal from "../common/CustomModal";
 import NewPostCard from "../posts/NewPostCard";
 import CustomDropdownMenu from "../common/CustomDropdownMenu";
 
+import SuggestedUsersList from "../users/SuggestedUsersList";
+
 const Menubar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,7 +20,7 @@ const Menubar = () => {
     encodedToken,
     foundUser: { username, profile, firstName, lastName },
   } = useSelector(authSelector);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(null);
   useEffect(() => {
     if (encodedToken === null) {
       setTimeout(() => {
@@ -42,7 +44,7 @@ const Menubar = () => {
     {
       name: "New Post",
       icon: <FaFeatherAlt className="text-2xl " />,
-      handler: () => setShowModal(true),
+      handler: () => setShowModal(<NewPostCard />),
     },
   ];
 
@@ -53,7 +55,11 @@ const Menubar = () => {
     },
     {
       key: "2",
-      label: <span onClick={() => navigate("/bookmarks")}>Suggestions</span>,
+      label: (
+        <span onClick={() => setShowModal(<SuggestedUsersList />)}>
+          Suggestions
+        </span>
+      ),
     },
     {
       key: "3",
@@ -64,7 +70,7 @@ const Menubar = () => {
   return (
     <>
       <CustomModal
-        modalComponent={<NewPostCard />}
+        modalComponent={showModal}
         showModal={showModal}
         setShowModal={setShowModal}
         width={600}

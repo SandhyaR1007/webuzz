@@ -72,7 +72,7 @@ const EditProfile = ({ userDetails, setShowModal, editDisabled }) => {
 
   return (
     <form
-      className="flex flex-col py-3 px-5 gap-3 border border-gray-400 bg-purple-50 rounded-md "
+      className="flex flex-col py-3 px-5 gap-3 border border-[--border-color] bg-[--bg-color] rounded-md "
       onSubmit={handleSubmit}
     >
       <section className="relative">
@@ -106,7 +106,7 @@ const EditProfile = ({ userDetails, setShowModal, editDisabled }) => {
           rows={4}
           name="bio"
           value={userData?.bio}
-          className="w-full border border-gray-400 rounded-md p-1 outline-none"
+          className="w-full border border-[--border-color] bg-[--card-bg] rounded-md p-1 outline-none"
           onChange={handleChange}
         />
       </label>
@@ -116,7 +116,7 @@ const EditProfile = ({ userDetails, setShowModal, editDisabled }) => {
           type="text"
           name="portfolio"
           value={userData?.portfolio}
-          className="w-full border border-gray-400 rounded-md p-1"
+          className="w-full border border-[--border-color] bg-[--card-bg] rounded-md p-1"
           onChange={handleChange}
         />
       </label>

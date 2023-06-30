@@ -11,7 +11,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   return (
-    <nav className="fixed left-0 right-0 top-0 py-4 px-2 xs:px-10 md:px-20  flex items-center justify-between gap-2  z-2  bg-[--card-bg] text-[--primary-text] h-16 shadow-md z-2">
+    <nav className="fixed left-0 right-0 top-0 py-4 px-2 xs:px-10 md:px-20  flex items-center justify-between gap-2  z-50  bg-[--card-bg] text-[--primary-text] h-16 shadow-md z-2">
       <div className="flex items-center gap-1 text-3xl text-violet-500 font-secondary">
         <img src={logo} className="h-10" />
         <span className="hidden sm:block">Webuzz</span>

@@ -5,7 +5,7 @@ import { followUser } from "../../app/features/usersSlice";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-export const UsersCard = ({ userData }) => {
+export const UsersCard = ({ userData, isFollow }) => {
   const dispatch = useDispatch();
   const { encodedToken } = useSelector(authSelector);
 
@@ -21,9 +21,9 @@ export const UsersCard = ({ userData }) => {
           className="w-10 h-10 rounded-lg border border-black object-cover"
         />
         <div className="flex flex-col">
-          <h1 className="font-semibold ">
+          <h3 className="font-semibold text-sm">
             {firstName} {lastName}
-          </h1>
+          </h3>
 
           <Link
             to={`/userProfile/${userData.username}`}
@@ -33,16 +33,18 @@ export const UsersCard = ({ userData }) => {
           </Link>
         </div>
       </div>
-      <button
-        disabled={clicked}
-        onClick={() => {
-          dispatch(followUser({ encodedToken, userId: userData._id }));
-          setClicked(true);
-        }}
-        className="bg-pink-300  text-sm px-3 py-0.5 rounded-full border  shadow-[--shadow-sm] "
-      >
-        Follow
-      </button>
+      {!isFollow && (
+        <button
+          disabled={clicked}
+          onClick={() => {
+            dispatch(followUser({ encodedToken, userId: userData._id }));
+            setClicked(true);
+          }}
+          className="bg-pink-300  text-xs px-3 py-0.5 rounded-full border  shadow-[--shadow-sm] "
+        >
+          Follow
+        </button>
+      )}
     </div>
   );
 };
