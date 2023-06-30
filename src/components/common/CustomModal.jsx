@@ -2,12 +2,7 @@ import { ConfigProvider, Modal, theme } from "antd";
 import { useSelector } from "react-redux";
 import { themeSelector } from "../../app/features/themeSlice";
 
-const CustomModal = ({
-  modalComponent,
-  showModal,
-  setShowModal,
-  width = 400,
-}) => {
+const CustomModal = ({ modalComponent, showModal, setShowModal }) => {
   const { theme: currentTheme } = useSelector(themeSelector);
   return (
     <ConfigProvider
@@ -19,8 +14,9 @@ const CustomModal = ({
       }}
     >
       <Modal
+        centered={true}
         open={showModal}
-        onCancel={() => setShowModal(false)}
+        onCancel={() => setShowModal(null)}
         footer={null}
       >
         {modalComponent}
