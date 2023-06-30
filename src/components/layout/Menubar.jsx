@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 
 import { AiFillCompass, AiOutlineLogout } from "react-icons/ai";
-import { FaHome, FaUserNinja, FaFeatherAlt, FaBookmark } from "react-icons/fa";
+import { BsThreeDots } from "react-icons/bs";
+import { FaHome, FaFeatherAlt, FaBookmark } from "react-icons/fa";
 
 import { useNavigate } from "react-router";
 import { authSelector, logoutUser } from "../../app/features/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CustomModal from "../common/CustomModal";
 import NewPostCard from "../posts/NewPostCard";
+import CustomDropdownMenu from "../common/CustomDropdownMenu";
 
 const Menubar = () => {
   const navigate = useNavigate();
@@ -36,22 +38,29 @@ const Menubar = () => {
       icon: <AiFillCompass className="text-2xl " />,
       handler: () => navigate("/explore"),
     },
-    {
-      name: "Bookmarks",
-      icon: <FaBookmark className="text-xl  " />,
-      handler: () => navigate("/bookmarks"),
-    },
+
     {
       name: "New Post",
       icon: <FaFeatherAlt className="text-2xl " />,
       handler: () => setShowModal(true),
     },
+  ];
+
+  const dropdownMenu = [
     {
-      name: "Log Out",
-      icon: <AiOutlineLogout className="text-xl " />,
-      handler: () => dispatch(logoutUser()),
+      key: "1",
+      label: <span onClick={() => navigate("/bookmarks")}>Bookmarks</span>,
+    },
+    {
+      key: "2",
+      label: <span onClick={() => navigate("/bookmarks")}>Suggestions</span>,
+    },
+    {
+      key: "3",
+      label: <span onClick={() => dispatch(logoutUser())}>Log Out</span>,
     },
   ];
+
   return (
     <>
       <CustomModal
@@ -72,6 +81,28 @@ const Menubar = () => {
               <span className="hidden md:block">{item?.name}</span>
             </li>
           ))}
+
+          <li
+            onClick={() => navigate("/bookmarks")}
+            className="hidden sm:flex items-center  text-xl  gap-4  py-1 px-3 cursor-pointer rounded-full  hover:text-yellow-500 transition"
+          >
+            <FaBookmark className="text-xl  " />
+            <span className="hidden md:block">Bookmarks</span>
+          </li>
+          <li
+            onClick={() => dispatch(logoutUser())}
+            className="hidden sm:flex items-center  text-xl  gap-4  py-1 px-3 cursor-pointer rounded-full  hover:text-yellow-500 transition"
+          >
+            <AiOutlineLogout className="text-xl " />
+            <span className="hidden md:block">Log Out</span>
+          </li>
+
+          <li className="flex sm:hidden items-center  text-xl  gap-4  py-1 px-3 cursor-pointer rounded-full  hover:text-yellow-500 transition">
+            <CustomDropdownMenu
+              dropdownMenu={dropdownMenu}
+              icon={<BsThreeDots className="text-xl " />}
+            />
+          </li>
 
           <div
             className="shadow-sm cursor-pointer sm:absolute bottom-20 flex items-center justify-between border border-gray-300 rounded-full p-1 md:px-4 md:py-2 bg-[--bg-color]"
