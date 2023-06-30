@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { authSelector } from "../../app/features/authSlice";
 import { followUser } from "../../app/features/usersSlice";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export const UsersCard = ({ userData }) => {
   const dispatch = useDispatch();
   const { encodedToken } = useSelector(authSelector);
+
   const { firstName, lastName, username, profile } = userData;
+  const [clicked, setClicked] = useState(false);
 
   return (
     <div className="flex items-center justify-between ">
@@ -31,10 +34,12 @@ export const UsersCard = ({ userData }) => {
         </div>
       </div>
       <button
+        disabled={clicked}
         onClick={() => {
           dispatch(followUser({ encodedToken, userId: userData._id }));
+          setClicked(true);
         }}
-        className="bg-pink-300  text-sm px-3 py-0.5 rounded-full border  shadow-[--shadow-sm]"
+        className="bg-pink-300  text-sm px-3 py-0.5 rounded-full border  shadow-[--shadow-sm] "
       >
         Follow
       </button>

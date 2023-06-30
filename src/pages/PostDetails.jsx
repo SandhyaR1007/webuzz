@@ -11,7 +11,10 @@ import { authSelector } from "../app/features/authSlice";
 
 const PostDetails = () => {
   const { encodedToken } = useSelector(authSelector);
-  const { postsData } = useSelector(postsSelector);
+  const {
+    postsData,
+    disabled: { commentDisabled },
+  } = useSelector(postsSelector);
 
   const [postInfo, setPostInfo] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -87,7 +90,9 @@ const PostDetails = () => {
                 }
               />
               <button
-                disabled={newComment?.comment?.trim()?.length === 0}
+                disabled={
+                  newComment?.comment?.trim()?.length === 0 || commentDisabled
+                }
                 className="hover:bg-purple-500/10 disabled:hover:bg-none py-1 px-3 rounded-md text-purple-500 font-semibold disabled:text-slate-100 transition "
                 onClick={() => {
                   commentHandler();
@@ -104,6 +109,7 @@ const PostDetails = () => {
                     postData={postInfo}
                     comment={data}
                     currentUsername={userInfo?.username}
+                    commentDisabled={commentDisabled}
                   />
                 ))}
             </section>

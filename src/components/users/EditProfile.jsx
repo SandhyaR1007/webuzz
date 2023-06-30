@@ -8,7 +8,7 @@ import { useMedia } from "../../hooks/useMedia";
 import CustomDropdownMenu from "../common/CustomDropdownMenu";
 import { avatars } from "../../utils/constants";
 import Loader from "../common/Loader";
-const EditProfile = ({ userDetails, setShowModal }) => {
+const EditProfile = ({ userDetails, setShowModal, editDisabled }) => {
   const { encodedToken } = useSelector(authSelector);
   const dispatch = useDispatch();
   const [userData, setUserData] = useState(userDetails);
@@ -129,7 +129,7 @@ const EditProfile = ({ userDetails, setShowModal }) => {
           Cancel
         </button>
         <button
-          disabled={uploading}
+          disabled={uploading || editDisabled}
           type="submit"
           className="btn-light bg-yellow px-5 py-1 disabled:bg-yellow-400/70 disabled:text-gray-500"
         >
