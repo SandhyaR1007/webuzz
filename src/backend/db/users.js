@@ -29,7 +29,7 @@ export const users = [
     updatedAt: "2023-06-17T10:33:36+05:30",
     email: "gojo@jujutsu.high",
     profile: gojoProfile,
-    portfolio: "https://vinit-kanse.netlify.app",
+    portfolio: "https://sandhya-dev-7.netlify.app/",
     bio: "Don't Worry, I'm The Strongest",
     followers: [
       {
@@ -86,7 +86,7 @@ export const users = [
     updatedAt: "2023-07-10T10:33:36+05:30",
     email: "fushguro@jujutsu.tech",
     profile: fushiguroProfile,
-    link: "https://vinit-kanse.netlify.app",
+    link: "https://sandhya-dev-7.netlify.app/",
     bio: "Divine Dogs…. Go and Feast!",
     followers: [],
     following: [],
@@ -102,7 +102,7 @@ export const users = [
     updatedAt: "2023-06-19T09:00:00+05:30",
     email: "naruto@konoha.village",
     profile: narutoProfile,
-    portfolio: "https://example.com/naruto-portfolio",
+    portfolio: "https://eyesome.netlify.app/",
     bio: "Believe it!",
     followers: [
       {
@@ -134,7 +134,7 @@ export const users = [
     updatedAt: "2023-06-19T10:00:00+05:30",
     email: "jujutsu@kaisen.tech",
     profile: jujutsuKaisenProfile,
-    portfolio: "https://example.com/kakashi-portfolio",
+    portfolio: "https://eyesome.netlify.app/",
     bio: "You Dare Touch My Soul?",
     followers: [
       {
@@ -166,7 +166,7 @@ export const users = [
     updatedAt: "2023-06-19T10:00:00+05:30",
     email: "kakashi@konoha.village",
     profile: kakashiProfile,
-    portfolio: "https://example.com/kakashi-portfolio",
+    portfolio: "https://eyesome.netlify.app/",
     bio: "Those who break the rules are scum, but those who abandon their friends are worse than scum.",
     followers: [
       {
@@ -198,7 +198,7 @@ export const users = [
     updatedAt: "2023-06-19T11:00:00+05:30",
     email: "studioghibli@tokyo.tech",
     profile: ghibliProfile,
-    portfolio: "https://example.com/sasuke-portfolio",
+    portfolio: "https://webuzz.netlify.app/",
     bio: "Creating Experiences",
     followers: [
       {
@@ -230,7 +230,7 @@ export const users = [
     updatedAt: "2023-06-19T11:00:00+05:30",
     email: "sasuke@konoha.village",
     profile: sasukeProfile,
-    portfolio: "https://example.com/sasuke-portfolio",
+    portfolio: "https://webuzz.netlify.app/",
     bio: "I'll become Hokage and change the village.",
     followers: [
       {
