@@ -10,6 +10,7 @@ import {
   itadoriPosts,
   itadoriProfile,
   jjkPosts,
+  kakashiPosts,
   kakashiProfile,
   narutoPosts,
   narutoProfile,
@@ -645,6 +646,49 @@ export const posts = [
     createdAt: "2023-05-18T10:33:36+05:30",
     updatedAt: "2023-05-19T10:33:36+05:30",
     userId: "8c0aa5c2-864c-47d8-a490-e25cbae56be0-90s",
+  },
+  {
+    _id: "21999085-9cf6-47f4-91f8-1de9af5e990asd",
+    content: "Team 7 🦊🐌🐍📚",
+    postMedia: kakashiPosts,
+    likes: {
+      likeCount: 111,
+      likedBy: [
+        {
+          _id: "2c71b5c1-e6dd-4e6e-b072-c54cfe05db89",
+          firstName: "Itadori",
+          lastName: "Yuji",
+          username: "not_just_sukunas_vessel",
+          profile: itadoriProfile,
+        },
+        {
+          _id: "fe3029a4-9591-4435-879e-bccdac5b45e6",
+          firstName: "Fushiguro",
+          lastName: "Megumi",
+          username: "megumi.fushiguro",
+          profile: fushiguroProfile,
+        },
+      ],
+      dislikedBy: [],
+    },
+    comments: [
+      {
+        _id: "a1ab9fba-40e0-4fc2-b353-6ced3bec9e75",
+        comment: "Dattebayo!",
+        username: "dattebayo_naruto",
+        createdAt: "2023-06-10T10:43:36+05:30",
+        firstName: "Naruto",
+        lastName: "Uzumaki",
+
+        profile: narutoProfile,
+      },
+    ],
+    username: "copyninja_kakashi",
+    firstName: "Kakashi",
+    lastName: "Hatake",
+    createdAt: "2023-05-18T10:33:36+05:30",
+    updatedAt: "2023-05-19T10:33:36+05:30",
+    userId: "3f1d4f4a-55a6-45f9-97df-eeaf39983f8d",
   },
 ];
 console.log(posts);

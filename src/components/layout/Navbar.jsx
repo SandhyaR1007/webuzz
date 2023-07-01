@@ -18,7 +18,7 @@ const Navbar = () => {
       <Search />
       <div className="flex sm:gap-10 sm:pe-5 items-center">
         <button
-          className={`  text-sm sm:text-xl  text-[--primary-text] border border-[--primary-text]
+          className={`  text-sm sm:text-xl  text-[--primary-text] border border-black
             ${
               theme === "dark"
                 ? "bg-blue-500 shadow-dark"

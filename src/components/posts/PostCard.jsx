@@ -87,7 +87,7 @@ const PostCard = ({ postData, noBorder }) => {
     >
       <header className="flex justify-between items-center">
         <section className="flex gap-2 items-start sm:items-center">
-          <div className="flex flex-col sm:flex-row items-center sm:gap-2 mb-1">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2 mb-1">
             <h1 className="text-sm sm:text-lg font-semibold">
               {truncateWithEllipses(
                 `${postData?.firstName} ${postData?.lastName}`
