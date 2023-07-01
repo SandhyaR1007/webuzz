@@ -8,6 +8,7 @@ import PostCard from "../components/posts/PostCard";
 import { CommentCard, Loader } from "../components";
 import { getPostById } from "../services/apiHelper";
 import { authSelector } from "../app/features/authSlice";
+import { scrollToTop } from "../utils/utils";
 
 const PostDetails = () => {
   const { encodedToken } = useSelector(authSelector);
@@ -42,6 +43,9 @@ const PostDetails = () => {
 
     dispatch(commentOnPost({ encodedToken, postData: updatedData }));
   };
+  useEffect(() => {
+    scrollToTop();
+  }, []);
   useEffect(() => {
     if (postId) {
       setLoading(true);

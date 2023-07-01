@@ -4,10 +4,13 @@ import { authSelector } from "../../app/features/authSlice";
 import { followUser } from "../../app/features/usersSlice";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { truncateWithEllipses } from "../../utils/utils";
+import { themeSelector } from "../../app/features/themeSlice";
 
 export const UsersCard = ({ userData, isFollow }) => {
   const dispatch = useDispatch();
   const { encodedToken } = useSelector(authSelector);
+  const { theme } = useSelector(themeSelector);
 
   const { firstName, lastName, username, profile } = userData;
   const [clicked, setClicked] = useState(false);
@@ -21,7 +24,7 @@ export const UsersCard = ({ userData, isFollow }) => {
           className="w-10 h-10 rounded-lg border border-black object-cover"
         />
         <div className="flex flex-col">
-          <h3 className="font-semibold text-sm">
+          <h3 className="font-semibold text-sm w-full overflow-hidden text-ellipsis">
             {firstName} {lastName}
           </h3>
 
@@ -29,7 +32,7 @@ export const UsersCard = ({ userData, isFollow }) => {
             to={`/userProfile/${userData.username}`}
             className="text-xs text-gray-400"
           >
-            @{username}
+            @{truncateWithEllipses(username)}
           </Link>
         </div>
       </div>
@@ -40,7 +43,9 @@ export const UsersCard = ({ userData, isFollow }) => {
             dispatch(followUser({ encodedToken, userId: userData._id }));
             setClicked(true);
           }}
-          className="bg-pink-300  text-xs px-3 py-0.5 rounded-full border  shadow-[--shadow-sm] "
+          className={`bg-pink-300  text-xs px-3 py-0.5 rounded-full text-black border border-black ${
+            theme === "dark" ? "shadow-dark" : "shadow-light"
+          }`}
         >
           Follow
         </button>

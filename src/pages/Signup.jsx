@@ -5,6 +5,7 @@ import { authSelector, userSignup } from "../app/features/authSlice";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { avatars, signupImg } from "../utils/constants";
+import { scrollToTop } from "../utils/utils";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -27,6 +28,9 @@ const Signup = () => {
     e.preventDefault();
     dispatch(userSignup(userInfo));
   };
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   useEffect(() => {
     if (encodedToken) {

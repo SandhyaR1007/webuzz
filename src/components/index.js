@@ -15,6 +15,7 @@ export { default as CommentCard } from "./posts/CommentCard";
 export { default as CustomModal } from "./common/CustomModal";
 export { default as CustomDropdownMenu } from "./common/CustomDropdownMenu";
 export { default as Loader } from "./common/Loader";
+export { default as NoPosts } from "./common/NoPosts";
 
 export { default as Filters } from "./filters/Filters";
 export { default as Search } from "./filters/Search";

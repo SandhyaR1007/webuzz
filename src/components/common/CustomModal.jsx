@@ -14,6 +14,7 @@ const CustomModal = ({ modalComponent, showModal, setShowModal }) => {
       }}
     >
       <Modal
+        closable={false}
         centered={true}
         open={showModal}
         onCancel={() => setShowModal(null)}

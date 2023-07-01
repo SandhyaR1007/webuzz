@@ -24,9 +24,10 @@ const EditPostCard = ({ postData, setIsEditPost }) => {
           <textarea
             value={postText}
             type="text"
-            className=" w-full h-full outline-none bg-transparent"
+            className=" w-full  outline-none bg-transparent"
             onChange={(e) => setPostText(e.target.value)}
             required
+            rows={1}
           >
             {postText}
           </textarea>
@@ -34,13 +35,13 @@ const EditPostCard = ({ postData, setIsEditPost }) => {
       </div>
       <div className=" pt-2 flex items-center justify-end gap-3 mt-4">
         <button
-          className={`bg-blue-300   px-5 py-0.5 rounded-full btn-light`}
+          className={`bg-blue-300 text-sm  px-5 py-0.5 rounded-full btn-light`}
           onClick={() => setIsEditPost(false)}
         >
           Cancel
         </button>
         <button
-          className={`bg-yellow-300   px-5 py-0.5 rounded-full btn-light`}
+          className={`bg-yellow-300 text-sm  px-5 py-0.5 rounded-full btn-light`}
           onClick={() => {
             editPostHandler();
           }}

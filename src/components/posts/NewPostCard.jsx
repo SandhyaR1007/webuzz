@@ -137,7 +137,9 @@ const NewPostCard = () => {
         </div>
         <button
           disabled={disabled || uploading}
-          className={`bg-amber-300   px-5 py-0.5 rounded-full btn-light disabled:cursor-not-allowed`}
+          className={`bg-amber-300 text-sm  px-5 py-0.5 rounded-full border border-black disabled:cursor-not-allowed ${
+            currentTheme === "dark" ? "shadow-dark" : "shadow-light"
+          }`}
           onClick={() => {
             dispatch(createNewPost({ encodedToken, postData }));
             setPostData({

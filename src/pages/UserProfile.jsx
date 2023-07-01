@@ -6,8 +6,9 @@ import { useSelector } from "react-redux";
 import { usersSelector } from "../app/features/usersSlice";
 
 import { getPostsByUsername } from "../services/apiHelper";
-import { Loader, PostList, UserProfileCard } from "../components";
+import { Loader, NoPosts, PostList, UserProfileCard } from "../components";
 import { postsSelector } from "../app/features/postsSlice";
+import { scrollToTop } from "../utils/utils";
 
 const UserProfile = () => {
   const { username } = useParams();
@@ -19,6 +20,7 @@ const UserProfile = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    scrollToTop();
     setLoading(true);
     let id = setTimeout(() => {
       setLoading(false);
@@ -31,6 +33,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     if (userDetails) {
+      scrollToTop();
       getPostsByUsername(username).then((res) => {
         if (res.success) {
           setUserPosts(res.data);
@@ -62,7 +65,9 @@ const UserProfile = () => {
           userDetails={userDetails}
           userPosts={userPosts}
         />
-        <main>{<PostList posts={userPosts} />}</main>
+        <main>
+          {userPosts?.length > 0 ? <PostList posts={userPosts} /> : <NoPosts />}
+        </main>
       </div>
     </>
   );
