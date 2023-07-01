@@ -13,13 +13,3 @@ export const loginImg =
   "https://res.cloudinary.com/dwdcib0hv/image/upload/v1688151995/samples/webuzz/ei6jcbeyu2fgpklm3uxv.jpg";
 export const signupImg =
   "https://res.cloudinary.com/dwdcib0hv/image/upload/v1688151995/samples/webuzz/pz2yn0rx8qijlygv6f1u.png";
-export const formatTimestamp = (timestamp) => {
-  const now = moment();
-  const targetDate = moment(timestamp);
-
-  if (now.diff(targetDate, "hours") < 24) {
-    return targetDate.fromNow();
-  } else {
-    return targetDate.format("Do MMMM, YYYY");
-  }
-};
