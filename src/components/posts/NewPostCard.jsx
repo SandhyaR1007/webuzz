@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createNewPost } from "../../app/features/postsSlice";
 import { authSelector } from "../../app/features/authSlice";
 import { useMedia } from "../../hooks/useMedia";
-import { Dropdown } from "antd";
+import { ConfigProvider, Dropdown, theme } from "antd";
 import { themeSelector } from "../../app/features/themeSlice";
 import Loader from "../common/Loader";
 
@@ -13,7 +13,7 @@ const NewPostCard = () => {
   const dispatch = useDispatch();
   const { uploadImage } = useMedia();
   const { encodedToken, foundUser } = useSelector(authSelector);
-  const { theme } = useSelector(themeSelector);
+  const { theme: currentTheme } = useSelector(themeSelector);
   const [uploading, setUploading] = useState(false);
   const [postData, setPostData] = useState({
     content: "",
@@ -45,7 +45,7 @@ const NewPostCard = () => {
     postData.content.trim().length === 0 &&
     postData.postMedia.trim().length === 0;
   return (
-    <div className="w-full p-5 border border-gray-400 rounded-md h-auto my-5 shadow-sm">
+    <div className="w-full p-5 border border-gray-400 rounded-md h-auto mb-5 shadow-sm">
       <div className="flex items-start gap-4">
         <img
           src={foundUser.profile}
@@ -92,54 +92,48 @@ const NewPostCard = () => {
             onChange={handleImageChange}
           />
           <span className=" p-2 rounded-full hover:bg-emerald-500/20 cursor-pointer">
-            <Dropdown
-              placement="bottomCenter"
-              trigger="click"
-              open={showEmojiPicker}
-              onOpenChange={() => setShowEmojiPicker(!showEmojiPicker)}
-              menu={{
-                items: [
-                  {
-                    key: "1",
-                    label: (
-                      <EmojiPicker
-                        theme={theme}
-                        onEmojiClick={(emojiData) => {
-                          let text = postData.content;
-                          text = `${text}${emojiData.emoji}`;
-                          setPostData({ ...postData, content: text });
-                        }}
-                        autoFocusSearch={false}
-                        emojiStyle={EmojiStyle.NATIVE}
-                        height={350}
-                        className="z-50"
-                      />
-                    ),
-                  },
-                ],
+            <ConfigProvider
+              theme={{
+                algorithm:
+                  currentTheme && currentTheme === "dark"
+                    ? theme.darkAlgorithm
+                    : theme.defaultAlgorithm,
               }}
-              theme="dark"
             >
-              <BsEmojiSmile
-                className="text-xl text-emerald-500"
-                onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-              />
-            </Dropdown>
-          </span>
-          {/* {showEmojiPicker && (
-            <div className="absolute top-10 left-10">
-              <EmojiPicker
-                onEmojiClick={(emojiData) => {
-                  let text = postData.content;
-                  text = `${text}${emojiData.emoji}`;
-                  setPostData({ ...postData, content: text });
+              <Dropdown
+                placement="bottomCenter"
+                trigger="click"
+                open={showEmojiPicker}
+                onOpenChange={() => setShowEmojiPicker(!showEmojiPicker)}
+                menu={{
+                  items: [
+                    {
+                      key: "1",
+                      label: (
+                        <EmojiPicker
+                          theme={currentTheme}
+                          onEmojiClick={(emojiData) => {
+                            let text = postData.content;
+                            text = `${text}${emojiData.emoji}`;
+                            setPostData({ ...postData, content: text });
+                          }}
+                          autoFocusSearch={false}
+                          emojiStyle={EmojiStyle.NATIVE}
+                          height={350}
+                          className="z-50"
+                        />
+                      ),
+                    },
+                  ],
                 }}
-                autoFocusSearch={false}
-                emojiStyle={EmojiStyle.NATIVE}
-                height={350}
-              />
-            </div>
-          )} */}
+              >
+                <BsEmojiSmile
+                  className="text-xl text-emerald-500"
+                  onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                />
+              </Dropdown>
+            </ConfigProvider>
+          </span>
         </div>
         <button
           disabled={disabled || uploading}

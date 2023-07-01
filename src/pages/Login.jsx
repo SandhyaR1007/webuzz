@@ -33,7 +33,7 @@ const Login = () => {
       <div className="w-full sm:w-1/2   flex flex-col items-center  justify-center gap-5 px-5">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col  gap-3  py-5 px-5 lg:px-14 rounded-lg    w-full xs:w-2/3 sm:w-full "
+          className="flex flex-col  gap-3  py-5 px-5 lg:px-14 rounded-lg    w-full  "
         >
           <h1 className="text-blue-400 font-secondary text-5xl text-center drop-shadow-lg">
             Webuzz

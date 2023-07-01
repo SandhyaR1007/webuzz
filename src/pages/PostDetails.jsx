@@ -69,7 +69,6 @@ const PostDetails = () => {
 
   return (
     <div>
-      <h1>PostDetails</h1>
       {loading ? (
         <div className="text-center">
           <Loader />
@@ -78,7 +77,7 @@ const PostDetails = () => {
         <>
           {postInfo && <PostCard postData={postInfo} noBorder={true} />}
           <div className="">
-            <label className="border-y my-2 flex items-center gap-2 ">
+            <label className="border-y border-[--border-color] my-2 flex items-center gap-2 ">
               <input
                 type="text"
                 placeholder="Add a comment..."
