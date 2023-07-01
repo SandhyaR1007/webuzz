@@ -4,6 +4,7 @@ import { authSelector } from "../../app/features/authSlice";
 import { followUser } from "../../app/features/usersSlice";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { truncateWithEllipses } from "../../utils/utils";
 
 export const UsersCard = ({ userData, isFollow }) => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ export const UsersCard = ({ userData, isFollow }) => {
           className="w-10 h-10 rounded-lg border border-black object-cover"
         />
         <div className="flex flex-col">
-          <h3 className="font-semibold text-sm">
+          <h3 className="font-semibold text-sm w-full overflow-hidden text-ellipsis">
             {firstName} {lastName}
           </h3>
 
@@ -29,7 +30,7 @@ export const UsersCard = ({ userData, isFollow }) => {
             to={`/userProfile/${userData.username}`}
             className="text-xs text-gray-400"
           >
-            @{username}
+            @{truncateWithEllipses(username)}
           </Link>
         </div>
       </div>

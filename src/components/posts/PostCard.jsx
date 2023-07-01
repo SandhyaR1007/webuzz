@@ -27,7 +27,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CustomDropdownMenu from "../common/CustomDropdownMenu";
 import EditPostCard from "./EditPostCard";
-import { formatTimestamp } from "../../utils/constants";
+import { formatTimestamp, truncateWithEllipses } from "../../utils/utils";
 
 const PostCard = ({ postData, noBorder }) => {
   const dispatch = useDispatch();
@@ -86,17 +86,21 @@ const PostCard = ({ postData, noBorder }) => {
       }  rounded-md  transition bg-[--card-bg] text-[--primary-text]`}
     >
       <header className="flex justify-between items-center">
-        <section className="flex gap-2 items-center">
-          <h1 className="text-sm sm:text-lg font-semibold">
-            {postData?.firstName} {postData?.lastName}
-          </h1>
-          <Link
-            to={`/userProfile/${postData?.username}`}
-            className="text-xs sm:text-sm text-gray-400"
-          >
-            @{postData?.username}
-          </Link>
-          <span className="text-xs sm:text-sm flex items-center ">
+        <section className="flex gap-2 items-start sm:items-center">
+          <div className="flex flex-col sm:flex-row items-center sm:gap-2 mb-1">
+            <h1 className="text-sm sm:text-lg font-semibold">
+              {truncateWithEllipses(
+                `${postData?.firstName} ${postData?.lastName}`
+              )}
+            </h1>
+            <Link
+              to={`/userProfile/${postData?.username}`}
+              className="text-xs sm:text-sm text-gray-400"
+            >
+              @{postData?.username}
+            </Link>
+          </div>
+          <span className="text-xs sm:text-sm flex items-center pt-1">
             <BsDot />
             {formatTimestamp(postData?.createdAt)}
           </span>
@@ -122,7 +126,18 @@ const PostCard = ({ postData, noBorder }) => {
           <p>{postData?.content}</p>
         )}
         <section className="py-2 ">
-          {postData?.postMedia?.length > 0 && (
+          {postData?.postMedia?.length > 0 &&
+          postData?.postMedia?.includes("mp4") ? (
+            <video
+              loop
+              preLoad="auto"
+              autoPlay={true}
+              src={postData?.postMedia}
+              width="750"
+              height="500"
+              controls
+            ></video>
+          ) : (
             <img
               src={postData?.postMedia}
               className="rounded-xl border border-black"

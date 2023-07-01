@@ -26,7 +26,7 @@ const UserProfileCard = ({ username, userDetails, userPosts }) => {
   const isFollowing = getIsUserFollow(username, usersData, foundUser?.username);
 
   return (
-    <header className="flex flex-col sm:flex-row items-center sm:items-start gap-1 sm:gap-5 shadow-md border border-gray-500 rounded-md p-1 sm:p-4 bg-[--card-bg] text-[--primary-text]">
+    <header className="flex  sm:items-start gap-1 sm:gap-5 shadow-md border border-gray-500 rounded-md p-1 sm:p-4 bg-[--card-bg] text-[--primary-text]">
       <CustomModal
         modalComponent={showModal}
         showModal={showModal}
@@ -109,7 +109,7 @@ const UserProfileCard = ({ username, userDetails, userPosts }) => {
           <h2 className="text-xs sm:text-base text-gray-500">
             @{userDetails?.username}
           </h2>
-          <p className="pt-2">{userDetails?.bio}</p>
+          <p className="pt-2 text-sm">{userDetails?.bio}</p>
         </div>
         <div className="flex flex-wrap items-center gap-1 sm:gap-5 text-gray-800">
           <span

@@ -75,7 +75,7 @@ const Menubar = () => {
         setShowModal={setShowModal}
         width={600}
       />
-      <aside className="fixed bottom-0 sm:top-16  py-1 sm:py-5 border xs:border-0 w-full sm:w-[100px] md:w-[250px] bg-[--card-bg]">
+      <aside className="fixed bottom-0 sm:top-16  py-1 sm:py-5  shadow-sm xs:border-0 w-full sm:w-[100px] md:w-[250px] bg-[--card-bg]">
         <ul className="w-full px-5 sm:px-0 sm:w-max xs:mx-auto   flex  sm:flex-col justify-between sm:justify-start gap-0 xs:gap-5     text-[--primary-text]">
           {menubarItems.map((item) => (
             <li
