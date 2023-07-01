@@ -9,8 +9,10 @@ const Filters = ({ sortBy, setSortBy }) => {
         <button
           key={btnName}
           className={`${
-            sortBy == btnName ? "bg-gray-500/10" : ""
-          } p-3 capitalize transition text-[--primary-text]`}
+            sortBy == btnName
+              ? "border-b-2  border-purple-400 bg-gray-500/10"
+              : ""
+          } p-3 capitalize transition text-[--primary-text] hover:bg-gray-500/10`}
           name={btnName}
           onClick={handleClick}
         >

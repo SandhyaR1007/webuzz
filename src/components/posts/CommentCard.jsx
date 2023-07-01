@@ -85,7 +85,7 @@ const CommentCard = ({
   };
 
   return (
-    <div className="p-1 flex items-start gap-3 border-b pb-1 mb-3 ">
+    <div className="p-1 flex items-start gap-3 border-b border-[--border-color] pb-1 mb-3 ">
       <span className="w-12">
         <img
           className="w-10 h-10 rounded-full object-cover"
@@ -101,7 +101,7 @@ const CommentCard = ({
             </h4>{" "}
             <span className="text-xs text-gray-500">@{comment.username}</span>
           </div>
-          <span>
+          <span className="text-[--primary-text]">
             {currentUsername === comment.username && (
               <CustomDropdownMenu
                 dropdownMenu={dropdownMenu}
@@ -113,7 +113,7 @@ const CommentCard = ({
         {isEdit ? (
           <label className="flex flex-col gap-1">
             <input
-              className="w-full bg-[--card-bg] p-1 rounded-md outline-none border"
+              className="w-full bg-[--card-bg] p-1 rounded-md outline-none border border-[--border-color]"
               type="text"
               placeholder="comment..."
               value={editText}
