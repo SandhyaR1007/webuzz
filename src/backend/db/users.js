@@ -135,7 +135,7 @@ export const users = [
     email: "jujutsu@kaisen.tech",
     profile: jujutsuKaisenProfile,
     portfolio: "https://example.com/kakashi-portfolio",
-    bio: "Those who break the rules are scum, but those who abandon their friends are worse than scum.",
+    bio: "You Dare Touch My Soul?",
     followers: [
       {
         _id: "8c0aa5c2-864c-47d8-a490-e25cbae56be0-90s",

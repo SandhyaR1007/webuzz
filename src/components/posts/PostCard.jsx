@@ -119,33 +119,36 @@ const PostCard = ({ postData, noBorder }) => {
           </div>
         )}
       </header>
-      <main className="" onClick={() => navigate(`/post/${postData._id}`)}>
-        {isEditPost ? (
-          <EditPostCard postData={postData} setIsEditPost={setIsEditPost} />
-        ) : (
-          <p>{postData?.content}</p>
-        )}
-        <section className="py-2 ">
-          {postData?.postMedia?.length > 0 &&
-          postData?.postMedia?.includes("mp4") ? (
-            <video
-              loop
-              preLoad="auto"
-              autoPlay={true}
-              src={postData?.postMedia}
-              width="750"
-              height="500"
-              controls
-            ></video>
+      {
+        <main className="" onClick={() => navigate(`/post/${postData._id}`)}>
+          {isEditPost ? (
+            <EditPostCard postData={postData} setIsEditPost={setIsEditPost} />
           ) : (
-            <img
-              src={postData?.postMedia}
-              className="rounded-xl border border-black"
-              alt=""
-            />
+            <p>{postData?.content}</p>
           )}
-        </section>
-      </main>
+          {postData?.postMedia?.length > 0 && (
+            <section className="py-2 ">
+              {postData?.postMedia?.includes("mp4") ? (
+                <video
+                  loop
+                  preLoad="auto"
+                  autoPlay={true}
+                  src={postData?.postMedia}
+                  width="750"
+                  height="500"
+                  controls
+                ></video>
+              ) : (
+                <img
+                  src={postData?.postMedia}
+                  className="rounded-xl border border-black"
+                  alt=""
+                />
+              )}
+            </section>
+          )}
+        </main>
+      }
       <footer className="flex pt-2 items-center gap-6">
         <button
           disabled={likeDisabled}

@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { BsSearch, BsFillMoonStarsFill } from "react-icons/bs";
+import { BsFillMoonStarsFill } from "react-icons/bs";
 import { FaSun } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import Search from "../filters/Search";
@@ -19,8 +18,12 @@ const Navbar = () => {
       <Search />
       <div className="flex sm:gap-10 sm:pe-5 items-center">
         <button
-          className={`  text-sm sm:text-xl shadow-sm text-[--primary-text] border border-[--primary-text]
-            "bg-sky-300 shadow-sm"
+          className={`  text-sm sm:text-xl  text-[--primary-text] border border-[--primary-text]
+            ${
+              theme === "dark"
+                ? "bg-blue-500 shadow-dark"
+                : "bg-yellow-300 shadow-light"
+            }
              
              p-2 sm:p-3 rounded-full `}
           onClick={() => {
