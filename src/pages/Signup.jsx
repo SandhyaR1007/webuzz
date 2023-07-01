@@ -39,7 +39,7 @@ const Signup = () => {
       <div className="w-full sm:w-1/2   flex flex-col items-center  justify-center gap-5 px-5">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col  gap-3  py-5 px-5 lg:px-14 rounded-lg    w-full sm:w-2/3 md:w-full"
+          className="flex flex-col  gap-3  py-5 px-5 lg:px-14 rounded-lg    w-full "
         >
           <h1 className="text-orange-400 font-secondary text-4xl sm:text-5xl text-center drop-shadow-lg">
             Webuzz
