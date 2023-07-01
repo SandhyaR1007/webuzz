@@ -67,11 +67,11 @@ const NewPostCard = () => {
       {preview && (
         <div className="text-center relative">
           {uploading && (
-            <span className="absolute top-1/3 left-12 ">
+            <span className="absolute top-1/3 left-1/2 ">
               <Loader />
             </span>
           )}
-          <img src={preview} alt="contentImage" className="w-32 h-32" />
+          <img src={preview} alt="contentImage" className="w-full " />
         </div>
       )}
       <div className=" pt-2 flex items-center justify-between mt-4">

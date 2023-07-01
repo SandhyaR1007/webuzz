@@ -44,6 +44,6 @@ code {
   padding: 0;
 }
 button:disabled {
-  opacity: 0.5;
-  color: gray;
+  opacity: 0.8;
+  color: #808080;
 }
