@@ -33,10 +33,10 @@ const Login = () => {
 
   return (
     <div className="w-full flex align-center justify-center  h-screen bg-[#17181c]">
-      <div className="w-full sm:w-1/2   flex flex-col items-center  justify-center gap-5 px-5">
+      <div className="w-full sm:w-1/2   flex flex-col items-center  justify-center gap-5 px-1 sm:px-5">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col  gap-3  py-5 px-5 lg:px-14 rounded-lg    w-full  "
+          className="flex flex-col  gap-3  pb-10 sm:py-5 px-5 lg:px-14 rounded-lg    w-full  "
         >
           <h1 className="text-blue-400 font-secondary text-5xl text-center drop-shadow-lg">
             Webuzz
@@ -46,8 +46,8 @@ const Login = () => {
           </p>
 
           <label htmlFor="username" className="text-xl mt-5">
-            <span className="text-gray-50 mb-1 text-sm">Username</span>
             <input
+              placeholder="Username"
               id="username"
               type="text"
               name="username"
@@ -57,8 +57,8 @@ const Login = () => {
             />
           </label>
           <label htmlFor="password">
-            <span className="text-gray-50 mb-1 text-sm"> Password</span>
             <input
+              placeholder="Password"
               id="password"
               type="password"
               name="password"
@@ -69,14 +69,14 @@ const Login = () => {
           </label>
           <section className="flex flex-col gap-3">
             <button
-              className="mt-3 px-2 py-2 border-rounded-dark bg-blue-400 font-semibold"
+              className="mt-3 py-1.5 sm:px-2 sm:py-2 border-rounded-dark bg-blue-400 font-semibold"
               type="submit"
               disabled={loggingIn}
             >
               {loggingIn ? "Logging In..." : "Login"}
             </button>
             <button
-              className=" border px-2 py-2 border-rounded-dark bg-purple-400 font-semibold"
+              className=" border py-1.5 sm:px-2 sm:py-2 border-rounded-dark bg-purple-400 font-semibold"
               type="submit"
               disabled={loggingIn}
               onClick={() => {
