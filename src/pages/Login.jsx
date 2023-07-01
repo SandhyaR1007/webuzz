@@ -4,6 +4,7 @@ import { authSelector, userLogin } from "../app/features/authSlice";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { loginImg } from "../utils/constants";
+import { scrollToTop } from "../utils/utils";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,7 +22,9 @@ const Login = () => {
     e.preventDefault();
     dispatch(userLogin(userInfo));
   };
-
+  useEffect(() => {
+    scrollToTop();
+  }, []);
   useEffect(() => {
     if (encodedToken) {
       navigate("/");

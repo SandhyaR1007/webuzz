@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Filters from "../components/filters/Filters";
-import { Loader, NewPostCard, PostList, SuggestedUsers } from "../components";
+import {
+  Loader,
+  NewPostCard,
+  NoPosts,
+  PostList,
+  SuggestedUsers,
+} from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { postsSelector, fetchPosts } from "../app/features/postsSlice";
 import { usersSelector } from "../app/features/usersSlice";
 import { authSelector } from "../app/features/authSlice";
 import { useSort } from "../hooks/useSort";
+import { scrollToTop } from "../utils/utils";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -19,6 +26,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(fetchPosts());
+    scrollToTop();
   }, []);
   const currentUser = usersData.find(({ _id }) => _id === currentUserId);
 
@@ -39,7 +47,9 @@ const Home = () => {
           <Loader />
         </div>
       ) : (
-        <PostList posts={feedPosts} />
+        <>
+          {feedPosts?.length > 0 ? <PostList posts={feedPosts} /> : <NoPosts />}
+        </>
       )}
     </>
   );

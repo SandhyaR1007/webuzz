@@ -3,7 +3,7 @@ import { getPostsFromIds, getUserByUsername } from "../utils/postsHelper";
 import { useSelector } from "react-redux";
 import { authSelector } from "../app/features/authSlice";
 import { usersSelector } from "../app/features/usersSlice";
-import { PostList } from "../components";
+import { NoPosts, PostList } from "../components";
 import { postsSelector } from "../app/features/postsSlice";
 
 const Bookmarks = () => {
@@ -18,7 +18,15 @@ const Bookmarks = () => {
     userDetails?.bookmarks ?? []
   );
   console.log({ bookmarkPosts });
-  return <div>{bookmarkPosts && <PostList posts={bookmarkPosts} />}</div>;
+  return (
+    <div>
+      {bookmarkPosts?.length > 0 ? (
+        <PostList posts={bookmarkPosts} />
+      ) : (
+        <NoPosts />
+      )}
+    </div>
+  );
 };
 
 export default Bookmarks;
