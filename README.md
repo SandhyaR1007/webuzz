@@ -72,3 +72,5 @@ To run the Webuzz web application locally, please follow these steps:
 - Responsive
 
 - Loaders and Toasts
+#demo
+https://www.loom.com/share/79fd34f8ece7465f91779b9b01f989ce?sid=743705ca-5ad1-402b-bc29-28760252da28
