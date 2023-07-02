@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BsCardImage, BsEmojiSmile } from "react-icons/bs";
-import EmojiPicker, { EmojiStyle } from "emoji-picker-react";
+import EmojiPicker, { Categories, EmojiStyle } from "emoji-picker-react";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewPost } from "../../app/features/postsSlice";
 import { authSelector } from "../../app/features/authSlice";
@@ -9,7 +9,7 @@ import { ConfigProvider, Dropdown, theme } from "antd";
 import { themeSelector } from "../../app/features/themeSlice";
 import Loader from "../common/Loader";
 
-const NewPostCard = () => {
+const NewPostCard = ({ setShowModal }) => {
   const dispatch = useDispatch();
   const { uploadImage } = useMedia();
   const { encodedToken, foundUser } = useSelector(authSelector);
@@ -120,7 +120,24 @@ const NewPostCard = () => {
                           autoFocusSearch={false}
                           emojiStyle={EmojiStyle.NATIVE}
                           height={350}
+                          width={250}
                           className="z-50"
+                          categories={[
+                            {
+                              name: "Smiles & People",
+                              category: Categories.SMILEYS_PEOPLE,
+                            },
+                            {
+                              name: "Nature",
+                              category: Categories.ANIMALS_NATURE,
+                            },
+
+                            {
+                              name: "Food & Drinks",
+                              category: Categories.FOOD_DRINK,
+                            },
+                          ]}
+                          searchDisabled
                         />
                       ),
                     },
@@ -146,6 +163,10 @@ const NewPostCard = () => {
               content: "",
               postMedia: "",
             });
+            setPreview(null);
+            if (setShowModal) {
+              setShowModal(false);
+            }
           }}
         >
           Post
