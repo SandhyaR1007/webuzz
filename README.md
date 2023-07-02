@@ -1,4 +1,4 @@
-# <h1 align="center"> Webuxx </h1>
+# <h1 align="center"> Webuzz </h1>
 
 <h3 align="center">Webuzz is an anime-themed social media app built using React.js, Redux Toolkit, and Tailwind CSS. It provides a platform for anime enthusiasts to connect, share, and engage with each other through posts, likes, comments, and more.</h3>
 <br/>

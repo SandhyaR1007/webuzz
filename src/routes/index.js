@@ -5,6 +5,7 @@ import RequiresAuth from "./RequiresAuth";
 import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
 import { themeSelector } from "../app/features/themeSlice";
+import { ErrorPage } from "../pages";
 
 const Index = () => {
   const { theme } = useSelector(themeSelector);
@@ -36,6 +37,7 @@ const Index = () => {
             ))}
           </Route>
         </Route>
+        <Route element={<ErrorPage />} path="*" />
       </Routes>
     </>
   );
