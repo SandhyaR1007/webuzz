@@ -4,14 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import Search from "../filters/Search";
 import logo from "../../assets/webuzzlogo.svg";
 import { themeSelector, themeSwitcher } from "../../app/features/themeSlice";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { theme } = useSelector(themeSelector);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <nav className="fixed left-0 right-0 top-0 py-4 px-2 xs:px-10 md:px-20  flex items-center justify-between gap-2  z-50  bg-[--card-bg] text-[--primary-text] h-16 shadow-md z-2">
-      <div className="flex items-center gap-1 text-3xl text-violet-500 font-secondary">
+      <div
+        className="cursor-pointer flex items-center gap-1 text-3xl text-violet-500 font-secondary"
+        onClick={() => navigate("/")}
+      >
         <img src={logo} className="h-10" />
         <span className="hidden sm:block">Webuzz</span>
       </div>

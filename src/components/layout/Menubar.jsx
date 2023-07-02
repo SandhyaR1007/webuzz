@@ -60,7 +60,7 @@ const Menubar = () => {
       name: "new post",
       icon: <FaFeatherAlt className="text-2xl " />,
       handler: () => {
-        setShowModal(<NewPostCard />);
+        setShowModal(<NewPostCard setShowModal={setShowModal} />);
         setSelectedItem("new post");
       },
     },
