@@ -54,7 +54,7 @@ const Signup = () => {
           </p>
 
           <div className="flex gap-3">
-            <label htmlFor="firstName">
+            <label htmlFor="firstName" className="flex-1">
               <input
                 placeholder="First Name"
                 required
@@ -66,7 +66,7 @@ const Signup = () => {
                 className="border border-gray-600 px-2  text-sm py-1 sm:py-2 bg-[#1e1f23] text-gray-50  w-full outline-none rounded-lg "
               />
             </label>
-            <label htmlFor="lastName">
+            <label htmlFor="lastName" className="flex-1">
               <input
                 placeholder="Last Name"
                 id="lastName"
